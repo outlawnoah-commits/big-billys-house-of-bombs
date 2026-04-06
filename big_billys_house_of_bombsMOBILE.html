@@ -302,6 +302,54 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
 .eb-pos{color:#39ff14;border:1px solid rgba(57,255,20,0.5);background:rgba(57,255,20,0.07);text-shadow:0 0 4px rgba(57,255,20,0.4);}
 .eb-neu{color:rgba(255,140,0,0.4);border:1px solid rgba(255,140,0,0.15);}
 
+/* ── TOP 15 VIEW ─────────────────────────────────────── */
+.top15-wrap{padding:0 0 60px;}
+.top15-hdr{
+  padding:12px 16px;background:rgba(0,5,15,0.85);
+  border-bottom:1px solid rgba(255,140,0,0.2);
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.top15-title{
+  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;
+  color:#ffcc00;letter-spacing:3px;
+  text-shadow:0 0 12px rgba(255,200,0,0.6);
+}
+.top15-sub{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:2px;margin-top:3px;text-transform:uppercase;}
+.top15-sort{display:flex;gap:4px;margin-left:auto;}
+.sort-btn{
+  background:transparent;border:1px solid rgba(255,140,0,0.2);border-radius:2px;
+  color:rgba(255,200,100,0.4);font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:1.5px;padding:5px 12px;cursor:pointer;transition:all .15s;
+}
+.sort-btn.active{background:rgba(255,140,0,0.1);border-color:#ff8c00;color:#ffcc00;box-shadow:0 0 8px rgba(255,140,0,0.25);}
+.sort-btn:hover:not(.active){border-color:rgba(255,140,0,0.4);color:rgba(255,200,100,0.7);}
+
+.t15-row{
+  display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;
+  padding:10px 16px;border-bottom:1px solid rgba(255,140,0,0.08);transition:background .1s;
+}
+.t15-row:hover{background:rgba(255,140,0,0.04);}
+.t15-rank{
+  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;
+  color:rgba(255,140,0,0.5);text-align:center;
+}
+.t15-main{min-width:0;}
+.t15-name{
+  font-family:'Rye',serif;font-size:13px;color:#ffcc00;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  text-shadow:0 0 6px rgba(255,200,0,0.2);
+}
+.t15-meta{font-size:10px;color:rgba(255,140,0,0.55);letter-spacing:1px;margin-top:2px;}
+.t15-stats{font-size:9px;color:rgba(0,212,255,0.4);letter-spacing:1px;margin-top:3px;}
+.t15-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;}
+.t15-right{text-align:right;flex-shrink:0;min-width:72px;}
+.t15-prob{
+  font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;
+  color:#ff8c00;text-shadow:0 0 12px rgba(255,140,0,0.6);
+}
+.t15-edge{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;margin-top:2px;letter-spacing:1px;}
+.t15-pit{font-size:9px;color:rgba(255,140,0,0.35);letter-spacing:.5px;margin-top:3px;}
+
 /* ── RESPONSIVE ─────────────────────────────────────── */
 @media(max-width:900px){
   .main-layout{flex-direction:column;}
@@ -622,29 +670,26 @@ function getDefaultArsenal(pitcherName,pitcherHand,qualityLabel){
 }
 
 // How hittable is a specific pitch type? (higher = better for batters)
+// Deterministic — no random noise
 function getPitchHittability(pitcherName,pitchCode,vsHand){
-  const seed=hashStr((pitcherName||'x')+pitchCode+vsHand);
   const base={
     '4SM':55,'SI':58,'FC':50,'SL':48,'ST':40,'SW':40,
     'CU':45,'CH':50,'SB':42,'KC':43,'KN':55,'FO':55,
   }[pitchCode]||50;
-  const v=(seed%31)-15;
-  return Math.max(20,Math.min(95,base+v));
+  return Math.max(20,Math.min(95,base));
 }
 
 // Batter rating vs a specific pitch type (0-100 or null for dash)
+// Deterministic — uses handedness affinity only, no random noise
 function getBatterPitchRating(batterName,batterHand,pitchCode,baseOVR){
   const seed=hashStr(batterName+pitchCode);
-  // 20% chance of dash
   if(seed%5===0)return null;
-  // Pitch type affinity by handedness
   const aff={
     '4SM':batterHand==='L'?3:-2,'SI':1,'SL':batterHand==='R'?4:-4,
     'CU':-6,'CH':batterHand==='R'?3:-3,'FC':-2,'ST':-8,'SW':-8,
     'SB':-4,'KC':-4,'KN':0,'FO':0,
   }[pitchCode]||0;
-  const variation=(seed%21)-10;
-  return Math.max(22,Math.min(97,Math.round(baseOVR+aff+variation)));
+  return Math.max(22,Math.min(97,Math.round(baseOVR+aff)));
 }
 
 // Map trueProb → OVR scale (30–80)
@@ -721,6 +766,34 @@ function pitcherXip(name){
   return(4.5+getRandom(h,0,1.0)).toFixed(1);
 }
 function pitcherHrFb(seed){const r=getRandom(seed*3,0.06,0.20);return r<0.09?{factor:0.88,label:'LOW HR/FB'}:r>0.15?{factor:1.12,label:'HIGH HR/FB'}:{factor:1.0,label:'AVG HR/FB'};}
+
+// ── REAL-DATA QUALITY FUNCTIONS (replace hash-based simulations) ─────────────
+// Pitcher quality from real ERA (replaces hash-based pitcherQualityFactor)
+function pitcherQualityFromStats(era){
+  if(era==null)return{factor:1.0,label:'UNKNOWN',era:'?'};
+  if(era<3.00)return{factor:0.84,label:'ACE',era:era.toFixed(2)};
+  if(era<4.00)return{factor:0.94,label:'SOLID',era:era.toFixed(2)};
+  return{factor:1.08,label:'HITTABLE',era:era.toFixed(2)};
+}
+// Pitcher HR/FB from real stats (replaces random pitcherHrFb)
+function pitcherHrFbFromStats(hrfbRate){
+  if(hrfbRate==null)return{factor:1.0,label:'HR/FB N/A'};
+  if(hrfbRate<0.09)return{factor:0.88,label:'LOW HR/FB'};
+  if(hrfbRate>0.15)return{factor:1.12,label:'HIGH HR/FB'};
+  return{factor:1.0,label:'AVG HR/FB'};
+}
+// Recent form from real last-14-days stats (replaces random recentFormFactor)
+function recentFormFromStats(stats){
+  if(!stats||stats.ab<5)return{factor:1.0,label:'—'};
+  const slg=stats.slg||0;
+  if(slg>=0.600)return{factor:1.12,label:'ON FIRE'};
+  if(slg>=0.480)return{factor:1.06,label:'HOT'};
+  if(slg>=0.380)return{factor:1.00,label:'NEUTRAL'};
+  if(slg>=0.280)return{factor:0.95,label:'COLD'};
+  return{factor:0.88,label:'SLUMP'};
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function impliedTotal(v){return v>=10?{factor:1.06}:v>=9?{factor:1.02}:v<=7?{factor:0.94}:{factor:0.98};}
 function calcSprayAlignment(batH,park){
   const s=PARK_SPRAY[park];
@@ -768,7 +841,8 @@ function computeBaseProb(player){
   return Math.max(0.03,Math.min(0.28,base*0.20));
 }
 
-function buildCtx(name,dateStr,w,schedInfo,liveTotals){
+// extraData = { pitcherStats: {era, hrfbRate, ...}, recentStats: {slg, ab, ...} }
+function buildCtx(name,dateStr,w,schedInfo,liveTotals,extraData){
   const seed=hashStr(name+dateStr);
   const weather=w||{};
   const pitcher=schedInfo?.pitcher;
@@ -781,7 +855,13 @@ function buildCtx(name,dateStr,w,schedInfo,liveTotals){
   const wpk=weather[gamePark]||{spd:getRandom(seed*7,3,12),dir:getRandom(seed*8,0,360),temp:getRandom(seed*9,60,85),hum:getRandom(seed*10,45,70)};
   const [,,,,,,,,,,,,hand]=findPlayerData(name)||[null,null,null,null,null,null,null,null,null,null,null,null,'R'];
   const totalVal=liveTotals?.(schedInfo?.team)||getRandom(seed*9,7.5,11.0);
-  const pq=pitcherQualityFactor(pitName,seed);
+  // Use real pitcher ERA/stats when available, fall back to hash-based only as last resort
+  const pitStats=extraData?.pitcherStats||null;
+  const pq=pitStats?.era!=null?pitcherQualityFromStats(pitStats.era):pitcherQualityFactor(pitName,seed);
+  // Use real recent form when available
+  const rForm=extraData?.recentStats?recentFormFromStats(extraData.recentStats):recentFormFactor(name,dateStr);
+  // Use real HR/FB rate when available
+  const hrfbVal=pitStats?.hrfbRate!=null?pitcherHrFbFromStats(pitStats.hrfbRate):pitcherHrFb(seed);
   return{
     gamePark,
     windFactor:calcWindFactor(wpk.spd,wpk.dir,(PARK_DATA[gamePark]||{cfDir:0}).cfDir),
@@ -790,10 +870,10 @@ function buildCtx(name,dateStr,w,schedInfo,liveTotals){
     humFactor:calcHumFactor(wpk.hum),hum:wpk.hum,
     platoon:platoon(hand,pitHand),pitHand,batHand:hand,
     pitName,pitcherQuality:pq,
-    recentForm:recentFormFactor(name,dateStr),
+    recentForm:rForm,
     homeAway:homeAwayCalc(haLabel),
     lineup:lineupCalc(lineupPos),lineupPos,
-    hrfb:pitcherHrFb(seed),
+    hrfb:hrfbVal,
     total:{factor:impliedTotal(totalVal).factor,val:totalVal.toFixed(1)},
     sprayAlign:calcSprayAlignment(hand,gamePark),
     weatherFactors:calcHandFactor(wpk.spd,wpk.dir,gamePark),
@@ -807,10 +887,30 @@ function findPlayerData(name){
 
 function buildSyntheticPlayer(name,team,hand,homePark,stats){
   const s=stats||{};
-  const avg=s.avg||0.248;const slg=s.slg||0.402;
-  const iso=Math.max(0.05,slg-avg);
-  const hr=s.hr||8;const ab=s.ab||200;
-  const xhr=ab>0&&hr>0?Math.round(ab/hr):35;
+  const rawAb=s.ab||0;
+
+  // ── Small-sample regression ──────────────────────────────────────────────
+  // A player with 10 AB in early April shouldn't model as an elite power hitter
+  // just because they homered once. Blend observed stats toward MLB averages
+  // proportionally: full trust at CRED_AB, ~0% trust at 0 AB.
+  const CRED_AB=200;                       // AB needed for full credibility
+  const LG_AVG=0.248, LG_SLG=0.402;
+  const LG_HR_RATE=1/34;                   // ~1 HR per 34 AB league average
+  const w=Math.min(1, rawAb/CRED_AB);      // credibility weight 0→1
+
+  const rawAvg=parseFloat(s.avg)||LG_AVG;
+  const rawSlg=parseFloat(s.slg)||LG_SLG;
+  const avg  = w*rawAvg + (1-w)*LG_AVG;
+  const slg  = w*rawSlg + (1-w)*LG_SLG;
+
+  const iso=Math.max(0.05, slg-avg);
+
+  // Regress HR rate toward league average the same way
+  const rawHrRate=(s.hr>0&&rawAb>0)?(s.hr/rawAb):LG_HR_RATE;
+  const hrRate = w*rawHrRate + (1-w)*LG_HR_RATE;
+  const xhr=Math.round(1/hrRate);
+  // ─────────────────────────────────────────────────────────────────────────
+
   const ev=Math.min(96,Math.max(85,88+iso*22+Math.max(0,slg-0.380)*4));
   const barrel=Math.max(2,Math.min(22,iso*55-2));
   const la=14+iso*8;const pull=44;const fb=38;
@@ -820,14 +920,9 @@ function buildSyntheticPlayer(name,team,hand,homePark,stats){
   return[name,team,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,homePark,hand,hh];
 }
 
+// When live odds are unavailable, return a placeholder (not fake book lines)
 function buildOdds(trueProb,seed){
-  return['DK','FD','MGM','CZR'].map((book,i)=>{
-    const vM=getRandom(seed+i*777,1.04,1.12);
-    const bP=Math.max(0.04,Math.min(0.85,trueProb*vM+getRandom(seed+i*333,-0.015,0.015)));
-    const am=bP>=0.5?-Math.round(bP/(1-bP)*100):Math.round((1-bP)/bP*100);
-    const payout=am>0?am/100:100/Math.abs(am);
-    return{book,american:am,impliedProb:bP,ev:trueProb*payout-(1-trueProb)};
-  });
+  return[{book:'MODEL',american:null,impliedProb:trueProb,ev:0,live:false}];
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -855,6 +950,9 @@ async function fetchMLBSchedule(dateStr){
         const awayLineup=(game.lineups?.awayPlayers||[]).map((p,i)=>({
           id:p.person?.id,name:p.person?.fullName,order:i+1
         })).filter(p=>p.id&&p.name);
+        // Track whether this game has a confirmed lineup posted
+        const homeLineupConfirmed=homeLineup.length>0;
+        const awayLineupConfirmed=awayLineup.length>0;
         games.push({
           homeAbbr,awayAbbr,
           homeTeam:TEAM_TO_FULL[homeAbbr]||homeAbbr,
@@ -864,7 +962,7 @@ async function fetchMLBSchedule(dateStr){
           awayTeamId:game.teams?.away?.team?.id,
           homePitcher:hp?{id:hp.id,name:hp.fullName,hand:hp.pitchHand?.code||'R'}:null,
           awayPitcher:ap?{id:ap.id,name:ap.fullName,hand:ap.pitchHand?.code||'R'}:null,
-          homeLineup,awayLineup,
+          homeLineup,awayLineup,homeLineupConfirmed,awayLineupConfirmed,
         });
       });
     });
@@ -893,7 +991,12 @@ async function fetchPitcherArsenals(pitcherIds){
       const ip=ss?.inningsPitched?parseFloat(ss.inningsPitched):null;
       const gs=ss?.gamesStarted||null;
       const xip=ip&&gs&&gs>0?(ip/gs).toFixed(1):null;
-      out[p.id]={arsenal:arsenal.length?arsenal:null,xip};
+      // Real ERA and HR/FB rate
+      const era=ss?.era?parseFloat(ss.era):null;
+      const hrAllowed=ss?.homeRuns||0;
+      const airOuts=ss?.airOuts||0;
+      const hrfbRate=(airOuts>5)?(hrAllowed/airOuts):null;
+      out[p.id]={arsenal:arsenal.length?arsenal:null,xip,era,hrfbRate};
     });
     return out;
   }catch(e){
@@ -919,6 +1022,56 @@ async function fetchBatterStats(playerIds){
         ab:ss?.atBats||1,
         name:p.fullName,
       };
+    });
+    return out;
+  }catch(e){return{};}
+}
+
+// Fetch last-14-days batting stats for a list of player IDs (for real recent form)
+async function fetchRecentBattingStats(playerIds){
+  if(!playerIds||!playerIds.length)return{};
+  try{
+    const year=new Date().getFullYear();
+    const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=lastXDays,season=${year},gameType=R)`;
+    const data=await(await fetch(url)).json();
+    const out={};
+    (data.people||[]).forEach(p=>{
+      const ss=((p.stats||[]).find(s=>s.group?.displayName==='hitting'&&s.type?.displayName==='lastXDays')?.splits||[])[0]?.stat;
+      if(ss){
+        out[p.id]={
+          avg:parseFloat(ss.avg||'0'),
+          slg:parseFloat(ss.slg||'0'),
+          hr:ss.homeRuns||0,
+          ab:ss.atBats||0,
+        };
+      }
+    });
+    return out;
+  }catch(e){return{};}
+}
+
+// Fetch real career-to-date batter vs. pitcher stats for an entire team
+// Returns { "Player Full Name": { ab, h, hr, bb, k, avg } }
+async function fetchTeamVsPitcher(teamId,pitcherId){
+  if(!teamId||!pitcherId)return{};
+  try{
+    const year=new Date().getFullYear();
+    const url=`https://statsapi.mlb.com/api/v1/teams/${teamId}/stats?stats=vsPlayer&group=hitting&opposingPlayerId=${pitcherId}&season=${year}`;
+    const data=await(await fetch(url)).json();
+    const out={};
+    ((data.stats||[])[0]?.splits||[]).forEach(s=>{
+      const name=s.player?.fullName;
+      const stat=s.stat;
+      if(name&&stat&&(stat.atBats||0)>0){
+        out[name]={
+          ab:stat.atBats||0,
+          h:stat.hits||0,
+          hr:stat.homeRuns||0,
+          bb:stat.baseOnBalls||0,
+          k:stat.strikeOuts||0,
+          avg:stat.avg||'.000',
+        };
+      }
     });
     return out;
   }catch(e){return{};}
@@ -992,7 +1145,7 @@ function renderRatingCell(val,isOvr){
   return`<div class="bgr-cell ${cls}">${fmtOVR(v)}</div>`;
 }
 
-function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
+function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap,vsData){
   if(!pitcher){
     return`<div class="pitcher-side">
       <div class="no-lineup-msg">⬡ NO PROBABLE PITCHER POSTED</div>
@@ -1004,12 +1157,15 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
   const arsenalInfo=arsenalData?.[pitcher.id]||{};
   const arsenalRaw=arsenalInfo.arsenal||getDefaultArsenal(pitName,pitHand,'SOLID');
   const xipDisplay=arsenalInfo.xip||pitcherXip(pitName);
-  const qual=pitcherQualityFactor(pitName,hashStr(pitName));
+  // Use real ERA if available, fall back to hash-based only as last resort
+  const qual=arsenalInfo.era!=null?pitcherQualityFromStats(arsenalInfo.era):pitcherQualityFactor(pitName,hashStr(pitName));
   const qCls={ACE:'pq-ace',SOLID:'pq-solid',HITTABLE:'pq-hittable',UNKNOWN:'pq-unknown'}[qual.label]||'pq-unknown';
 
   // Facing batters: left panel = awayPitcher faces homeLineup; right panel = homePitcher faces awayLineup
   const facingTeamAbbr=side==='left'?game.homeAbbr:game.awayAbbr;
   const facingTeam=TEAM_TO_FULL[facingTeamAbbr]||facingTeamAbbr;
+  // Is this a confirmed posted lineup or estimated from the full roster?
+  const lineupConfirmed=side==='left'?game.homeLineupConfirmed:game.awayLineupConfirmed;
 
   // Avatar
   const initials=pitName.split(' ').map(w=>w[0]).join('').slice(0,2);
@@ -1076,25 +1232,22 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
     </div>`;
   }).filter(Boolean).join('');
 
-  // History section (synthetic)
+  // History section — real career batter vs. this pitcher (from vsData)
   const histRows=batters.slice(0,7).map(batter=>{
-    const seed=hashStr(batter.name+pitName);
-    const ab=Math.round(getRandom(seed,2,18));
-    const h=Math.round(getRandom(seed*2,0,ab*0.4));
-    const hr=ab>8&&getRandom(seed*3,0,1)<0.35?1:0;
-    const kpct=Math.round(getRandom(seed*4,15,50));
-    const bbpct=Math.round(getRandom(seed*5,0,20));
-    const avg=ab>0?(h/ab).toFixed(3):'.000';
-    const hrCls=hr>0?' class="ht-hr"':'';
+    const vd=vsData?.[batter.name];
+    if(!vd)return'';
+    const hrCls=vd.hr>0?' class="ht-hr"':'';
+    const kpct=vd.ab>0?Math.round(vd.k/vd.ab*100):0;
+    const bbpct=vd.ab>0?Math.round(vd.bb/vd.ab*100):0;
     const [,,,,,,,,,,,, hand]=findPlayerData(batter.name)||[,,,,,,,,,,,,,'R'];
     return`<tr>
       <td>${batter.name} <span style="color:rgba(255,140,0,0.4);font-size:9px;">${hand}</span></td>
-      <td>${ab}</td><td>${h}</td>
-      <td${hrCls}>${hr}</td>
+      <td>${vd.ab}</td><td>${vd.h}</td>
+      <td${hrCls}>${vd.hr}</td>
       <td>${kpct}%</td><td>${bbpct}%</td>
-      <td style="color:rgba(255,220,140,0.85);">${avg}</td>
+      <td style="color:rgba(255,220,140,0.85);">${vd.avg}</td>
     </tr>`;
-  }).join('');
+  }).filter(Boolean).join('');
 
   return`<div class="pitcher-side">
     <div class="pitcher-card">
@@ -1120,6 +1273,7 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
       <div class="batter-tbl-header">
         <span class="batter-tbl-title">${facingTeamAbbr}</span>
         <span class="batter-tbl-vs">vs ${pitName.split(' ').pop()}</span>
+        <span style="font-size:8px;font-weight:700;padding:2px 5px;border-radius:2px;margin-left:auto;letter-spacing:1px;${lineupConfirmed?'color:#39ff14;border:1px solid rgba(57,255,20,0.4);background:rgba(57,255,20,0.06);':'color:rgba(255,140,0,0.45);border:1px solid rgba(255,140,0,0.2);'}">${lineupConfirmed?'OFFICIAL':'EST. ROSTER'}</span>
       </div>
       ${batters.length?`
       <div class="batter-grid-header" style="grid-template-columns:${cols};">
@@ -1129,10 +1283,10 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
       `:'<div class="no-lineup-msg">Lineup not yet confirmed</div>'}
     </div>
 
-    ${batters.length?`
+    ${(batters.length&&histRows)?`
     <div class="history-section">
       <div class="history-hdr">
-        <span class="history-hdr-lbl">BATTER vs ${pitName.split(' ').pop()} · SIMULATED HISTORY</span>
+        <span class="history-hdr-lbl">BATTER vs ${pitName.split(' ').pop()} · ${new Date().getFullYear()} CAREER</span>
       </div>
       <table class="history-tbl">
         <thead><tr>
@@ -1194,7 +1348,7 @@ function buildGameHeader(game){
   </div>`;
 }
 
-function buildGameView(gameIdx,arsenalData){
+function buildGameView(gameIdx,arsenalData,vsDataMap){
   const game=allGames[gameIdx];
   if(!game)return'<div class="empty-center">No game data</div>';
 
@@ -1206,13 +1360,113 @@ function buildGameView(gameIdx,arsenalData){
   const rightPitcher=game.homePitcher;
   const rightBatters=game.awayLineup;
 
+  // Real vs-pitcher data keyed by "pitcherId-teamId"
+  const leftVsData=vsDataMap&&game.awayPitcher?.id&&game.homeTeamId
+    ?vsDataMap[`${game.awayPitcher.id}-${game.homeTeamId}`]||null:null;
+  const rightVsData=vsDataMap&&game.homePitcher?.id&&game.awayTeamId
+    ?vsDataMap[`${game.homePitcher.id}-${game.awayTeamId}`]||null:null;
+
   return`
     ${buildGameHeader(game)}
     <div class="matchup-wrap">
-      ${buildPitcherPanel(leftPitcher,leftBatters,arsenalData,'left',game,{})}
-      ${buildPitcherPanel(rightPitcher,rightBatters,arsenalData,'right',game,{})}
+      ${buildPitcherPanel(leftPitcher,leftBatters,arsenalData,'left',game,{},leftVsData)}
+      ${buildPitcherPanel(rightPitcher,rightBatters,arsenalData,'right',game,{},rightVsData)}
     </div>
   `;
+}
+
+// ─────────────────────────────────────────────────────────────
+// TOP 15 ALL-GAMES VIEW
+// ─────────────────────────────────────────────────────────────
+let top15SortBy='prob';
+
+// Aggregate + deduplicate picks across all games, sorted by prob or edge
+function getAllPicksSorted(sortBy){
+  const all=Object.values(gamePicksMap).flat();
+  // Deduplicate by name: keep the entry with highest trueProb
+  const seen={};
+  all.forEach(p=>{
+    const n=p.player[0];
+    if(!seen[n]||p.trueProb>seen[n].trueProb)seen[n]=p;
+  });
+  const arr=Object.values(seen);
+  if(sortBy==='edge')return arr.sort((a,b)=>b.situationalEdge-a.situationalEdge);
+  return arr.sort((a,b)=>b.trueProb-a.trueProb);
+}
+
+function buildTop15View(sortBy){
+  top15SortBy=sortBy||'prob';
+  const picks=getAllPicksSorted(top15SortBy).slice(0,15);
+  if(!picks.length)return'<div class="empty-center">⬡ &nbsp; FIRE TO LOAD TARGETS &nbsp; ⬡</div>';
+
+  const rows=picks.map((pick,i)=>{
+    const{player,trueProb,situationalEdge,odds,ctx}=pick;
+    const[name,team,ev,barrel,,,,,,xhr]=player;
+    const rankDisp=i<3?['🥇','🥈','🥉'][i]:`#${i+1}`;
+    const edgePct=Math.round((situationalEdge-1)*100);
+    const edgeDisp=(edgePct>=0?'+':'')+edgePct+'%';
+    const edgeCls=edgePct>=12?'ovr-cyan':edgePct>=5?'ovr-gold':'ovr-orange';
+
+    // Matchup line
+    const pitLast=ctx.pitName?ctx.pitName.split(' ').pop():'TBD';
+    const haLbl=ctx.homeAway?.label||'';
+    const metaLine=`${team} · ${haLbl} · vs ${pitLast}`;
+    // Key stats
+    const statsLine=`EV ${ev} · Barrel ${barrel}% · HR/AB ~1/${xhr}`;
+
+    // Factor tags (same logic as sidebar)
+    const tags=[];
+    if(ctx.windFactor>1.05)tags.push({t:'WIND',c:'htt-pos'});
+    if(ctx.recentForm?.label==='ON FIRE'||ctx.recentForm?.label==='HOT')tags.push({t:ctx.recentForm.label,c:'htt-pos'});
+    if(ctx.platoon?.factor>1.05)tags.push({t:'PLATOON ADV',c:'htt-pos'});
+    if(ctx.homeAway?.label==='HOME')tags.push({t:'HOME',c:'htt-pos'});
+    if(ctx.pitcherQuality?.label==='HITTABLE')tags.push({t:'SOFT SP',c:'htt-pos'});
+    if(ctx.pitcherQuality?.label==='ACE')tags.push({t:'ACE',c:'htt-neg'});
+    if(edgePct>=12)tags.push({t:edgeDisp+' EDGE',c:'htt-edge'});
+
+    // Odds line
+    const hasLiveOdds=odds.some(o=>o.live);
+    const oddsLine=hasLiveOdds
+      ?odds.slice(0,2).map(o=>`${o.book} ${fmtAm(o.american)}`).join(' · ')
+      :'Add Odds API key for live lines';
+
+    const pitInfo=`${ctx.pitcherQuality?.label||'?'} · ERA ${ctx.pitcherQuality?.era||'?'}`;
+
+    return`<div class="t15-row">
+      <div class="t15-rank">${rankDisp}</div>
+      <div class="t15-main">
+        <div class="t15-name">${name} <span class="bgr-hand">${ctx.batHand||''}</span></div>
+        <div class="t15-meta">${metaLine}</div>
+        <div class="t15-stats">${statsLine}</div>
+        <div class="t15-tags">${tags.slice(0,5).map(t=>`<span class="hr-tc-tag ${t.c}">${t.t}</span>`).join('')}</div>
+        <div class="t15-pit">${oddsLine}</div>
+      </div>
+      <div class="t15-right">
+        <div class="t15-prob">${fmtP(trueProb)}</div>
+        <div class="t15-edge ${edgeCls}">EDGE ${edgeDisp}</div>
+        <div class="t15-pit">${pitInfo}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return`<div class="top15-wrap">
+    <div class="top15-hdr">
+      <div>
+        <div class="top15-title">⚡ TOP 15 HR TARGETS</div>
+        <div class="top15-sub">All Games · Sorted by ${top15SortBy==='edge'?'Situational Edge':'HR Probability'}</div>
+      </div>
+      <div class="top15-sort">
+        <button class="sort-btn${top15SortBy==='prob'?' active':''}" onclick="switchTop15Sort('prob')">BY PROB</button>
+        <button class="sort-btn${top15SortBy==='edge'?' active':''}" onclick="switchTop15Sort('edge')">BY EDGE</button>
+      </div>
+    </div>
+    <div class="divider-line"></div>
+    ${rows}
+  </div>`;
+}
+
+function switchTop15Sort(sortBy){
+  document.getElementById('gameContent').innerHTML=buildTop15View(sortBy);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1233,6 +1487,10 @@ function buildHRTargetCard(pick,rank){
   if(situationalEdge>=1.12)tags.push({t:`+${edgePct}% EDGE`,c:'htt-edge'});
 
   const rankDisp=rank<3?['🥇','🥈','🥉'][rank]:`#${rank+1}`;
+  const hasLiveOdds=odds.some(o=>o.live);
+  const oddsHtml=hasLiveOdds
+    ? odds.slice(0,4).map(o=>`<span class="hr-tc-odd${o.book===best.book?' best':''}">${o.book} ${fmtAm(o.american)}</span>`).join('')
+    : `<span class="hr-tc-odd" style="color:rgba(0,212,255,0.45);border-color:rgba(0,212,255,0.15);">MODEL PROJ · Add Odds API key for live lines</span>`;
   return`<div class="hr-target-card">
     <div class="hr-tc-top">
       <div class="hr-tc-rank">${rankDisp}</div>
@@ -1242,9 +1500,7 @@ function buildHRTargetCard(pick,rank){
       </div>
       <div class="hr-tc-prob">${fmtP(trueProb)}</div>
     </div>
-    <div class="hr-tc-odds">
-      ${odds.slice(0,4).map(o=>`<span class="hr-tc-odd${o.book===best.book?' best':''}">${o.book} ${fmtAm(o.american)}</span>`).join('')}
-    </div>
+    <div class="hr-tc-odds">${oddsHtml}</div>
     <div class="hr-tc-tags">${tags.slice(0,4).map(t=>`<span class="hr-tc-tag ${t.c}">${t.t}</span>`).join('')}</div>
   </div>`;
 }
@@ -1257,7 +1513,12 @@ function renderGameTabs(games,activeIdx){
     document.getElementById('gameTabs').innerHTML='<div class="no-tabs-msg">NO GAMES FOUND FOR THIS DATE</div>';
     return;
   }
-  document.getElementById('gameTabs').innerHTML=games.map((g,i)=>{
+  // TOP 15 pinned tab always first
+  const top15Tab=`<button class="gtab${activeIdx===-1?' active':''}" onclick="switchGame(-1)" style="${activeIdx===-1?'':''}">
+    <span class="gtab-match" style="color:${activeIdx===-1?'#ffcc00':'rgba(255,200,0,0.6)'};">⚡ TOP 15</span>
+    <span class="gtab-time${activeIdx===-1?' active':''}">ALL GAMES</span>
+  </button>`;
+  const gameTabs=games.map((g,i)=>{
     const rawTime=g.gameTime;
     let timeStr='';
     if(rawTime){
@@ -1271,12 +1532,13 @@ function renderGameTabs(games,activeIdx){
       <span class="gtab-time${i===activeIdx?' active':''}">${timeStr||g.venue||''}</span>
     </button>`;
   }).join('');
+  document.getElementById('gameTabs').innerHTML=top15Tab+gameTabs;
 }
 
 // ─────────────────────────────────────────────────────────────
 // COMPUTE PICKS FOR A GAME
 // ─────────────────────────────────────────────────────────────
-function computeGamePicks(game,dateStr){
+function computeGamePicks(game,dateStr,arsenalData,recentFormMap,liveOddsData){
   const allBatters=[
     ...game.homeLineup.map(b=>({...b,team:game.homeAbbr,ha:'HOME',venue:game.venue,pitcher:game.awayPitcher})),
     ...game.awayLineup.map(b=>({...b,team:game.awayAbbr,ha:'AWAY',venue:game.venue,pitcher:game.homePitcher})),
@@ -1292,17 +1554,24 @@ function computeGamePicks(game,dateStr){
     }
     if(!playerData)return null;
 
+    // Real pitcher stats if available
+    const pitcherStats=batter.pitcher?.id&&arsenalData?arsenalData[batter.pitcher.id]||null:null;
+    // Real recent form (pre-attached to batter in runModel, or fall back to map lookup)
+    const recentStats=batter._recentStats||(batter.id&&recentFormMap?recentFormMap[batter.id]||null:null);
+
     const schedInfo={
       homeAway:batter.ha,venue:batter.venue,
       pitcher:batter.pitcher?{name:batter.pitcher.name,hand:batter.pitcher.hand}:null,
       lineupPos:batter.order,team:batter.team,
     };
-    const ctx=buildCtx(batter.name,dateStr,weatherData,schedInfo);
+    const ctx=buildCtx(batter.name,dateStr,weatherData,schedInfo,null,{pitcherStats,recentStats});
     const trueProb=computeProb(playerData,dateStr,ctx);
     const baseProb=computeBaseProb(playerData);
     const situationalEdge=trueProb/Math.max(0.03,baseProb);
-    const seed=hashStr(batter.name+dateStr);
-    const odds=buildOdds(trueProb,seed);
+    // Use live sportsbook odds if available, otherwise model-only placeholder
+    const lastName=batter.name.split(' ').pop();
+    const liveOddsForPlayer=liveOddsData&&liveOddsData[lastName];
+    const odds=liveOddsForPlayer&&liveOddsForPlayer.length?liveOddsForPlayer:buildOdds(trueProb,0);
     return{player:playerData,trueProb,baseProb,situationalEdge,odds,ctx};
   }).filter(Boolean).sort((a,b)=>b.trueProb-a.trueProb);
 
@@ -1313,14 +1582,26 @@ function computeGamePicks(game,dateStr){
 // SWITCH GAME
 // ─────────────────────────────────────────────────────────────
 let cachedArsenalData={};
+let cachedVsDataMap={};
 function switchGame(idx){
   activeGameIdx=idx;
   renderGameTabs(allGames,idx);
-  document.getElementById('gameContent').innerHTML=buildGameView(idx,cachedArsenalData);
+  const sidebar=document.getElementById('hrTargetsList');
+
+  if(idx===-1){
+    // Top 15 all-games view
+    document.getElementById('gameContent').innerHTML=buildTop15View(top15SortBy);
+    const allPicks=getAllPicksSorted('prob');
+    sidebar.innerHTML=allPicks.length
+      ?allPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('')
+      :'<div class="sidebar-empty">No picks available</div>';
+    return;
+  }
+
+  document.getElementById('gameContent').innerHTML=buildGameView(idx,cachedArsenalData,cachedVsDataMap);
 
   // Update HR targets for this game
   const picks=gamePicksMap[idx]||[];
-  const sidebar=document.getElementById('hrTargetsList');
   if(!picks.length){
     sidebar.innerHTML='<div class="sidebar-empty">No picks for this game</div>';
     return;
@@ -1349,21 +1630,25 @@ async function runModel(){
   document.getElementById('hrTargetsList').innerHTML='<div class="sidebar-empty">Loading...</div>';
   document.getElementById('gameTabs').innerHTML='<div class="no-tabs-msg">LOADING SCHEDULE...</div>';
 
-  // ── Parallel: schedule + weather ──
-  const [schedData, weather] = await Promise.all([
+  // ── Parallel: schedule + weather + live odds ──
+  const [schedData, weather, liveOddsData] = await Promise.all([
     fetchMLBSchedule(dateStr),
     owmKey ? fetchWeather(owmKey) : Promise.resolve({}),
+    oddsKey ? fetchOdds(oddsKey, dateStr) : Promise.resolve({}),
   ]);
 
   weatherData = weather;
   usingLiveWind = Object.keys(weather).length > 0;
   usingLiveSchedule = schedData.success && schedData.games.length > 0;
+  usingLiveOdds = Object.keys(liveOddsData).length > 0;
 
   // Update status chips
   document.getElementById('schedChip').className='sc '+(usingLiveSchedule?'sc-live':'sc-off');
   document.getElementById('schedChip').textContent=usingLiveSchedule?`SCHED: ${schedData.gamesFound}G`:'SCHED: NO DATA';
   document.getElementById('windChip').className='sc '+(usingLiveWind?'sc-conn':'sc-off');
-  document.getElementById('windChip').textContent=usingLiveWind?'WIND: LIVE':'WIND: SIM';
+  document.getElementById('windChip').textContent=usingLiveWind?'WIND: LIVE':'WIND: N/A';
+  document.getElementById('oddsChip').className='sc '+(usingLiveOdds?'sc-conn':'sc-off');
+  document.getElementById('oddsChip').textContent=usingLiveOdds?'ODDS: LIVE':'ODDS: N/A';
 
   const games=schedData.games;
   allGames=games;
@@ -1381,13 +1666,12 @@ async function runModel(){
       </div>`;
     // Still show HR targets from the player database (without game context)
     const allDbPicks=POWER_TIERS.map(player=>{
-      const[name,team]=player;
-      const seed=hashStr(name+dateStr);
-      const ctx=buildCtx(name,dateStr,weatherData,null);
+      const[name]=player;
+      const ctx=buildCtx(name,dateStr,weatherData,null,null,null);
       const trueProb=computeProb(player,dateStr,ctx);
       const baseProb=computeBaseProb(player);
       const situationalEdge=trueProb/Math.max(0.03,baseProb);
-      const odds=buildOdds(trueProb,seed);
+      const odds=buildOdds(trueProb,0);
       return{player,trueProb,baseProb,situationalEdge,odds,ctx};
     }).sort((a,b)=>b.trueProb-a.trueProb);
     document.getElementById('hrTargetsList').innerHTML=
@@ -1404,19 +1688,21 @@ async function runModel(){
     teamIds.length?fetchActiveRosters(teamIds):{},
   ]);
   cachedArsenalData=arsenalData;
+  // Log ERA data loaded for debugging
+  Object.entries(arsenalData).forEach(([id,d])=>{if(d.era!=null)console.log('Pitcher',id,'ERA:',d.era,'HR/FB:',d.hrfbRate);});
 
   // ── Fill empty lineups from live rosters, then POWER_TIERS as last resort ──
   games.forEach(game=>{
     if(!game.homeLineup.length){
       const r=rosterData[game.homeTeamId]||[];
       game.homeLineup=r.length
-        ? r.slice(0,9).map((p,i)=>({name:p.name,id:p.id,order:i+1}))
+        ? r.map((p,i)=>({name:p.name,id:p.id,order:i+1}))  // all position players, no cap
         : POWER_TIERS.filter(p=>p[1]===game.homeAbbr).map((p,i)=>({name:p[0],id:null,order:i+1}));
     }
     if(!game.awayLineup.length){
       const r=rosterData[game.awayTeamId]||[];
       game.awayLineup=r.length
-        ? r.slice(0,9).map((p,i)=>({name:p.name,id:p.id,order:i+1}))
+        ? r.map((p,i)=>({name:p.name,id:p.id,order:i+1}))  // all position players, no cap
         : POWER_TIERS.filter(p=>p[1]===game.awayAbbr).map((p,i)=>({name:p[0],id:null,order:i+1}));
     }
   });
@@ -1448,21 +1734,55 @@ async function runModel(){
     });
   });
 
-  // ── Compute picks per game ──
-  gamePicksMap={};
-  games.forEach((game,idx)=>{
-    gamePicksMap[idx]=computeGamePicks(game,dateStr);
+  // ── Fetch real recent form (last 14 days) for all lineup players ──
+  const allLineupIds=[...new Set(games.flatMap(g=>[
+    ...g.homeLineup,...g.awayLineup
+  ].map(b=>b.id).filter(Boolean)))];
+  const recentFormMap=allLineupIds.length?await fetchRecentBattingStats(allLineupIds):{};
+  // Attach to each batter object for easy access
+  games.forEach(game=>{
+    [...game.homeLineup,...game.awayLineup].forEach(b=>{
+      b._recentStats=b.id?recentFormMap[b.id]||null:null;
+    });
   });
 
-  // ── Render ──
-  activeGameIdx=0;
-  renderGameTabs(games,0);
-  document.getElementById('gameContent').innerHTML=buildGameView(0,arsenalData);
+  // ── Fetch real batter vs. pitcher data for each game ──
+  const vsDataMap={};
+  await Promise.all(games.flatMap(game=>{
+    const promises=[];
+    if(game.awayPitcher?.id&&game.homeTeamId){
+      promises.push(
+        fetchTeamVsPitcher(game.homeTeamId,game.awayPitcher.id)
+          .then(d=>{vsDataMap[`${game.awayPitcher.id}-${game.homeTeamId}`]=d;})
+      );
+    }
+    if(game.homePitcher?.id&&game.awayTeamId){
+      promises.push(
+        fetchTeamVsPitcher(game.awayTeamId,game.homePitcher.id)
+          .then(d=>{vsDataMap[`${game.homePitcher.id}-${game.awayTeamId}`]=d;})
+      );
+    }
+    return promises;
+  }));
+  cachedVsDataMap=vsDataMap;
 
-  const firstPicks=gamePicksMap[0]||[];
+  // ── Compute picks per game with real data ──
+  gamePicksMap={};
+  games.forEach((game,idx)=>{
+    gamePicksMap[idx]=computeGamePicks(game,dateStr,arsenalData,recentFormMap,liveOddsData);
+  });
+
+  // ── Render — start on TOP 15 tab ──
+  activeGameIdx=-1;
+  top15SortBy='prob';
+  renderGameTabs(games,-1);
+  document.getElementById('gameContent').innerHTML=buildTop15View('prob');
+
+  // Sidebar shows all-games top picks
+  const allPicks=getAllPicksSorted('prob');
   document.getElementById('hrTargetsList').innerHTML=
-    firstPicks.length
-    ? firstPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('')
+    allPicks.length
+    ? allPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('')
     : '<div class="sidebar-empty">No picks available</div>';
 
   btn.disabled=false;btn.textContent='⚡ FIRE!';

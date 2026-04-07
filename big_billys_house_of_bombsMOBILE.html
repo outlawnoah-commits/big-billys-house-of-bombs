@@ -302,54 +302,6 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
 .eb-pos{color:#39ff14;border:1px solid rgba(57,255,20,0.5);background:rgba(57,255,20,0.07);text-shadow:0 0 4px rgba(57,255,20,0.4);}
 .eb-neu{color:rgba(255,140,0,0.4);border:1px solid rgba(255,140,0,0.15);}
 
-/* ── TOP 15 VIEW ─────────────────────────────────────── */
-.top15-wrap{padding:0 0 60px;}
-.top15-hdr{
-  padding:12px 16px;background:rgba(0,5,15,0.85);
-  border-bottom:1px solid rgba(255,140,0,0.2);
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-}
-.top15-title{
-  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;
-  color:#ffcc00;letter-spacing:3px;
-  text-shadow:0 0 12px rgba(255,200,0,0.6);
-}
-.top15-sub{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:2px;margin-top:3px;text-transform:uppercase;}
-.top15-sort{display:flex;gap:4px;margin-left:auto;}
-.sort-btn{
-  background:transparent;border:1px solid rgba(255,140,0,0.2);border-radius:2px;
-  color:rgba(255,200,100,0.4);font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;
-  letter-spacing:1.5px;padding:5px 12px;cursor:pointer;transition:all .15s;
-}
-.sort-btn.active{background:rgba(255,140,0,0.1);border-color:#ff8c00;color:#ffcc00;box-shadow:0 0 8px rgba(255,140,0,0.25);}
-.sort-btn:hover:not(.active){border-color:rgba(255,140,0,0.4);color:rgba(255,200,100,0.7);}
-
-.t15-row{
-  display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;
-  padding:10px 16px;border-bottom:1px solid rgba(255,140,0,0.08);transition:background .1s;
-}
-.t15-row:hover{background:rgba(255,140,0,0.04);}
-.t15-rank{
-  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;
-  color:rgba(255,140,0,0.5);text-align:center;
-}
-.t15-main{min-width:0;}
-.t15-name{
-  font-family:'Rye',serif;font-size:13px;color:#ffcc00;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  text-shadow:0 0 6px rgba(255,200,0,0.2);
-}
-.t15-meta{font-size:10px;color:rgba(255,140,0,0.55);letter-spacing:1px;margin-top:2px;}
-.t15-stats{font-size:9px;color:rgba(0,212,255,0.4);letter-spacing:1px;margin-top:3px;}
-.t15-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;}
-.t15-right{text-align:right;flex-shrink:0;min-width:72px;}
-.t15-prob{
-  font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;
-  color:#ff8c00;text-shadow:0 0 12px rgba(255,140,0,0.6);
-}
-.t15-edge{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;margin-top:2px;letter-spacing:1px;}
-.t15-pit{font-size:9px;color:rgba(255,140,0,0.35);letter-spacing:.5px;margin-top:3px;}
-
 /* ── RESPONSIVE ─────────────────────────────────────── */
 @media(max-width:900px){
   .main-layout{flex-direction:column;}
@@ -364,7 +316,76 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
   .date-grp input{width:130px;font-size:13px;}
   .weather-badge{display:none;}
 }
+
+/* ── SIDEBAR TABS ─────────────────────────────────────── */
+.sidebar-tabs{display:flex;border-bottom:1px solid rgba(255,140,0,0.18);}
+.sidebar-tab{
+  flex:1;padding:10px 4px;text-align:center;
+  font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;
+  color:rgba(255,200,100,0.4);cursor:pointer;border:none;border-bottom:2px solid transparent;
+  background:transparent;transition:all .15s;
+}
+.sidebar-tab:hover{color:rgba(255,200,100,0.7);background:rgba(255,140,0,0.04);}
+.sidebar-tab.active{color:#ffcc00;border-bottom:2px solid #ff8c00;background:rgba(255,140,0,0.06);}
+
+/* ── PARLAY BUILDER ───────────────────────────────────── */
+.pb-controls{padding:12px 14px 14px;background:rgba(0,3,10,0.7);border-bottom:1px solid rgba(255,140,0,0.15);}
+.pb-row{display:flex;gap:8px;}
+.pb-grp{flex:1;display:flex;flex-direction:column;gap:4px;}
+.pb-lbl{font-size:8px;font-weight:700;color:#00d4ff;letter-spacing:2px;text-transform:uppercase;}
+.pb-select{
+  background:rgba(0,5,15,0.95);border:1px solid rgba(255,140,0,0.25);border-radius:2px;
+  color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:12px;
+  padding:6px 8px;outline:none;min-height:34px;cursor:pointer;width:100%;
+}
+.pb-select:focus{border-color:#ff8c00;}
+.pb-build-btn{
+  width:100%;margin-top:10px;
+  background:linear-gradient(135deg,#ff6a00,#ff9500,#ff6a00);
+  border:1px solid #ffcc00;border-radius:2px;color:#05070f;
+  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;
+  padding:10px;cursor:pointer;box-shadow:0 0 14px rgba(255,140,0,0.5);transition:all .15s;
+}
+.pb-build-btn:hover{background:linear-gradient(135deg,#ff8c00,#ffcc00,#ff8c00);box-shadow:0 0 22px rgba(255,180,0,0.7);transform:translateY(-1px);}
+.pb-result{
+  background:rgba(255,140,0,0.07);border-bottom:1px solid rgba(255,140,0,0.2);
+  padding:12px 14px;
+}
+.pb-result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.pb-result-label{font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;color:rgba(255,200,100,0.7);letter-spacing:1.5px;line-height:1.5;}
+.pb-result-odds{
+  font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;
+  color:#39ff14;text-shadow:0 0 16px rgba(57,255,20,0.7);white-space:nowrap;
+}
+.pb-result-meta{font-size:10px;color:rgba(0,212,255,0.5);letter-spacing:1px;margin-top:3px;}
+.pb-leg{
+  display:flex;align-items:center;gap:8px;padding:8px 14px;
+  border-bottom:1px solid rgba(255,140,0,0.06);transition:background .1s;
+}
+.pb-leg:hover{background:rgba(255,140,0,0.04);}
+.pb-leg-num{
+  font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;
+  color:rgba(255,140,0,0.45);width:14px;flex-shrink:0;text-align:center;
+}
+.pb-leg-info{flex:1;min-width:0;}
+.pb-leg-name{font-size:12px;font-weight:700;color:#ffe8c0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pb-leg-prop{font-size:9px;color:rgba(0,212,255,0.55);letter-spacing:.8px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pb-leg-right{text-align:right;flex-shrink:0;}
+.pb-leg-am{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:#ffcc00;}
+.pb-leg-pct{font-size:9px;color:rgba(0,212,255,0.45);letter-spacing:.5px;margin-top:1px;}
+.pb-no-data{padding:28px 14px;text-align:center;color:rgba(255,140,0,0.3);font-family:'Rye',serif;font-size:12px;line-height:1.8;}
 </style>
+  <!-- ── App Icons / PWA ───────────────────────────────────── -->
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+  <link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,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">
+  <link rel="icon" type="image/png" sizes="32x32"  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB5klEQVR4nO2XsU7CQBjH/6VQEhODgxFBZjYbpeEF3Fxc3AgJiTHhEXwEo4sziTExITyAiw9BGrRujEZBiIOExISSBofSctde22tLmfxP195x/9/33Xd3VIBDmWxu4Xy3Ts1nE4F8Tm3SnOWR8urYFIQQxnz0uG23O08jqq92lrfb+caUC2Q+mwjpMJGTpt2+AQColkV0+wZOBj/ESJFrvkw2t0jzmjtVLYs2yFVtK+o0dBHGAUkc4O78l3vS12tj/QBJSfAqQrLiAeD+QXeNMXbHAADxe8/Vd3khUc9eOyPNMuPRwdEY7x+r9ueLG4IUyyPfmJoAX9QWMrVf3KGenREBJTzDJDitlICKPzDLAxBXS1A7pFMUZ2uxdNOhi7jzZmbEswZYUFFlmbHkC6C3CjLqqqYWj+13yqAXaGiNVwY9oK3IUnOoeY1NdBuS4KEBokbvUl3V9FZBDg0A8EXAEgkaNAcTwIqenChS9JZ8spBYDfACJ7IEYX7rCxAn7f8ZiJUBqTnU0FbktWXA5zTkzkAcGD95/imVmkNNhyID8DzHvUSdnrepeHdBnCzw1EHghwl5J4QuyoCbcD6bCPaHYiAEANRVvuVoKzKwLGYfc2CZAR4ILhAOY9LcBcADQYE4FGTsNAeAPxFvzHAxI2ZYAAAAAElFTkSuQmCC">
+  <link rel="icon" type="image/png" sizes="16x16"  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABDElEQVR4nGNkgAJWdv7/DCSA3z8/MjIwMDAwYtP8ciEvAwMDA8OyTS8ZGBgYGKL8xBkYGBgYxOM/YxjCgs1mmMbTt/4yMDAwMDg9+wCVYUZRx8rO/58FnzNN1ZjxSTMwMDAwML5bIYPhgjnzfjEwMDAw/BV5BbH3jRgDAwMDQ0oSG4YBTAStIOQC5DC42P6XKE36lQivoYSBppCM3tmyf5cYGBgYjJ+dR9F0VsoQifcSzoJ74ddMSbhmQuDXTEk9DAOw2UqMHIoBqM4kDlAcC0QbgMt1cAPY0p9fMu5i0sOqCg2wpT+HBzZGZjrOD8k4GIG2xFgPXfPvnx8ZGWEc9EyFHFXoGmGaGRgYGAARgk/9Go1gHQAAAABJRU5ErkJggg==">
+  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkJpZyBCaWxseSdzIEhvdXNlIG9mIEJvbWJzIiwgInNob3J0X25hbWUiOiAiQmlnIEJpbGx5J3MiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFNQUFBQURBQ0FZQUFBQlMzR3dIQUFBSnFFbEVRVlI0bk8yZHpXdGRSUmlIMzV2YUJBU3B1TEFtZGQyZHRUVVdYSGZueG8zZ0loUVVFYnAzWTkyNnFXNTBIUkJSS1BrRHV1bS9JSVMwTnU2NkZFMXRWZ1pGeUEyaEx0SXhKN2ZuWTc3bi9mZzlHeEY2enoyWjgzdG0zamt6OTV3Wk5lVDh5b1ZuTGI4ZjhPRG84R0RXNnJ1cmZUSENEa0tvSlVYUkwwSG9RUTVLeWxEa3dBZytLRUVKRWJJZUVNRUhOY2dwUXBZRElmaWdCVGxFV0VvOUFNSVBXcEVqZTBrQ0lQeWdOYWtaakJwQ0VIekFrWmlTS0hnRVFQZ0JWMkt5R1NRQXdnKzRFNXBSYndFUWZpQ0ZrS3g2Q1lEd0EybjRablpTQUlRZlNNVW51OG5yQUFCSVpsUUE5UDVBT2xNWkhoUUE0UWRhR010eXJ3QUlQOURHVUtZeEJ3Q21lVUVBOVA1QUszM1p4Z2dBVEhObTh4QjYveE9lL3ZSSzlHZTM3ajNOZUNZdnN2SEJ4ZWpQWHZ6NDc0eG5JcGZ1cHJtWFdwNElWMUpDdlAzNG1LNWZQcGZ4Yk00ZSs4YmVYd2xIS0hOZWt2bS9CRUx2bjRmcmw4L1I5dVBqN01mZGZueE1YMnk4blAyNEZ1bG1IWE9BQWpnSmNvbUE4SmNEQWhUaSt1VnpXVVlEaEw4c1MwUW9mMG9TSzRFYlFSRCtNcmpNejdyL0E0aSsrL0RmSXNjTm1SeVhEUDdiWDJJaTdEZzZQSmloQktxRTcwaUFYcjh1RUtBaVU1TmpoTDgrRUtBeVE1TmpoTDhOUzZqLzI5Q1ZBT0Z2dy9tVkM4OHdBalRFU1lEd3R3TUNOS2JVdGduZ0J3UUFwb0VBd0RRUUFKZ0dBblFvdFFyTWlVZDM4dTlVbFF3RUFLYUJBTUEwRUFDWUJnSUEwMEFBWUJvSUFFd0RBWUJwSUFBd0RRUUFwb0VBejdHd0N1ekFhdkFwRUFDWUJnSUEwMEFBWUJvSUFFd0RBWUJwSUFBd0RRUUFwb0VBd0RUbTNoQXo5UHFqclh0MkZzS0lodHZCMm11VVp0eWVESmZ5ZnE1WVNyL1hhNG9iNzY0MCtkNDMxbDZ0L3AzY0JDc3FRSXN3eC9EOUQvUGkzM0hwNm43d1ovNzQ1ZlVDWjNMS1o1OHVGejErTGtwS2sxUUNTUWw0YXk1ZDNhZU5qNGkrL3RidjM5LysvT1MvVzdSZlhBSUpUT1VzUlJCdkFSRDJQTGh3RCtFckNUaWxMNXUrVWt3S1lDSDR2KzMvVS9UNGx4SStXL2JjWGl0NDdMYTQzRTZKZ051Z3dEU1RJNEF6eU1KSUFQU1FyUVFpT3ZrQnhaODlieWh2Y1J0Tk9xang4OU9YelVkMy9GNElPQ25BMksrSCtyNjRDd1E1eTlRRUdQUXpsYk1oSHQwNW5wU2c2RXB3ekltM2tPYXIyMlVuZy9jZnhLOHlsejYzMnNTR3VSUmVDMkdhZmtQYWFsUzYvK0QzNE0rOC84NmJCYzVrSEc0QlRjR25CSm9VWU9PdDA4a0UzbVVGSlBETjF1bUl1L1hyK00yYm9CTElIUmdpQUk1MGcrK0xWd25VSFFYNmdCQ2dCVk9CbityOWlRSTN3MDJKMEFWU2dKeUU5TzQrd1hkRTdRWU5FV0VSaUFIR2lDbGpIQ0hCZDJUWkRwMGlSQitRUkNjcDRlNGpKdkNMRlBzOVFHNHB4b0F3YmNnZDZERnloTDJQNnI4SXF5bEdETnBscWhuYUdFb0ZmUWgyUDRrazRpOEppS04ydUgxZ0tVQW9FS1lOSEFNZGlnb0JGcGx2cmw2aG16dTdNWi85NUQzNUYzV01IMytPN0N6dXJsOVp2dlVrcWswNW8wNkFsUENEQ1JSS29Pb1hZUWgvWVc3dTdNNDNWNiswUG8yY3FCRUE0YStFTWdsVUNJRHdWMGFSQk9JRlFQZ2JvVVFDMFFJZy9JMVJJSUZZQVhLR2YyZnRHdTJzWGN0eEtERmsrNXVGU3lCV2dGeTRFS3p2UFd4OEpuV3g5dmNPSVZLQVhMMi90VjYvRCt1amdEZ0JTb1RmZW05b1dRSlJBcFNZOUZvT2YvZHZ0eXFCS0FGeWdkTG5GTXNkQUpFZ0FkRDdsOGZpS0NCR2dGQ0dMcWJWdXo1alRMV0Y1aEZUeEc3UTJONS9NZXlZK0k0ejFGNVJiU1ZrNXloN0FYS1VQanRyMTJoOTd5RjYvd2tXZS9ya2RoSWdnZG9TcUVzMy9HQ1lidUN0ZEJLc0JjQ0NWMTI2N1dSbFFtenFSZGxaYWx1RkROWCtyblRVRE5zUm9PUk96L1c5aHlpTG51TkNYcXo4WVQ0S3NCVWdGMk1oMTk2NytXQzlEZFFMNExCK29XUFJQa3F5RkFDVDMvWllLWU5ZQ3BBRExIcmxRM05Id2s2QTNKTmZoRCtlckx0Rm1ZNEM3QVFBdk5EZWdhZ1dRUHZGcTRYbWRoUXR3TkFQdXpYWHJDMVpiRmNORHhOZ3RSSWNXdjlqbDJkOWt0cjY1czd1bkhodGtHTWxRQ3paZjlvSEJ0SFd3YWdRWUFqcytVbGpxTHpVMUo1c0JNaTE3OS9STnlwb3VuQWxHV3F2YkR0RUdaVkJiQVRJeWVLRlEvREQ4UG1KcEpZMkZYMFhDTlJGUytpN1FBQmdHalVDNE80UGlFR05BQTZOd3pSSHRIUTRMQVRBYy83bGtLV0RZYlF4am9VQUFMUkNoUUJhaG1OUUh4VUNPRkQvMTBWRHg2TktBRkFIVFIwTkJBQ21FYlVWUXNPUXE0MitheUpwaEJBbHdGRERkcDlrNXZQdlFSaWFuNjBrU29BcHBGOE1ydlMxcTViUkdITUFZQm9JQUV3REFZQnBJQUF3RFFRQXBvRUF3RFFRQUppR2hRREx0NTdzMHQxMUZ2dkRRUVVZdlQyU2hRQUF0QUlDQU5PbzJncmh3TE5DODZHOUxVVUwwUGUwWWlLZEY2b1ZVODlkbGY2UUxIRUM5UFZJQ0g0ZGhoNDNLWG1VWUNQQThxMG51M05hbjN3NmhMUUcxa2pTdG5OR2Q0Q0lsRTJDdFd6UmxZS0d6a2lGQUJvdUJHZ0RLd0d3SUtZY1p1VVBFVE1CQUgrMGxabnFCTkIyZ2JpaXBleFVJNENXQ3dMcXdrNkEzUE1BRGEveWJFRmZ1eVcxSThQNm40alJPa0JPSkMvTWNHRnNrVkZUbTdJVXdIZFJiQXhORjZrbGZlOWlEb1pwNzAvRXNBU0t3UTNYZUY5d2VkeldCeTN0eTNJRThHVm9lTlp5Y2JpaWFROFdXd0Y4eWlESkRhOEJyL1puWFA0UUtTbUJRRmswajZpc0JVaTlKYXI1d3JVZ2VNUmwzdnNUTVJjZ0ZwUkcrZERlaWJBWEFLTUFEelQyL2tRQ0JDQ0trd0NqUURyUm5ZZVE4Qk1KRVNBVmpBTGhXRmxORnlOQTZpZ0FDZUxRV3ZvNHhBZ1FpK2JlcXhTV09ndFJBbUJDWEJmdHZUK1JNQUdJTUNFdWpZV0piNWVsbzhPRFdldVRDQ1ZsSk1Bb01FejB4RmRvK0k4T0QyYmlSb0JZTUNFZXg4cGRuMFhFQ29DN1FubHhiV09oN3U4eUl5STZ2M0xoV2VzVGlXVyt1UnI4d3hucHo3TmtnL0R3SHgwZXpNUUxRQlFuQVVoRWVQaUpPbk1BaVJQaExuaWdWbVdVaEo5SThCeGdFVWhRQ1FYaDc2SkdBQ0pJVUJ4bDRTZnFDQ0M5REhKQWdrSW9DbjgzNjZwR0FBY2t5SXlpOEM5eVJnQXRvd0FSSk1pR3N2QXZabHpsQ09DQUJJa29DMzhmdlQyKzlIV0JSZWFicXljU1lLM0FqK2VkaHJidzkxVTRKZ1J3WU1ITUE4VzlmcDhBdlNXUXBybEFGNVJFRXhnTFA5SEFDT0JRUFJJUW9TUnlLQzE1SEdNZCttUlByMVVDSW9pZ1BmaEUwOVdNYVFFY0p1Y0dpc3VkTHNrQ0VCbVNnRWovYUdDZzEzZjR6R1c5SjdzV0pDQlNMSUtoNEJQNTM4Z0p1dHRqUlFLaWpnaEVjbVhvM1BHeUVueWlzTHVZd2JjN0xVbmdFRGNxR092dHU0VGV3bys2MzI5UkFxS0ZVWUdJanhBTGF4c1dnMDhVdDM2VnRPQmxWUVJIMHpMSmFIblRSOHJDYmZLS3IzVUpIQytNRG81VU1RWldycTJIM3BHNmF5SExsZ2RJTU15Z0dKNGc2TVBrMkxLVGRjOFBSQUExeUxsWHJjaW1ONGdBU2xCaWsyYlJYWjhRQWVTZzVPN2thdHVlSVFNSW9kYVcvS2I3L2lFRklHcjcrNVAvQUFOU3BSTUI3TnNWQUFBQUFFbEZUa1N1UW1DQyIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2UvcG5nIn0sIHsic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZ0FBQUFJQUNBWUFBQUQwZU5UNkFBQWJrVWxFUVZSNG5PM2RUOHRkeDMwSDhKRXRXUkFhMUhiUnhFclcyZG1wS2dMcEd5aDBYZWpDR0ZKS3dldVdRcHBYa0FaS3N6YVUwb0RSSXN0c0NuMERMUVJWVGJMTHNyUnlrbFdNaThFMlJsM0lWNzdQMWYxenpybG56dnhtZnAvUEp2MGpSK2MrdmpQZjc4eVpjNTViaGFydTNMMzNyUFUxQVBUbzA0OC91Tlg2R2tibWg3c0NJUSt3TGVYZ2VuNkFNd2w3Z0ppVWdubjhzQzRRK0FCOVVnak84OE01SVBBQnhxUVEzT1NIVVlRK1FEYktRUElDSVBnQmNzdGNCTko5Y0tFUHdESFp5a0NhRHl2NEFaZ2lTeEVZL2tNS2ZnQ1dHTDBJRFB2aEJEOEFheGkxQ0F6M29RUS9BRFdNVmdTRytUQ0NINEF0akZJRXV2OFFnaCtBRm5vdkF0MWV2T0FISUlKZWk4QXJyUzlnQ2VFUFFCUzlabEpYcmFYWEh6SUFPZlMwRzlETkRvRHdCeUM2bnJLcWl3TFEwdzhVZ054NnlhelFXeFc5L0JBQjRKakl0d1RDN2dBSWZ3QjZGem5MUWhhQXlEOHdBSmdqYXFhRjJwcUkra01DZ0RWRXVpVVFaZ2RBK0FNd3VraFpGNklBUlBxQkFFQk5VVEt2ZVFHSThvTUFnSzFFeUw2bUJTRENEd0FBV21pZGdjMEtRT3NQRGdDdHRjekNKZ1ZBK0FQQWM2MHljZk1DSVB3QjRLWVcyYmhwQVJEK0FIRGMxaG01V1FFUS9nQnczcFpadVVrQkVQNEFNTTFXbVZtOUFBaC9BSmhuaSt5c1dnQ0VQd0FzVXp0RHF4VUE0UThBMTZtWnBjMWZCUXdBYks5S0FiRDZCNEIxMU1yVTFRdUE4QWVBZGRYSTFsVUxnUEFIZ0RyV3psaG5BQUFnb2RVS2dOVS9BTlMxWnRhdVVnQ0VQd0JzWTYzTXZib0FDSDhBMk5ZYTJlc01BQUFrZEZVQnNQb0hnRGF1emVERkJVRDRBMEJiMTJTeFd3QUFrTkNpQW1EMUR3QXhMTTFrT3dBQWtORHNBbUQxRHdDeExNbG1Pd0FBa05Dc0FtRDFEd0F4emMxb093QUFrTkRrQW1EMUR3Q3h6Y25xMnpVdkJGcjc5WSsrM1BvU1R2cnJmM2hhSHYwaTd2VnQ0YTAzUGl3Ly9OdjdyUy9qcEs5ODU4UFdsd0RWVENvQVZ2OVF4MXR2ZkZpKzlZMVhXMTlHRXovOTVXZXRMd0dHZE9mdXZXZWZmdnpCclV0L3poa0FhQ3hqRUdiOHpCRE54UUpnOVEvMVpRckVUSjhWV3BtUzNjNEFNTFJIUC9sMTYwdVliQmVNSTk4U09CYit2M3I2MiswdlpMSngvMTNBMlIwQXEzK281MVRRajdwQ1B2YTV2dnZXbHhwY0NlUndLY09kQVlDR3Z2V05WNDhXZ1pGS3dFOS8rWm53aDRET25oSzBBMERQZnZobkg3VytoRm1PaFdUdnR3TkdDUDV2ZnEvdmZ3ZmtkdTVwZ0pNN0FNSWZ0alhhVHNBSTRRKzlPNWZsYmdGQUlLT1VBT0VQOFIwdEFGYi8wRTd2SlVENFF5eW5NdDBPQUFUVWF3a1EvdEFQQlFDQ09sVUNvaFlCNFE5OWVha0EyUDZIT0hwNVY0RHdoOWlPWmJzZEFBZ3UrcnNDaEQvMFNRR0FUa1FzQWNJZitxVUFRRWVpbEFCdjk0UCszZmhsUU83L1EzemYrc2FyTDRYdlQzLzUyV1p2RFJUODBLYzdkKzg5MjM4em9CMEFodFRiYTREbmFyVVRrREg4Zi9iOUdHY3RZRzBLQUhScTY4Y0VNNFkvakV3QmdJNXQ5WmlnOElmeHZDZ0E3djlEbjJvL0ppajhZUno3V1c4SEFBWlJvd1FJZnhpWEFnQURXYk1FQ0g4WW13SUFnMW1qQkFoL0dKOENBQU82cGdRSWY4amhsVkljQUlRUnpTMEIzdTRIT2V3eS8vYWxQd2owNjlSYkEzZi92OFAvMno3QkQyTnpDNERoalA0V3dMa3V2U3RBK0YvbWJZQ01TQUdBQk9hOEswRDRRdzRLQUNSeTZSY0dDWC9JUXdHQVpFNlZBT0VQdVNnQWtOQ3VCT3orVS9oRFBxOTRCQkJ5RXY2UTE1Mjc5NTdaQVFDQWhCUUFBRWhJQVFDQWhCUUFBRWhJQVFDQWhCUUFodUkxd05UaWRjQ01SZ0VBZ0lRVUFBQklTQUVBZ0lRVUFBQklTQUVBZ0lRVUFBQklTQUVBZ0lRVUFBQklTQUVBZ0lRVUFBQklTQUZnR0Y0RFRHMWVCOHhJRkFBQVNFZ0JBSUNFRkFBQVNFZ0JBSUNFRkFBQVNFZ0JBSUNFRkFBQVNFZ0JBSUNFRkFBQVNFZ0JZQWplQXNoV3ZBMlFVU2dBQUpDUUFnQUFDU2tBQUpDUUFnQUFDU2tBQUpDUUFnQUFDU2tBQUpDUUFnQUFDU2tBQUpDUUFnQUFDU2tBZE05cmdObWExd0V6QWdVQUFCSlNBQUFnSVFVQUFCSlNBQUFnSVFVQUFCSlNBQUFnSVFVQUFCSlNBQUFnSVFVQUFCSlNBQUFnSVFXQXJua05NSzE0SFRDOVV3QUFJQ0VGQUFBU1VnQUFJQ0VGQUFBU1VnQUFJQ0VGQUFBU1VnQUFJQ0VGQUFBU1VnQUFJQ0VGZ0c1NUN5Q3RlUnNnUFZNQUFDQWhCUUFBRWxJQUFDQWhCUUFBRXJyZCtnSVkwNjkvOU9YcWY4ZWpuemdFU0h0YmZOZS84cDBQcS84ZDVLTUFKTERGQkFYVTAySU1LeDNqVXdDQ0VkWXM4WHRmLzNUeFAvdmtWOHYrMlFkZi9aM0ZmeWZ4MVppTGxJcFlidDI1ZSs5WjY0c1loZkRlemovOTh5ZXRMeUdFci8zaGIxcGZRdm5mLy9xRDFwZlEzRi85NVd1dEx5RU5KV0k5ZGdDT0VPUUFNUzJkbnhXSGw2VW9BQUtkRWUydi90LzY4KzMvL2tjLy91STY3QUlRM2R3Y3lGQVl1aThBd2gyZSsvdC8zT2J2K2J1LzJlYnZnWmFtWkV2dkpTRjhBUkR3QUVSMEtaK2lGNFF3QlVEUXd6cHFyZEMzMm1HQVVaekt0U2pGb0VrQkVQWUFaSFVzQTF1VWdzMEtnTkJuVGYvOW0vOXJmUW5OZmEzMUJleng3K1AzVzE4QW5kdlB5SzNLUVBVQ0lQZ0JZTHBkYnRZdUFsVi9HWkR3QjRCbGFtZW8zd1lJQUFsVkxRQlJUam9DUUc5cVoyajFNd0M3RCtCMkFBQmNOc3dod0ozOUQ2UU1BTUFYaG40TWNOLytCLzNaOXo4cnBaVHkxZnUvMitKU0FHQlR2M3I2MjFKS0tkLzgzcXROcjZQWm13QjN3Yit6KzRFY1Vnd0E2TkdwWE52WjVXQ3JJckI1QVRnTS9rc3UvUUFWQkxqSkszdGhHNWZ5YWFwV1JXQ3pBakEzK0tlYThpOUFTUUJnanJYQ2ZZNnRpOEFtQmFCVytFODE5MStrd2tDUC9KcGVPSzFGb0MvMXMrOS90a2tKcUY0QVdvZi9Fa3UvS0lvRFFGMDlCZmsxdGlnQlZRdEFqK0YvalRXK21Fb0VVLzM3djMycC9QR2ZmRlJLS2VYUmo5dGVCMHlSSmJ6WFVyc0UzTHB6OTk2eld2L2wyUXBBVkVyRnVQNzFQLytuOVNXVVAvMmpyN2UrQkNvUTFqSFVMQUROSGdOa095MEdzdEt4alYzNHRpZ0Nnbjg3d3BnYUZBQ3E2RzNDNnIyd0NPTjVldnQrUWcxVmJ3R1U0allBQUN4Uit4Qmc5VjhIM1BwVmh3RFFteTJ5czNvQmVPdU5EOHNQSG4xVSs2OEJnQ0g4NE5GSDVhMDM2djl5b0txM0FJNTlnTysrNVpFaEFEaDBiTEg4NkJmMWZudnU1b2NBZHg5UUVRQ0E0OEcvaFdaUEFTZ0NBR1RXK3ZaNDg4Y0E5MzhBeWdBQUkyc2QrdnVxUHdaNHpVRUdoUUNBbmwwVCtEWHYvNWV5UVFFbzVib1NzS01NQU5DRE5WYjV0Y08vbEkwS1FDbnJsSUI5Q2dFQUVheTlyYjlGK0pleVlRSFlxZmxzbzFJQVFFMDE3K0Z2RmZ3N214ZUFuUzFlY2xDS1VnREFNbHNkMk5zNitIZWFGWUNkcllyQUljVUFnRkxhbmN4dkZmdzd6UXZBdmxabFlKOWlBRENtQ0kvZ3RRNzlmYUVLd0tFSWhXQ2ZjZ0FRVzRTUTN4Y3A4QStGTGdEN29wV0JZeFFFZ0xxaUJmd3hrVU4vWHpjRjRGQVBoZUNRZ2dCd1hnOEJmNmlYd0QvVWJRRTRwc2RTY0l5aUFJeW14MkEvcHRld1AyYW9BbkRNS0tYZ0ZHVUJhR1dVVUQ5bHBMQS9admdDY01yb3hlQVVoUUU0WmZSQVAyWDBvRDhsYlFFNEpXc3htRUo1Z1BpeWh2Z1VXWVArRkFWZ0J1WGdla29FbkNhOHJ5ZmtwMU1BVnFRZ3RLTllzQ1ZCM1k2QVg0OENzQ0VGWVZ3S3lMWUU4TGdFL0hZVWdJQVVCV0EwZ2owZUJhQnp5Z0xRaWxEdm13S1FqTUlBbkNMUWMxRUFtRXg1Z1BpRU9GTXBBQ3oyeWJ1dnYxbEtLZVh0eHorZitzLzh4YmROVG5ES3YvekhqSkw5M3NNM1N5bmx0WGZlbnp6K1lKOEN3Q0pMd3I4bXhZSXR6UXJxbXBRQXJxQUFNRnUwOEk5QUFkbFdtQUNPUUFsZ0lRV0FXWVEvQktRRXNNQXJyUytBZmdoL0NPcnpNZmxpak1JRUNnQ1RDSDhJVGdsZ0pnV0FpNFEvZEVJSllBWUZnTE9FUDNSR0NXQWlCWUNUaEQ5MFNnbGdBZ1dBbzRRL2RFNEo0QUlGZ0pjSWZ4aUVFc0FaQ2dBM0NIOFlqQkxBQ1FvQUx3aC9HSlFTd0JFS0FLVVU0US9EVXdJNG9BQmdRb0JrakhsS1VRRFN1ekVSV1AzRDJQYkd1QktBQXNCendoOXlNTmI1bkFLUW1QditrSlR6QUJRRklDM2hEOGtwQWVrcEFBa0pmNkNVb2dRa3B3QWswL3RBZjN6L1FldExnSk42L243MlBqY3dud0tRVmNlci84ZjNIM1E5MFRLZXJyK1RIYzhGWE9mV25idjNuclcrQ0xiUis5Yi91UW4yNGRNbkcxNEpEUGg5Zk8vaG02V1U4dG83NzNjNVB6Q2ZIWUFrZWcvL2M3cWNiT25lY044NzV3SFNVUUFTR0dGQWQ3dTlTa3E5ZjE5SG1ETzRUQUhJcE5QVi8zQmJyUXhqdU85ZnAzTUV5eWdBZyt0NTY3L3JnMVdrY3F3SWRQdmRkU3NnRFljQUI5WjcrSjh6M01xTHJnMjVTK1ZRNFBEc0FBeHE1UGJlN1lUS3NNNTlKN3ZkQ2ZqY3lITkpkZ3JBNkFaYi9RdC9vaHJ1dTluaDNNRThDc0NBUnQzNkgyNkNKWTF1ZHdHY0J4aWFBakFZQXhYYWNTdUFuaWdBbzdMNkI5YlE0VnpDTkFyQVFIcmUrajlIK05PVFM3c0FYZTRFdUJVd0pBVmdFQVlteERGeWFUWFhqRU1CR0UybnEvOHVWMFd3VUpmZjkwN25GazVUQUFiUSs5YS9lLytNYU1qdnJsc0JRMUVBYUtyTGxSQk1OUEpUQWZSUEFlaGM3NnYvYzRaY1FaSE9jTjlqdXdERFVBQTZGbUVBWHJPS3NRS0M1U0tNbndoekVNc3BBQ05vdlBwZjhtalRwZnYrdzYyYTRJZ2xJUjdpVWNJQmR4d3pVZ0E2RlhIcnYvbWtCRUd0ZFJZZzFCaHpLNkI3dDF0ZkFIM2JUV3k3aVduM24wc25QQ3QvZU5uaG1ERk9XTU90TzNmdlBXdDlFY3dUY2ZWZnl2RmdQNXlvaEQrWnpmMytUeGxUemIzMzhNMVNTbm50bmZkRHpVZGM1aFlBcXpsMjd6N0UvVW9JWXVyTzJMRng0MndNYTdNRDBKbW9xLzlqNWdTL2lZMHNMdTBDZExuZGJ4ZWdTM1lBcUdicWlxV0xDUTVXTW5VWHdJcWYyaFNBanZTMCt0OW5Fb09iTG8ySjdzYU1Kd0s2cEFCUW5UTUFBUEVvQUozb2RmVS9oWUpBTnBlKzgxMk9DYnNBM1ZFQWFHWi9tOVBUQW1SdytEMC90ZFYvN0RBZ3JFMEI2TURJcTMrUERaTEJxY2Y2enYzNUx0a0Y2SW8zQVZMVnFZbHNmL0k3Zkp2Zy92L2MzV0VvMkRQbFJUNVcrN1RpUFFEQjliejZYL3JXdnk2Zmc0WURjNy9IVThweU43d1hvQXQyQU5qVWxOWE9rdDh2QUZFb3NQVENHWURBUmx6OVA3Ny9ZUEtFYU9La2QybS93ODRDZEVFQllIVnIvc0lmYjBPalIydCtiNTBQb0JZRklDak4rU1lsZ0Y0cy9hNE8rVlJBTVpkRnBnQkUxOW4ydjEvM0M1UlN1cHU3TWxJQTJJVHdoOHN1N1FMMHZCTkFQQXBBUUQwZi9nT3VNMVJaZGhnd05BV0ExVmlkUUgzR0dXdFJBSUxwZGZWdlVvTDEyQVZnQ3dvQTFRMDFtY0ZHakJ0cVV3QzRtdFUvUUg4VWdFQjYzZjQveFV0OG9JN3VuZ2h3R3lBa0JRQWdLQVdhbWhRQXJ0TFZLZ1FHWS94eERRVWdpTkcyLzRGMURMTUw0RFpBT0FvQVZRd3phVUVBeGhNMUtBQUI5TnFJYlQ5Q2V6Mk93MTdudk5Fb0FKSFkvZ2RHWm80TFJRRmdkYllyWVgzR0ZXdFRBRmlreDIxSEdKWHh5QklLUUdPam5mNjNTb0Y2aGhoZm5nWUlRd0ZnTnFzTmlNZTRaQzRGSUxHMUo0d2hWaWNRM0pyalRHbklUUUZvS01MMi8rNmQ0bE1uQWhNR3hEVmxmTTRkODFXNERSREM3ZFlYUUJ6N0U0TFZQSXhEY2VjWUJTQ3gvWkEvbkNCMi8vdlVJcUF3d0hZZVBuMHllYlYvNnA4SEJZQlN5dWt5WU9VQWZSSDZUT1VNUUNNUjd2K2Y4dkRwRTVNRkRDTHNlSFlPb0RrN0FKeDA3aGJCcVQ4SHRHZE1Nb1VDd05VY0hvUnR6SGxheDFqa0VnV0FWYzA5UEFoYzVpd09OZHk2Yy9mZXM5WVhrVTNrKy8rblREbFk1UEFSckdmcWVPcCszTDMzOE0xU1NubnRuZmU3bVE5SFlRZUFpNmF1UG5ZVHpxbEhDdmYvRFBDeU5jL2F1QTNBSlFvQXE1dDZlQkE0VDRCVGt3TEFZbE1tSjJVQTVwa2IrbE5mQ2dTSHZBZGdZNzNkLzE5ellyR2FnZlBXSGlOZEZBUHZBMmhHQVFDQWhCUUFGckdhaHppTVI1WlFBRGlwaSsxRDRDemptRk1VQUFCSVNBSFlVRzhIQUUreDNRanhkRDB1SFFSc1FnSGdLTnVHTUE3am1XTVVBQUJJU0FGZ2xxNjNHV0Z3eGlkektBQzh4SFloak1lNDVwQUNBQUFKS1FCTVpuc1I0ak5PbVVvQjJFZ3Zqd0RhSm9SeGhSN2ZIZ1hjbkFJQUFBa3BBRXhpV3hINllid3loUUlBQUFrcEFBQ1FrQUlBQUFrcEFMd1Erb1F3c0Fyam5CMEZBQUFTVWdDNHlJbGk2STl4eXlVS3dBWjZlUWtRUUZOZUJyUXBCUUFBRWxJQUFDQWhCWUJTaXBQQmtJbnhUaWtLQUFDa3BBQndscFBFMEMvamwzTVVBQUJJU0FFQWdJUVVBQUJJU0FFWTBOd1R2azRFUXo1enhyMDVZa3kzVzE4QWRVd2RzQTRKUVY2Q1BUYzdBTWxkbWdCTUVOQ254L2NmR0wrY1pRZGdRRk5YOVZNbkI3c0pFTWZhb1c3YzVtVUhJTEdIVDUrY0hmd21CdWliTWM0NWRnQTRhKzNkQk9CNmdwczEyQUZnRlNZazJJYXh4bG9VQUFCSVNBRUFnSVFVQUFCSVNBRUFnSVFVQUFCSVNBRUFnSVFVQUFCSVNBRUFnSVFVQUFCSVNBRUFnSVFVZ0EyODlzNzdQeStsbFBMZXd6Y2JYd3BBWEovUGtTL21US3BTQUFBZ0lRVUFBQkpTQUFBZ0lRVUFBQkpTQUFBZ0lRVUFBQkpTQUFBZ0lRVUFBQkpTQURiaVpVQUFaM2dKME9ZVUFBQklTQUVBZ0lRVUFBQklTQUVBZ0lRVUFBQklTQUhncE1mM0g3UytCT0JLeGpHbktBQWI4aWdnd0JFZUFXeENBYUE4ZlBwa2xmOGVLdzJvYTgweHR0YTRwMSszVzE4QWZSSHkwTmE1TVNqVW1VTUI0Q3lCRC8wd1hwbERBVWpvbWtuQ0NnUGF1VFQrNW96dHd6OXJiT2R6Njg3ZGU4OWFYMFEybjd6Nyt2TkRnRzgvcm5MZ3hYMUNZR2V0K2FEYVhPQUFZRE4yQUJJNk5wQnRIVUl1aC9PQU9TQWZCV0JRVnU3QUhPZm1ET1ZnVEI0REhOQ2E0Vy9nUTcvQ2IvL1RsQUxRZ0JjQ0FSVDMveHRUQUNpbGFQaVFpZkZPS1FvQUFLU2tBQUJBUWdwQUk4NEJBS201LzkrY0FzQkZuZ1NBL2hpM1hLSUE4SUtEUVRBKzQ1d2RCWUJKckNhZ0g4WXJVeWdBRFRrSEFLVGsvbjhJQ2dBMzJCNkVjUm5mN0ZNQUFDQWhCYUF4dHdHQVZHei9oNkVBQUVCQ0NnQ1RPVmtNOFJtblRLVUFST0kyQURBeWMxd29Da0FBMGU2Rk9Ta000NGswcnFQTmVWa3BBTXhpZXhIaU1qNlpRd0VJd3RNQXdOQ2MvZzlIQWVDb1NOdUZ3SFdNWjQ1UkFKak5OaVBFWTF3eWx3SVF5TWkzQVV4T01NMlFZOFgyZjBpM1cxOEFjVDE4K3VTcXlXaklpUXcyc0Q5MnJ0Mit0LzNQS1FvQWl6eSsvK0RveENMMFlWMVR5b0J4eHhLMzd0eTk5NnoxUlhEVEorKysvdndXd051UFEyeVhuWnBjOWllaktYOEdtR2ZxdUFvOS9tei9oMlVIZ01WQ1R6b3dnRk1sMjRxZk5UZ0VHRkN2aHdFZlBuMGkvS0dTTHNlWDFYOW9kZ0M0U25jVEVuUnV5cTIzd3o4SHh5Z0EwYjMzOE0wV1p3R21iakdlT2d3SXRMWG1rd1NMZExhRG1aRmJBRUcxMmpKN2ZQK0IrNHN3bUpiajJ2Wi9YSFlBdVBxa01SRExsTU9EZHU3d0dHQnd0UjRKWEhMdjBQMUdpR1B1ZU54MC9Ecjgxd1U3QUpSU0JEaU1idXJoUWZLd0E5Q0JHcnNBU3cvdmVmWWYybHR6TmIvNlFWNnIvMjQ0QkpqVTJvRnRSUUhiV0h1c0tlOTVLUUFkaVBSaUlKTUZ4TlY4ZkZyOWQwVUJBT2lFblRiV3BBQjBJdEl1d0NuZUlRQnRoSGhOc05WL2R4UUFabXMrMFFCd05RV2dJejNzQXBSaW14SnFDRDJ1clA2N3BBQ3dpRjBBZ0w0cEFKMkp0QXVnQk1BMlFyK0YwK3EvV3dvQVZZVGVyb1NPR0V2VW9nQjB5QzRBVUVxQThXZjEzelVGQUNBb3EzOXFVZ0E2RldrWDRCVHZCWUE2UFBmUEdoU0FFVFF1QWMwbkltQmJnUmNlVEtjQWRLeVg1bTBYQU9icllkejBNZ2R4bkFMUXVTaTNBdXdDd0hwQ2g3K3QvMkVvQUt4R0NZRDZqRFBXb2dBTUlNb3VBSEE5cTMrMm9nQ01KbWdKOEVRQVhLZjV5ZitnY3d2TEtRQ0RpTkxJYlUvQ2NqMlU1Q2h6RGRkVEFBYlN3NjJBSGlZNGFDSDAyTEQxUHlRRllGUU5TNEJkQUZpWHJYOXFVQUFHRTZXaEt3RXdYZWpWLytlaXpDMnNSd0VZVVBSYkFUMU1kckNWUzcvcU44THFYL2lQNlpWUFAvN2dWdXVMb0tLZ3R3S1VBQWd1NkFLQ2RYejY4UWUzN0FBTVNtT0grQzZ0L2lNd2w0eExBUmhZaEZzQmRnRmd2dWJoYitzL0JRVmdjRW9BeEJUMnV5LzgwMUFBTWdsNlQ4OWJBc25tOGYwSEo0dHhoRU4vNUtBQUpCQ2h5VGZmMG9SZ2pwWGVLT01rd3B4QmZRcEFFbEZ1QmJnZFFIWmh2K2UyL3RONXBaVG5qd08wdmhEcWkxQUNJRFBoVHdTN3pMY0RrRlhRUTRHUVZiTnhZVUdRbGdLUWpJWVBiWVJkL1gvTzNKQ1BBcEJRNUZzQjBTZEpXT3JjcWYvV3EzL2huNU1Da0ZUckVoRHlFU2lvclBtNy9mY0ovL1JlRkFBSEFmTnBYUUwyaFpvWW9iTGRkOTNLbjYzdFo3MGRBSjVyVUFLYVQ0TFFVT3Z3aHh1ci9qdDM3ejFyZFNHMDg4bTdyMzh4SWJ6OTJJb0FSclVYL2xiL09ka0I0QVlUQWVSaXpGUEtRUUZ3RGlDdlNPY0JnQXJjOTAvdk1PUHRBUENDRWdDREV2NGNvUUJ3Z3hJQWd4SCtuS0FBOEJJbEFBWWgvRG5qcFFMZ0hBQ2xLQUhRUGVIUG5tUFpiZ2VBazVRQTZKVHdad0lGZ0xPVUFPaU04R2Vpb3dYQWJRRDJLUUhRQ2VIUEVhY3kzUTRBa3lnQkVKendaNmFUQmNBdUFJZVVBQWhLK0hQQ3VTeTNBOEFzU2dBRUkveFpTQUZnTmlVQWdoRCtYT0ZzQVhBYmdGT1VBR2hNK0hQQnBReTNBOEJpU2dBMEl2eFp3YVFWL3AyNzk1N1Z2aEQ2OWNtN3IzOVJBTjUrYkVLQ1d2Ykt0dkRubkNrNytIWUF1TnFOaWNodUFOUWgvRm5acEFMZ0xBQ1hLQUZRa2ZCbmhxbVpiUWVBMVNnQlVJSHdwNUpaSzN0bkFaanF4YmtBWndKZ09ZZjltR25PanIwQ1FEVU9COEpDVnYwc05LY0F6TG9GNEN3QWM3Z2xBQXNJZnhhYW05SE9BRkNWRWdBekNIODJ0R2hGNzFZQVM3Z2xBQ2NJZnE2MFpJZmVEZ0Nic1JzQVJ3aC9HbGxVQUp3RllDa2xBUFlJZjFhd05KTVhCN25iQUZ6TExRSFNFdnlzYUdrQldId0x3QzRBMTdJYlFFckNueFZkazhWWGg3aWRBSzUxWXllZ0ZMc0JqT21nNUFwL3JuWHRRbHdCSUF5M0JCaVdWVDhWTkM4QXBTZ0JyTWR1QUVPeDZxZVNOVzdEcjNZZlh3bGdUWFlENko1VlA1V3NkUVp2MVlOOFNnQnJzaHRBbDZ6NnFXak5BL2dLQU9FcEFuUkI4TE9Cc0FXZ0ZDV0FldHdXSUN6Yi9XeGc3Y2Z2cXp6THJ3UlFpOTBBUXJIcVp5TTEzcjFUN1dVK1NnQTFLUUkwSmZqWlVLMFg3eWtBZEUwUllGT0Nud2E2S3dDbEtBRnNSeEdnS3NGUEl6VmZ1MS85ZmY1S0FGdFNCRmlWNEtlaDJyOXpaNU5mNktNRXNEVkZnS3NJZmhyYjRoZnViZlliL1pRQVdsQUVtRVh3RThCV3YyMTMwMS9wcXdUUXlrdEZvQlJsZ09lTy9DcHF3VThyVzRWL0tSc1hnRktVQU5wU0JIaEI4QlBNbHVGZlNvTUNVSW9TUUh1S1FHS0NuNEMyRHY5U0doV0FVcFFBNGxBR0VoRDZCTllpL0V0cFdBQktVUUtJNVdnUktFVVo2TldSMEM5RjhCTkxxL0F2cFhFQktFVUpJQ1psb0ZOQ240NjBEUDlTQWhTQVVwUUFZbE1HZ2hQNmRLaDErSmNTcEFDVW9nUVEzOGtpVUlveXNMVVRvVitLNENlK0NPRmZTcUFDVUlvU1FGOFVnZzBKZkFZUkpmeExDVllBZGhRQmVuTzJESlNpRU14MUp2QkxFZnIwSjFMdzc0UzdvQjBsZ0o0cEJETUpmQVlXTWZ4TENWd0FTbEVDR01mRlFsQktubEp3SWV4TEVmaU1JMnI0bHhLOEFPd29Bb3htVWlIWTExczVtQkR5K3dRK280a2MvRHZoTDNCSENXQjBzMHZCb2ExS3dzeHdQeVRzR1YwUDRWOUtSd1dnRkNXQXZLNHVCeHNUOG1UVlMvaVgwbGtCMkZFRTRHVmJsUVRoRGkvcktmaDN1cnZnSFNVQWdBaDZEUDlTT2k0QU80b0FBQzMwR3Z3N1hWLzhQa1VBZ0MzMEh2dzdRM3lJZllvQUFEV01Fdnc3UTMyWWZZb0FBR3NZTGZoM2h2eFEreFFCQUpZWU5maDNodjV3K3hRQkFLWVlQZmgzVW56SWZZb0FBTWRrQ2Y2ZFZCLzJrRElBa0Z1MjBOK1g5b1B2VXdRQWNza2MvRHZwZndDSGxBR0FNUW45bS93d0xsQUlBUG9rOE0venc1bEpJUUNJU2VEUDQ0ZTFBcVVBWUZ2Qy9ucCtnSlVwQndETENQbTYvaDk1cHFqdkpZZG8zd0FBQUFCSlJVNUVya0pnZ2c9PSIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2UvcG5nIn1dLCAic3RhcnRfdXJsIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgImJhY2tncm91bmRfY29sb3IiOiAiIzA1MDcwZiIsICJ0aGVtZV9jb2xvciI6ICIjZmY4YzAwIn0=">
+  <meta name="apple-mobile-web-app-capable"           content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black-translucent">
+  <meta name="apple-mobile-web-app-title"             content="Big Billy's">
+  <meta name="mobile-web-app-capable"                 content="yes">
+  <meta name="theme-color"                            content="#ff8c00">
 </head>
 <body>
 <div class="app-root">
@@ -421,11 +442,64 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
     <div class="empty-center">⬡ &nbsp; AWAITING TARGET LOCK — ENTER DATE &amp; FIRE &nbsp; ⬡</div>
   </div>
   <div class="hr-sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-title">HR Targets</div>
-      <div class="sidebar-sub">Sorted by projected HR%</div>
+    <div class="sidebar-header" style="padding:0;">
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab active" id="tabHR" onclick="switchSidebarTab('hr')">HR TARGETS</button>
+        <button class="sidebar-tab" id="tabParlay" onclick="switchSidebarTab('parlay')">PARLAY BUILDER</button>
+      </div>
     </div>
-    <div id="hrTargetsList"><div class="sidebar-empty">Fire to load targets</div></div>
+
+    <!-- HR TARGETS PANEL -->
+    <div id="hrTargetsPanel">
+      <div id="hrTargetsList"><div class="sidebar-empty">Fire to load targets</div></div>
+    </div>
+
+    <!-- PARLAY BUILDER PANEL -->
+    <div id="parlayPanel" style="display:none;">
+      <div class="pb-controls">
+        <div class="pb-row">
+          <div class="pb-grp">
+            <label class="pb-lbl">LEGS</label>
+            <select class="pb-select" id="pbLegs">
+              <option value="2">2 Legs</option>
+              <option value="3">3 Legs</option>
+              <option value="4">4 Legs</option>
+              <option value="5" selected>5 Legs</option>
+              <option value="6">6 Legs</option>
+              <option value="7">7 Legs</option>
+              <option value="8">8 Legs</option>
+            </select>
+          </div>
+          <div class="pb-grp">
+            <label class="pb-lbl">TARGET ODDS</label>
+            <select class="pb-select" id="pbTargetOdds">
+              <option value="300">+300</option>
+              <option value="500">+500</option>
+              <option value="1000">+1000</option>
+              <option value="2000">+2000</option>
+              <option value="3000">+3000</option>
+              <option value="5000" selected>+5000</option>
+              <option value="10000">+10000</option>
+              <option value="25000">+25000</option>
+            </select>
+          </div>
+        </div>
+        <div class="pb-grp" style="margin-top:8px;">
+          <label class="pb-lbl">PROP TYPE</label>
+          <select class="pb-select" id="pbPropType">
+            <option value="hr">Home Runs (1+ HR)</option>
+            <option value="hrrbi">Hits + Runs + RBIs (Over 1.5)</option>
+            <option value="tb">Total Bases (Over 1.5)</option>
+            <option value="k">Strikeouts (Pitcher K Over 4.5)</option>
+            <option value="mix">Best Mix (Auto-Select)</option>
+          </select>
+        </div>
+        <button class="pb-build-btn" onclick="buildAndRenderParlay()">🎯 BUILD PARLAY</button>
+      </div>
+      <div id="pbOutput">
+        <div class="pb-no-data">Set filters above &amp; click<br>BUILD PARLAY</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -670,26 +744,29 @@ function getDefaultArsenal(pitcherName,pitcherHand,qualityLabel){
 }
 
 // How hittable is a specific pitch type? (higher = better for batters)
-// Deterministic — no random noise
 function getPitchHittability(pitcherName,pitchCode,vsHand){
+  const seed=hashStr((pitcherName||'x')+pitchCode+vsHand);
   const base={
     '4SM':55,'SI':58,'FC':50,'SL':48,'ST':40,'SW':40,
     'CU':45,'CH':50,'SB':42,'KC':43,'KN':55,'FO':55,
   }[pitchCode]||50;
-  return Math.max(20,Math.min(95,base));
+  const v=(seed%31)-15;
+  return Math.max(20,Math.min(95,base+v));
 }
 
 // Batter rating vs a specific pitch type (0-100 or null for dash)
-// Deterministic — uses handedness affinity only, no random noise
 function getBatterPitchRating(batterName,batterHand,pitchCode,baseOVR){
   const seed=hashStr(batterName+pitchCode);
+  // 20% chance of dash
   if(seed%5===0)return null;
+  // Pitch type affinity by handedness
   const aff={
     '4SM':batterHand==='L'?3:-2,'SI':1,'SL':batterHand==='R'?4:-4,
     'CU':-6,'CH':batterHand==='R'?3:-3,'FC':-2,'ST':-8,'SW':-8,
     'SB':-4,'KC':-4,'KN':0,'FO':0,
   }[pitchCode]||0;
-  return Math.max(22,Math.min(97,Math.round(baseOVR+aff)));
+  const variation=(seed%21)-10;
+  return Math.max(22,Math.min(97,Math.round(baseOVR+aff+variation)));
 }
 
 // Map trueProb → OVR scale (30–80)
@@ -766,34 +843,6 @@ function pitcherXip(name){
   return(4.5+getRandom(h,0,1.0)).toFixed(1);
 }
 function pitcherHrFb(seed){const r=getRandom(seed*3,0.06,0.20);return r<0.09?{factor:0.88,label:'LOW HR/FB'}:r>0.15?{factor:1.12,label:'HIGH HR/FB'}:{factor:1.0,label:'AVG HR/FB'};}
-
-// ── REAL-DATA QUALITY FUNCTIONS (replace hash-based simulations) ─────────────
-// Pitcher quality from real ERA (replaces hash-based pitcherQualityFactor)
-function pitcherQualityFromStats(era){
-  if(era==null)return{factor:1.0,label:'UNKNOWN',era:'?'};
-  if(era<3.00)return{factor:0.84,label:'ACE',era:era.toFixed(2)};
-  if(era<4.00)return{factor:0.94,label:'SOLID',era:era.toFixed(2)};
-  return{factor:1.08,label:'HITTABLE',era:era.toFixed(2)};
-}
-// Pitcher HR/FB from real stats (replaces random pitcherHrFb)
-function pitcherHrFbFromStats(hrfbRate){
-  if(hrfbRate==null)return{factor:1.0,label:'HR/FB N/A'};
-  if(hrfbRate<0.09)return{factor:0.88,label:'LOW HR/FB'};
-  if(hrfbRate>0.15)return{factor:1.12,label:'HIGH HR/FB'};
-  return{factor:1.0,label:'AVG HR/FB'};
-}
-// Recent form from real last-14-days stats (replaces random recentFormFactor)
-function recentFormFromStats(stats){
-  if(!stats||stats.ab<5)return{factor:1.0,label:'—'};
-  const slg=stats.slg||0;
-  if(slg>=0.600)return{factor:1.12,label:'ON FIRE'};
-  if(slg>=0.480)return{factor:1.06,label:'HOT'};
-  if(slg>=0.380)return{factor:1.00,label:'NEUTRAL'};
-  if(slg>=0.280)return{factor:0.95,label:'COLD'};
-  return{factor:0.88,label:'SLUMP'};
-}
-// ─────────────────────────────────────────────────────────────────────────────
-
 function impliedTotal(v){return v>=10?{factor:1.06}:v>=9?{factor:1.02}:v<=7?{factor:0.94}:{factor:0.98};}
 function calcSprayAlignment(batH,park){
   const s=PARK_SPRAY[park];
@@ -841,8 +890,7 @@ function computeBaseProb(player){
   return Math.max(0.03,Math.min(0.28,base*0.20));
 }
 
-// extraData = { pitcherStats: {era, hrfbRate, ...}, recentStats: {slg, ab, ...} }
-function buildCtx(name,dateStr,w,schedInfo,liveTotals,extraData){
+function buildCtx(name,dateStr,w,schedInfo,liveTotals){
   const seed=hashStr(name+dateStr);
   const weather=w||{};
   const pitcher=schedInfo?.pitcher;
@@ -855,13 +903,7 @@ function buildCtx(name,dateStr,w,schedInfo,liveTotals,extraData){
   const wpk=weather[gamePark]||{spd:getRandom(seed*7,3,12),dir:getRandom(seed*8,0,360),temp:getRandom(seed*9,60,85),hum:getRandom(seed*10,45,70)};
   const [,,,,,,,,,,,,hand]=findPlayerData(name)||[null,null,null,null,null,null,null,null,null,null,null,null,'R'];
   const totalVal=liveTotals?.(schedInfo?.team)||getRandom(seed*9,7.5,11.0);
-  // Use real pitcher ERA/stats when available, fall back to hash-based only as last resort
-  const pitStats=extraData?.pitcherStats||null;
-  const pq=pitStats?.era!=null?pitcherQualityFromStats(pitStats.era):pitcherQualityFactor(pitName,seed);
-  // Use real recent form when available
-  const rForm=extraData?.recentStats?recentFormFromStats(extraData.recentStats):recentFormFactor(name,dateStr);
-  // Use real HR/FB rate when available
-  const hrfbVal=pitStats?.hrfbRate!=null?pitcherHrFbFromStats(pitStats.hrfbRate):pitcherHrFb(seed);
+  const pq=pitcherQualityFactor(pitName,seed);
   return{
     gamePark,
     windFactor:calcWindFactor(wpk.spd,wpk.dir,(PARK_DATA[gamePark]||{cfDir:0}).cfDir),
@@ -870,10 +912,10 @@ function buildCtx(name,dateStr,w,schedInfo,liveTotals,extraData){
     humFactor:calcHumFactor(wpk.hum),hum:wpk.hum,
     platoon:platoon(hand,pitHand),pitHand,batHand:hand,
     pitName,pitcherQuality:pq,
-    recentForm:rForm,
+    recentForm:recentFormFactor(name,dateStr),
     homeAway:homeAwayCalc(haLabel),
     lineup:lineupCalc(lineupPos),lineupPos,
-    hrfb:hrfbVal,
+    hrfb:pitcherHrFb(seed),
     total:{factor:impliedTotal(totalVal).factor,val:totalVal.toFixed(1)},
     sprayAlign:calcSprayAlignment(hand,gamePark),
     weatherFactors:calcHandFactor(wpk.spd,wpk.dir,gamePark),
@@ -887,30 +929,10 @@ function findPlayerData(name){
 
 function buildSyntheticPlayer(name,team,hand,homePark,stats){
   const s=stats||{};
-  const rawAb=s.ab||0;
-
-  // ── Small-sample regression ──────────────────────────────────────────────
-  // A player with 10 AB in early April shouldn't model as an elite power hitter
-  // just because they homered once. Blend observed stats toward MLB averages
-  // proportionally: full trust at CRED_AB, ~0% trust at 0 AB.
-  const CRED_AB=200;                       // AB needed for full credibility
-  const LG_AVG=0.248, LG_SLG=0.402;
-  const LG_HR_RATE=1/34;                   // ~1 HR per 34 AB league average
-  const w=Math.min(1, rawAb/CRED_AB);      // credibility weight 0→1
-
-  const rawAvg=parseFloat(s.avg)||LG_AVG;
-  const rawSlg=parseFloat(s.slg)||LG_SLG;
-  const avg  = w*rawAvg + (1-w)*LG_AVG;
-  const slg  = w*rawSlg + (1-w)*LG_SLG;
-
-  const iso=Math.max(0.05, slg-avg);
-
-  // Regress HR rate toward league average the same way
-  const rawHrRate=(s.hr>0&&rawAb>0)?(s.hr/rawAb):LG_HR_RATE;
-  const hrRate = w*rawHrRate + (1-w)*LG_HR_RATE;
-  const xhr=Math.round(1/hrRate);
-  // ─────────────────────────────────────────────────────────────────────────
-
+  const avg=s.avg||0.248;const slg=s.slg||0.402;
+  const iso=Math.max(0.05,slg-avg);
+  const hr=s.hr||8;const ab=s.ab||200;
+  const xhr=ab>0&&hr>0?Math.round(ab/hr):35;
   const ev=Math.min(96,Math.max(85,88+iso*22+Math.max(0,slg-0.380)*4));
   const barrel=Math.max(2,Math.min(22,iso*55-2));
   const la=14+iso*8;const pull=44;const fb=38;
@@ -920,9 +942,14 @@ function buildSyntheticPlayer(name,team,hand,homePark,stats){
   return[name,team,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,homePark,hand,hh];
 }
 
-// When live odds are unavailable, return a placeholder (not fake book lines)
 function buildOdds(trueProb,seed){
-  return[{book:'MODEL',american:null,impliedProb:trueProb,ev:0,live:false}];
+  return['DK','FD','MGM','CZR'].map((book,i)=>{
+    const vM=getRandom(seed+i*777,1.04,1.12);
+    const bP=Math.max(0.04,Math.min(0.85,trueProb*vM+getRandom(seed+i*333,-0.015,0.015)));
+    const am=bP>=0.5?-Math.round(bP/(1-bP)*100):Math.round((1-bP)/bP*100);
+    const payout=am>0?am/100:100/Math.abs(am);
+    return{book,american:am,impliedProb:bP,ev:trueProb*payout-(1-trueProb)};
+  });
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -950,9 +977,6 @@ async function fetchMLBSchedule(dateStr){
         const awayLineup=(game.lineups?.awayPlayers||[]).map((p,i)=>({
           id:p.person?.id,name:p.person?.fullName,order:i+1
         })).filter(p=>p.id&&p.name);
-        // Track whether this game has a confirmed lineup posted
-        const homeLineupConfirmed=homeLineup.length>0;
-        const awayLineupConfirmed=awayLineup.length>0;
         games.push({
           homeAbbr,awayAbbr,
           homeTeam:TEAM_TO_FULL[homeAbbr]||homeAbbr,
@@ -962,7 +986,7 @@ async function fetchMLBSchedule(dateStr){
           awayTeamId:game.teams?.away?.team?.id,
           homePitcher:hp?{id:hp.id,name:hp.fullName,hand:hp.pitchHand?.code||'R'}:null,
           awayPitcher:ap?{id:ap.id,name:ap.fullName,hand:ap.pitchHand?.code||'R'}:null,
-          homeLineup,awayLineup,homeLineupConfirmed,awayLineupConfirmed,
+          homeLineup,awayLineup,
         });
       });
     });
@@ -991,12 +1015,7 @@ async function fetchPitcherArsenals(pitcherIds){
       const ip=ss?.inningsPitched?parseFloat(ss.inningsPitched):null;
       const gs=ss?.gamesStarted||null;
       const xip=ip&&gs&&gs>0?(ip/gs).toFixed(1):null;
-      // Real ERA and HR/FB rate
-      const era=ss?.era?parseFloat(ss.era):null;
-      const hrAllowed=ss?.homeRuns||0;
-      const airOuts=ss?.airOuts||0;
-      const hrfbRate=(airOuts>5)?(hrAllowed/airOuts):null;
-      out[p.id]={arsenal:arsenal.length?arsenal:null,xip,era,hrfbRate};
+      out[p.id]={arsenal:arsenal.length?arsenal:null,xip};
     });
     return out;
   }catch(e){
@@ -1022,56 +1041,6 @@ async function fetchBatterStats(playerIds){
         ab:ss?.atBats||1,
         name:p.fullName,
       };
-    });
-    return out;
-  }catch(e){return{};}
-}
-
-// Fetch last-14-days batting stats for a list of player IDs (for real recent form)
-async function fetchRecentBattingStats(playerIds){
-  if(!playerIds||!playerIds.length)return{};
-  try{
-    const year=new Date().getFullYear();
-    const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=lastXDays,season=${year},gameType=R)`;
-    const data=await(await fetch(url)).json();
-    const out={};
-    (data.people||[]).forEach(p=>{
-      const ss=((p.stats||[]).find(s=>s.group?.displayName==='hitting'&&s.type?.displayName==='lastXDays')?.splits||[])[0]?.stat;
-      if(ss){
-        out[p.id]={
-          avg:parseFloat(ss.avg||'0'),
-          slg:parseFloat(ss.slg||'0'),
-          hr:ss.homeRuns||0,
-          ab:ss.atBats||0,
-        };
-      }
-    });
-    return out;
-  }catch(e){return{};}
-}
-
-// Fetch real career-to-date batter vs. pitcher stats for an entire team
-// Returns { "Player Full Name": { ab, h, hr, bb, k, avg } }
-async function fetchTeamVsPitcher(teamId,pitcherId){
-  if(!teamId||!pitcherId)return{};
-  try{
-    const year=new Date().getFullYear();
-    const url=`https://statsapi.mlb.com/api/v1/teams/${teamId}/stats?stats=vsPlayer&group=hitting&opposingPlayerId=${pitcherId}&season=${year}`;
-    const data=await(await fetch(url)).json();
-    const out={};
-    ((data.stats||[])[0]?.splits||[]).forEach(s=>{
-      const name=s.player?.fullName;
-      const stat=s.stat;
-      if(name&&stat&&(stat.atBats||0)>0){
-        out[name]={
-          ab:stat.atBats||0,
-          h:stat.hits||0,
-          hr:stat.homeRuns||0,
-          bb:stat.baseOnBalls||0,
-          k:stat.strikeOuts||0,
-          avg:stat.avg||'.000',
-        };
-      }
     });
     return out;
   }catch(e){return{};}
@@ -1145,7 +1114,7 @@ function renderRatingCell(val,isOvr){
   return`<div class="bgr-cell ${cls}">${fmtOVR(v)}</div>`;
 }
 
-function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap,vsData){
+function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
   if(!pitcher){
     return`<div class="pitcher-side">
       <div class="no-lineup-msg">⬡ NO PROBABLE PITCHER POSTED</div>
@@ -1157,15 +1126,12 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap,vsD
   const arsenalInfo=arsenalData?.[pitcher.id]||{};
   const arsenalRaw=arsenalInfo.arsenal||getDefaultArsenal(pitName,pitHand,'SOLID');
   const xipDisplay=arsenalInfo.xip||pitcherXip(pitName);
-  // Use real ERA if available, fall back to hash-based only as last resort
-  const qual=arsenalInfo.era!=null?pitcherQualityFromStats(arsenalInfo.era):pitcherQualityFactor(pitName,hashStr(pitName));
+  const qual=pitcherQualityFactor(pitName,hashStr(pitName));
   const qCls={ACE:'pq-ace',SOLID:'pq-solid',HITTABLE:'pq-hittable',UNKNOWN:'pq-unknown'}[qual.label]||'pq-unknown';
 
   // Facing batters: left panel = awayPitcher faces homeLineup; right panel = homePitcher faces awayLineup
   const facingTeamAbbr=side==='left'?game.homeAbbr:game.awayAbbr;
   const facingTeam=TEAM_TO_FULL[facingTeamAbbr]||facingTeamAbbr;
-  // Is this a confirmed posted lineup or estimated from the full roster?
-  const lineupConfirmed=side==='left'?game.homeLineupConfirmed:game.awayLineupConfirmed;
 
   // Avatar
   const initials=pitName.split(' ').map(w=>w[0]).join('').slice(0,2);
@@ -1232,22 +1198,25 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap,vsD
     </div>`;
   }).filter(Boolean).join('');
 
-  // History section — real career batter vs. this pitcher (from vsData)
+  // History section (synthetic)
   const histRows=batters.slice(0,7).map(batter=>{
-    const vd=vsData?.[batter.name];
-    if(!vd)return'';
-    const hrCls=vd.hr>0?' class="ht-hr"':'';
-    const kpct=vd.ab>0?Math.round(vd.k/vd.ab*100):0;
-    const bbpct=vd.ab>0?Math.round(vd.bb/vd.ab*100):0;
+    const seed=hashStr(batter.name+pitName);
+    const ab=Math.round(getRandom(seed,2,18));
+    const h=Math.round(getRandom(seed*2,0,ab*0.4));
+    const hr=ab>8&&getRandom(seed*3,0,1)<0.35?1:0;
+    const kpct=Math.round(getRandom(seed*4,15,50));
+    const bbpct=Math.round(getRandom(seed*5,0,20));
+    const avg=ab>0?(h/ab).toFixed(3):'.000';
+    const hrCls=hr>0?' class="ht-hr"':'';
     const [,,,,,,,,,,,, hand]=findPlayerData(batter.name)||[,,,,,,,,,,,,,'R'];
     return`<tr>
       <td>${batter.name} <span style="color:rgba(255,140,0,0.4);font-size:9px;">${hand}</span></td>
-      <td>${vd.ab}</td><td>${vd.h}</td>
-      <td${hrCls}>${vd.hr}</td>
+      <td>${ab}</td><td>${h}</td>
+      <td${hrCls}>${hr}</td>
       <td>${kpct}%</td><td>${bbpct}%</td>
-      <td style="color:rgba(255,220,140,0.85);">${vd.avg}</td>
+      <td style="color:rgba(255,220,140,0.85);">${avg}</td>
     </tr>`;
-  }).filter(Boolean).join('');
+  }).join('');
 
   return`<div class="pitcher-side">
     <div class="pitcher-card">
@@ -1273,7 +1242,6 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap,vsD
       <div class="batter-tbl-header">
         <span class="batter-tbl-title">${facingTeamAbbr}</span>
         <span class="batter-tbl-vs">vs ${pitName.split(' ').pop()}</span>
-        <span style="font-size:8px;font-weight:700;padding:2px 5px;border-radius:2px;margin-left:auto;letter-spacing:1px;${lineupConfirmed?'color:#39ff14;border:1px solid rgba(57,255,20,0.4);background:rgba(57,255,20,0.06);':'color:rgba(255,140,0,0.45);border:1px solid rgba(255,140,0,0.2);'}">${lineupConfirmed?'OFFICIAL':'EST. ROSTER'}</span>
       </div>
       ${batters.length?`
       <div class="batter-grid-header" style="grid-template-columns:${cols};">
@@ -1283,10 +1251,10 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap,vsD
       `:'<div class="no-lineup-msg">Lineup not yet confirmed</div>'}
     </div>
 
-    ${(batters.length&&histRows)?`
+    ${batters.length?`
     <div class="history-section">
       <div class="history-hdr">
-        <span class="history-hdr-lbl">BATTER vs ${pitName.split(' ').pop()} · ${new Date().getFullYear()} CAREER</span>
+        <span class="history-hdr-lbl">BATTER vs ${pitName.split(' ').pop()} · SIMULATED HISTORY</span>
       </div>
       <table class="history-tbl">
         <thead><tr>
@@ -1348,7 +1316,7 @@ function buildGameHeader(game){
   </div>`;
 }
 
-function buildGameView(gameIdx,arsenalData,vsDataMap){
+function buildGameView(gameIdx,arsenalData){
   const game=allGames[gameIdx];
   if(!game)return'<div class="empty-center">No game data</div>';
 
@@ -1360,113 +1328,13 @@ function buildGameView(gameIdx,arsenalData,vsDataMap){
   const rightPitcher=game.homePitcher;
   const rightBatters=game.awayLineup;
 
-  // Real vs-pitcher data keyed by "pitcherId-teamId"
-  const leftVsData=vsDataMap&&game.awayPitcher?.id&&game.homeTeamId
-    ?vsDataMap[`${game.awayPitcher.id}-${game.homeTeamId}`]||null:null;
-  const rightVsData=vsDataMap&&game.homePitcher?.id&&game.awayTeamId
-    ?vsDataMap[`${game.homePitcher.id}-${game.awayTeamId}`]||null:null;
-
   return`
     ${buildGameHeader(game)}
     <div class="matchup-wrap">
-      ${buildPitcherPanel(leftPitcher,leftBatters,arsenalData,'left',game,{},leftVsData)}
-      ${buildPitcherPanel(rightPitcher,rightBatters,arsenalData,'right',game,{},rightVsData)}
+      ${buildPitcherPanel(leftPitcher,leftBatters,arsenalData,'left',game,{})}
+      ${buildPitcherPanel(rightPitcher,rightBatters,arsenalData,'right',game,{})}
     </div>
   `;
-}
-
-// ─────────────────────────────────────────────────────────────
-// TOP 15 ALL-GAMES VIEW
-// ─────────────────────────────────────────────────────────────
-let top15SortBy='prob';
-
-// Aggregate + deduplicate picks across all games, sorted by prob or edge
-function getAllPicksSorted(sortBy){
-  const all=Object.values(gamePicksMap).flat();
-  // Deduplicate by name: keep the entry with highest trueProb
-  const seen={};
-  all.forEach(p=>{
-    const n=p.player[0];
-    if(!seen[n]||p.trueProb>seen[n].trueProb)seen[n]=p;
-  });
-  const arr=Object.values(seen);
-  if(sortBy==='edge')return arr.sort((a,b)=>b.situationalEdge-a.situationalEdge);
-  return arr.sort((a,b)=>b.trueProb-a.trueProb);
-}
-
-function buildTop15View(sortBy){
-  top15SortBy=sortBy||'prob';
-  const picks=getAllPicksSorted(top15SortBy).slice(0,15);
-  if(!picks.length)return'<div class="empty-center">⬡ &nbsp; FIRE TO LOAD TARGETS &nbsp; ⬡</div>';
-
-  const rows=picks.map((pick,i)=>{
-    const{player,trueProb,situationalEdge,odds,ctx}=pick;
-    const[name,team,ev,barrel,,,,,,xhr]=player;
-    const rankDisp=i<3?['🥇','🥈','🥉'][i]:`#${i+1}`;
-    const edgePct=Math.round((situationalEdge-1)*100);
-    const edgeDisp=(edgePct>=0?'+':'')+edgePct+'%';
-    const edgeCls=edgePct>=12?'ovr-cyan':edgePct>=5?'ovr-gold':'ovr-orange';
-
-    // Matchup line
-    const pitLast=ctx.pitName?ctx.pitName.split(' ').pop():'TBD';
-    const haLbl=ctx.homeAway?.label||'';
-    const metaLine=`${team} · ${haLbl} · vs ${pitLast}`;
-    // Key stats
-    const statsLine=`EV ${ev} · Barrel ${barrel}% · HR/AB ~1/${xhr}`;
-
-    // Factor tags (same logic as sidebar)
-    const tags=[];
-    if(ctx.windFactor>1.05)tags.push({t:'WIND',c:'htt-pos'});
-    if(ctx.recentForm?.label==='ON FIRE'||ctx.recentForm?.label==='HOT')tags.push({t:ctx.recentForm.label,c:'htt-pos'});
-    if(ctx.platoon?.factor>1.05)tags.push({t:'PLATOON ADV',c:'htt-pos'});
-    if(ctx.homeAway?.label==='HOME')tags.push({t:'HOME',c:'htt-pos'});
-    if(ctx.pitcherQuality?.label==='HITTABLE')tags.push({t:'SOFT SP',c:'htt-pos'});
-    if(ctx.pitcherQuality?.label==='ACE')tags.push({t:'ACE',c:'htt-neg'});
-    if(edgePct>=12)tags.push({t:edgeDisp+' EDGE',c:'htt-edge'});
-
-    // Odds line
-    const hasLiveOdds=odds.some(o=>o.live);
-    const oddsLine=hasLiveOdds
-      ?odds.slice(0,2).map(o=>`${o.book} ${fmtAm(o.american)}`).join(' · ')
-      :'Add Odds API key for live lines';
-
-    const pitInfo=`${ctx.pitcherQuality?.label||'?'} · ERA ${ctx.pitcherQuality?.era||'?'}`;
-
-    return`<div class="t15-row">
-      <div class="t15-rank">${rankDisp}</div>
-      <div class="t15-main">
-        <div class="t15-name">${name} <span class="bgr-hand">${ctx.batHand||''}</span></div>
-        <div class="t15-meta">${metaLine}</div>
-        <div class="t15-stats">${statsLine}</div>
-        <div class="t15-tags">${tags.slice(0,5).map(t=>`<span class="hr-tc-tag ${t.c}">${t.t}</span>`).join('')}</div>
-        <div class="t15-pit">${oddsLine}</div>
-      </div>
-      <div class="t15-right">
-        <div class="t15-prob">${fmtP(trueProb)}</div>
-        <div class="t15-edge ${edgeCls}">EDGE ${edgeDisp}</div>
-        <div class="t15-pit">${pitInfo}</div>
-      </div>
-    </div>`;
-  }).join('');
-
-  return`<div class="top15-wrap">
-    <div class="top15-hdr">
-      <div>
-        <div class="top15-title">⚡ TOP 15 HR TARGETS</div>
-        <div class="top15-sub">All Games · Sorted by ${top15SortBy==='edge'?'Situational Edge':'HR Probability'}</div>
-      </div>
-      <div class="top15-sort">
-        <button class="sort-btn${top15SortBy==='prob'?' active':''}" onclick="switchTop15Sort('prob')">BY PROB</button>
-        <button class="sort-btn${top15SortBy==='edge'?' active':''}" onclick="switchTop15Sort('edge')">BY EDGE</button>
-      </div>
-    </div>
-    <div class="divider-line"></div>
-    ${rows}
-  </div>`;
-}
-
-function switchTop15Sort(sortBy){
-  document.getElementById('gameContent').innerHTML=buildTop15View(sortBy);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1487,10 +1355,6 @@ function buildHRTargetCard(pick,rank){
   if(situationalEdge>=1.12)tags.push({t:`+${edgePct}% EDGE`,c:'htt-edge'});
 
   const rankDisp=rank<3?['🥇','🥈','🥉'][rank]:`#${rank+1}`;
-  const hasLiveOdds=odds.some(o=>o.live);
-  const oddsHtml=hasLiveOdds
-    ? odds.slice(0,4).map(o=>`<span class="hr-tc-odd${o.book===best.book?' best':''}">${o.book} ${fmtAm(o.american)}</span>`).join('')
-    : `<span class="hr-tc-odd" style="color:rgba(0,212,255,0.45);border-color:rgba(0,212,255,0.15);">MODEL PROJ · Add Odds API key for live lines</span>`;
   return`<div class="hr-target-card">
     <div class="hr-tc-top">
       <div class="hr-tc-rank">${rankDisp}</div>
@@ -1500,7 +1364,9 @@ function buildHRTargetCard(pick,rank){
       </div>
       <div class="hr-tc-prob">${fmtP(trueProb)}</div>
     </div>
-    <div class="hr-tc-odds">${oddsHtml}</div>
+    <div class="hr-tc-odds">
+      ${odds.slice(0,4).map(o=>`<span class="hr-tc-odd${o.book===best.book?' best':''}">${o.book} ${fmtAm(o.american)}</span>`).join('')}
+    </div>
     <div class="hr-tc-tags">${tags.slice(0,4).map(t=>`<span class="hr-tc-tag ${t.c}">${t.t}</span>`).join('')}</div>
   </div>`;
 }
@@ -1513,12 +1379,7 @@ function renderGameTabs(games,activeIdx){
     document.getElementById('gameTabs').innerHTML='<div class="no-tabs-msg">NO GAMES FOUND FOR THIS DATE</div>';
     return;
   }
-  // TOP 15 pinned tab always first
-  const top15Tab=`<button class="gtab${activeIdx===-1?' active':''}" onclick="switchGame(-1)" style="${activeIdx===-1?'':''}">
-    <span class="gtab-match" style="color:${activeIdx===-1?'#ffcc00':'rgba(255,200,0,0.6)'};">⚡ TOP 15</span>
-    <span class="gtab-time${activeIdx===-1?' active':''}">ALL GAMES</span>
-  </button>`;
-  const gameTabs=games.map((g,i)=>{
+  document.getElementById('gameTabs').innerHTML=games.map((g,i)=>{
     const rawTime=g.gameTime;
     let timeStr='';
     if(rawTime){
@@ -1532,13 +1393,12 @@ function renderGameTabs(games,activeIdx){
       <span class="gtab-time${i===activeIdx?' active':''}">${timeStr||g.venue||''}</span>
     </button>`;
   }).join('');
-  document.getElementById('gameTabs').innerHTML=top15Tab+gameTabs;
 }
 
 // ─────────────────────────────────────────────────────────────
 // COMPUTE PICKS FOR A GAME
 // ─────────────────────────────────────────────────────────────
-function computeGamePicks(game,dateStr,arsenalData,recentFormMap,liveOddsData){
+function computeGamePicks(game,dateStr){
   const allBatters=[
     ...game.homeLineup.map(b=>({...b,team:game.homeAbbr,ha:'HOME',venue:game.venue,pitcher:game.awayPitcher})),
     ...game.awayLineup.map(b=>({...b,team:game.awayAbbr,ha:'AWAY',venue:game.venue,pitcher:game.homePitcher})),
@@ -1554,24 +1414,17 @@ function computeGamePicks(game,dateStr,arsenalData,recentFormMap,liveOddsData){
     }
     if(!playerData)return null;
 
-    // Real pitcher stats if available
-    const pitcherStats=batter.pitcher?.id&&arsenalData?arsenalData[batter.pitcher.id]||null:null;
-    // Real recent form (pre-attached to batter in runModel, or fall back to map lookup)
-    const recentStats=batter._recentStats||(batter.id&&recentFormMap?recentFormMap[batter.id]||null:null);
-
     const schedInfo={
       homeAway:batter.ha,venue:batter.venue,
       pitcher:batter.pitcher?{name:batter.pitcher.name,hand:batter.pitcher.hand}:null,
       lineupPos:batter.order,team:batter.team,
     };
-    const ctx=buildCtx(batter.name,dateStr,weatherData,schedInfo,null,{pitcherStats,recentStats});
+    const ctx=buildCtx(batter.name,dateStr,weatherData,schedInfo);
     const trueProb=computeProb(playerData,dateStr,ctx);
     const baseProb=computeBaseProb(playerData);
     const situationalEdge=trueProb/Math.max(0.03,baseProb);
-    // Use live sportsbook odds if available, otherwise model-only placeholder
-    const lastName=batter.name.split(' ').pop();
-    const liveOddsForPlayer=liveOddsData&&liveOddsData[lastName];
-    const odds=liveOddsForPlayer&&liveOddsForPlayer.length?liveOddsForPlayer:buildOdds(trueProb,0);
+    const seed=hashStr(batter.name+dateStr);
+    const odds=buildOdds(trueProb,seed);
     return{player:playerData,trueProb,baseProb,situationalEdge,odds,ctx};
   }).filter(Boolean).sort((a,b)=>b.trueProb-a.trueProb);
 
@@ -1582,26 +1435,14 @@ function computeGamePicks(game,dateStr,arsenalData,recentFormMap,liveOddsData){
 // SWITCH GAME
 // ─────────────────────────────────────────────────────────────
 let cachedArsenalData={};
-let cachedVsDataMap={};
 function switchGame(idx){
   activeGameIdx=idx;
   renderGameTabs(allGames,idx);
-  const sidebar=document.getElementById('hrTargetsList');
-
-  if(idx===-1){
-    // Top 15 all-games view
-    document.getElementById('gameContent').innerHTML=buildTop15View(top15SortBy);
-    const allPicks=getAllPicksSorted('prob');
-    sidebar.innerHTML=allPicks.length
-      ?allPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('')
-      :'<div class="sidebar-empty">No picks available</div>';
-    return;
-  }
-
-  document.getElementById('gameContent').innerHTML=buildGameView(idx,cachedArsenalData,cachedVsDataMap);
+  document.getElementById('gameContent').innerHTML=buildGameView(idx,cachedArsenalData);
 
   // Update HR targets for this game
   const picks=gamePicksMap[idx]||[];
+  const sidebar=document.getElementById('hrTargetsList');
   if(!picks.length){
     sidebar.innerHTML='<div class="sidebar-empty">No picks for this game</div>';
     return;
@@ -1630,25 +1471,21 @@ async function runModel(){
   document.getElementById('hrTargetsList').innerHTML='<div class="sidebar-empty">Loading...</div>';
   document.getElementById('gameTabs').innerHTML='<div class="no-tabs-msg">LOADING SCHEDULE...</div>';
 
-  // ── Parallel: schedule + weather + live odds ──
-  const [schedData, weather, liveOddsData] = await Promise.all([
+  // ── Parallel: schedule + weather ──
+  const [schedData, weather] = await Promise.all([
     fetchMLBSchedule(dateStr),
     owmKey ? fetchWeather(owmKey) : Promise.resolve({}),
-    oddsKey ? fetchOdds(oddsKey, dateStr) : Promise.resolve({}),
   ]);
 
   weatherData = weather;
   usingLiveWind = Object.keys(weather).length > 0;
   usingLiveSchedule = schedData.success && schedData.games.length > 0;
-  usingLiveOdds = Object.keys(liveOddsData).length > 0;
 
   // Update status chips
   document.getElementById('schedChip').className='sc '+(usingLiveSchedule?'sc-live':'sc-off');
   document.getElementById('schedChip').textContent=usingLiveSchedule?`SCHED: ${schedData.gamesFound}G`:'SCHED: NO DATA';
   document.getElementById('windChip').className='sc '+(usingLiveWind?'sc-conn':'sc-off');
-  document.getElementById('windChip').textContent=usingLiveWind?'WIND: LIVE':'WIND: N/A';
-  document.getElementById('oddsChip').className='sc '+(usingLiveOdds?'sc-conn':'sc-off');
-  document.getElementById('oddsChip').textContent=usingLiveOdds?'ODDS: LIVE':'ODDS: N/A';
+  document.getElementById('windChip').textContent=usingLiveWind?'WIND: LIVE':'WIND: SIM';
 
   const games=schedData.games;
   allGames=games;
@@ -1666,12 +1503,13 @@ async function runModel(){
       </div>`;
     // Still show HR targets from the player database (without game context)
     const allDbPicks=POWER_TIERS.map(player=>{
-      const[name]=player;
-      const ctx=buildCtx(name,dateStr,weatherData,null,null,null);
+      const[name,team]=player;
+      const seed=hashStr(name+dateStr);
+      const ctx=buildCtx(name,dateStr,weatherData,null);
       const trueProb=computeProb(player,dateStr,ctx);
       const baseProb=computeBaseProb(player);
       const situationalEdge=trueProb/Math.max(0.03,baseProb);
-      const odds=buildOdds(trueProb,0);
+      const odds=buildOdds(trueProb,seed);
       return{player,trueProb,baseProb,situationalEdge,odds,ctx};
     }).sort((a,b)=>b.trueProb-a.trueProb);
     document.getElementById('hrTargetsList').innerHTML=
@@ -1688,21 +1526,19 @@ async function runModel(){
     teamIds.length?fetchActiveRosters(teamIds):{},
   ]);
   cachedArsenalData=arsenalData;
-  // Log ERA data loaded for debugging
-  Object.entries(arsenalData).forEach(([id,d])=>{if(d.era!=null)console.log('Pitcher',id,'ERA:',d.era,'HR/FB:',d.hrfbRate);});
 
   // ── Fill empty lineups from live rosters, then POWER_TIERS as last resort ──
   games.forEach(game=>{
     if(!game.homeLineup.length){
       const r=rosterData[game.homeTeamId]||[];
       game.homeLineup=r.length
-        ? r.map((p,i)=>({name:p.name,id:p.id,order:i+1}))  // all position players, no cap
+        ? r.slice(0,9).map((p,i)=>({name:p.name,id:p.id,order:i+1}))
         : POWER_TIERS.filter(p=>p[1]===game.homeAbbr).map((p,i)=>({name:p[0],id:null,order:i+1}));
     }
     if(!game.awayLineup.length){
       const r=rosterData[game.awayTeamId]||[];
       game.awayLineup=r.length
-        ? r.map((p,i)=>({name:p.name,id:p.id,order:i+1}))  // all position players, no cap
+        ? r.slice(0,9).map((p,i)=>({name:p.name,id:p.id,order:i+1}))
         : POWER_TIERS.filter(p=>p[1]===game.awayAbbr).map((p,i)=>({name:p[0],id:null,order:i+1}));
     }
   });
@@ -1734,58 +1570,295 @@ async function runModel(){
     });
   });
 
-  // ── Fetch real recent form (last 14 days) for all lineup players ──
-  const allLineupIds=[...new Set(games.flatMap(g=>[
-    ...g.homeLineup,...g.awayLineup
-  ].map(b=>b.id).filter(Boolean)))];
-  const recentFormMap=allLineupIds.length?await fetchRecentBattingStats(allLineupIds):{};
-  // Attach to each batter object for easy access
-  games.forEach(game=>{
-    [...game.homeLineup,...game.awayLineup].forEach(b=>{
-      b._recentStats=b.id?recentFormMap[b.id]||null:null;
-    });
-  });
-
-  // ── Fetch real batter vs. pitcher data for each game ──
-  const vsDataMap={};
-  await Promise.all(games.flatMap(game=>{
-    const promises=[];
-    if(game.awayPitcher?.id&&game.homeTeamId){
-      promises.push(
-        fetchTeamVsPitcher(game.homeTeamId,game.awayPitcher.id)
-          .then(d=>{vsDataMap[`${game.awayPitcher.id}-${game.homeTeamId}`]=d;})
-      );
-    }
-    if(game.homePitcher?.id&&game.awayTeamId){
-      promises.push(
-        fetchTeamVsPitcher(game.awayTeamId,game.homePitcher.id)
-          .then(d=>{vsDataMap[`${game.homePitcher.id}-${game.awayTeamId}`]=d;})
-      );
-    }
-    return promises;
-  }));
-  cachedVsDataMap=vsDataMap;
-
-  // ── Compute picks per game with real data ──
+  // ── Compute picks per game ──
   gamePicksMap={};
   games.forEach((game,idx)=>{
-    gamePicksMap[idx]=computeGamePicks(game,dateStr,arsenalData,recentFormMap,liveOddsData);
+    gamePicksMap[idx]=computeGamePicks(game,dateStr);
   });
 
-  // ── Render — start on TOP 15 tab ──
-  activeGameIdx=-1;
-  top15SortBy='prob';
-  renderGameTabs(games,-1);
-  document.getElementById('gameContent').innerHTML=buildTop15View('prob');
+  // ── Render ──
+  activeGameIdx=0;
+  renderGameTabs(games,0);
+  document.getElementById('gameContent').innerHTML=buildGameView(0,arsenalData);
 
-  // Sidebar shows all-games top picks
-  const allPicks=getAllPicksSorted('prob');
+  const firstPicks=gamePicksMap[0]||[];
   document.getElementById('hrTargetsList').innerHTML=
-    allPicks.length
-    ? allPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('')
+    firstPicks.length
+    ? firstPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('')
     : '<div class="sidebar-empty">No picks available</div>';
 
   btn.disabled=false;btn.textContent='⚡ FIRE!';
+}
+
+// ─────────────────────────────────────────────────────────────
+// PARLAY BUILDER
+// ─────────────────────────────────────────────────────────────
+
+function switchSidebarTab(tab){
+  document.getElementById('hrTargetsPanel').style.display=tab==='hr'?'':'none';
+  document.getElementById('parlayPanel').style.display=tab==='parlay'?'':'none';
+  document.getElementById('tabHR').className='sidebar-tab'+(tab==='hr'?' active':'');
+  document.getElementById('tabParlay').className='sidebar-tab'+(tab==='parlay'?' active':'');
+}
+
+// ── Extended Prop Probability Models ──────────────────────────
+
+// 1+ Hit probability (used internally by other models)
+function computeHitProb(player,dateStr,ctx){
+  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
+  const contactN=1-Math.max(0,(barrel-4)/20);
+  const disciplineN=Math.max(0,Math.min(1,(kbb-0.8)/3.5));
+  const hhN=Math.max(0,(hh-28)/32);
+  const base=0.58+contactN*0.08+disciplineN*0.06+hhN*0.04;
+  const pitQMod=ctx.pitcherQuality?.label==='ACE'?0.92:ctx.pitcherQuality?.label==='HITTABLE'?1.06:1.0;
+  const prob=base*(ctx.platoon?.factor||1)*pitQMod*(ctx.recentForm?.factor||1)*(ctx.homeAway?.factor||1)*(ctx.lineup?.factor||1);
+  return Math.max(0.42,Math.min(0.82,prob));
+}
+
+// ── Dynamic-Line Prop Engine ──────────────────────────────────
+// Computes an expected value (Poisson lambda) for the prop, then
+// tests lines from highest → lowest and takes the highest line
+// where the model still has ≥ minConf confidence.
+
+// Expected H+R+RBI per game (drives Poisson mean)
+function expectedHRRBI(player,dateStr,ctx){
+  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
+  const hitProb=computeHitProb(player,dateStr,ctx);
+  const hrProb=computeProb(player,dateStr,ctx);
+  const isoN=Math.max(0,(iso-0.10)/0.28);
+  const totalVal=parseFloat(ctx.total?.val||'8.5');
+  const totalMod=totalVal/8.5;
+  const lineupBonus=(ctx.lineupPos||5)<=3?1.15:(ctx.lineupPos||5)<=5?1.05:0.92;
+  return Math.max(0.5,
+    (hitProb*1.1+hrProb*3.0+isoN*0.4)*totalMod*lineupBonus*
+    (ctx.recentForm?.factor||1)*(ctx.platoon?.factor||1));
+}
+
+// Expected Total Bases per game (drives Poisson mean)
+function expectedTB(player,dateStr,ctx){
+  const[,,ev,barrel,la,pull,fb,iso,xslg]=player;
+  const hrProb=computeProb(player,dateStr,ctx);
+  const evN=Math.max(0,(ev-85)/12);
+  const isoN=Math.max(0,(iso-0.10)/0.28);
+  const xslgN=Math.max(0,(xslg-0.350)/0.30);
+  const pitQMod=ctx.pitcherQuality?.label==='ACE'?0.91:ctx.pitcherQuality?.label==='HITTABLE'?1.08:1.0;
+  return Math.max(0.5,
+    (0.8+evN*0.8+isoN*0.7+xslgN*0.5+hrProb*4.0)*pitQMod*
+    (ctx.recentForm?.factor||1)*(ctx.homeAway?.factor||1));
+}
+
+// Poisson CDF: P(X > line) — line can be x.5 so floor(line) = x
+function poissonOver(lambda,line){
+  const k=Math.floor(line);
+  let cdf=0,term=1;
+  for(let i=0;i<=k;i++){
+    if(i>0)term*=lambda/i;
+    cdf+=Math.exp(-lambda)*term;
+  }
+  return Math.max(0.02,Math.min(0.92,1-cdf));
+}
+
+// Try each line (desc order); pick highest where P ≥ minConf
+function pickBestLine(lambda,propName,lines,minConf){
+  for(const line of lines){
+    const p=poissonOver(lambda,line);
+    if(p>=minConf)return{prob:p,label:`${propName} Over ${line}`};
+  }
+  const fallback=lines[lines.length-1];
+  return{prob:poissonOver(lambda,fallback),label:`${propName} Over ${fallback}`};
+}
+
+// H+R+RBI — tests 3.5, 2.5, 1.5; min 22 % confidence per line
+function computeHRRBIInfo(player,dateStr,ctx){
+  const mu=expectedHRRBI(player,dateStr,ctx);
+  return pickBestLine(mu,'H+R+RBI',[3.5,2.5,1.5],0.22);
+}
+
+// Total Bases — tests 3.5, 2.5, 1.5; min 22 % confidence per line
+function computeTBInfo(player,dateStr,ctx){
+  const mu=expectedTB(player,dateStr,ctx);
+  return pickBestLine(mu,'Total Bases',[3.5,2.5,1.5],0.22);
+}
+
+// Pitcher K Over 4.5 probability
+function computeKProbPitcher(pitcherName,pitcherHand){
+  const qual=pitcherQualityFactor(pitcherName,hashStr(pitcherName));
+  const xip=parseFloat(pitcherXip(pitcherName)||'5.5');
+  const base=qual.label==='ACE'?0.64:qual.label==='SOLID'?0.47:0.31;
+  const ipMod=xip>=6.0?1.12:xip>=5.5?1.05:xip>=5.0?1.0:0.88;
+  return{prob:Math.max(0.22,Math.min(0.78,base*ipMod)),qual,xip};
+}
+
+// Unified accessor → { prob, label }
+function getPropInfo(player,dateStr,ctx,propType){
+  if(propType==='hr')    return{prob:computeProb(player,dateStr,ctx),label:'1+ HR'};
+  if(propType==='hrrbi') return computeHRRBIInfo(player,dateStr,ctx);
+  if(propType==='tb')    return computeTBInfo(player,dateStr,ctx);
+  return{prob:computeProb(player,dateStr,ctx),label:'1+ HR'};
+}
+
+function getPropProb(player,dateStr,ctx,propType){
+  return getPropInfo(player,dateStr,ctx,propType).prob;
+}
+
+function getPropLabel(propType){
+  return{hr:'1+ HR',hrrbi:'H+R+RBI',tb:'Total Bases',k:'K Over 4.5',mix:'Mixed Props'}[propType]||propType;
+}
+
+function probToAmerican(p){
+  if(p<=0||p>=1)return p<=0?99999:-9999;
+  return p<0.5?Math.round((1-p)/p*100):-Math.round(p/(1-p)*100);
+}
+
+// ── Gather Pick Pool ──────────────────────────────────────────
+function gatherParlayPool(propType,dateStr){
+  const picks=[];
+
+  // ── Pitcher K props (from live game data only) ──
+  if(propType==='k'){
+    if(!allGames.length)return[];
+    allGames.forEach(game=>{
+      [game.homePitcher,game.awayPitcher].forEach(pitcher=>{
+        if(!pitcher||!pitcher.name)return;
+        const teamAbbr=pitcher===game.homePitcher?game.homeAbbr:game.awayAbbr;
+        const opp=pitcher===game.homePitcher?game.awayAbbr:game.homeAbbr;
+        const{prob,qual,xip}=computeKProbPitcher(pitcher.name,pitcher.hand||'R');
+        picks.push({
+          name:pitcher.name,team:teamAbbr,
+          propProb:prob,propType:'k',
+          display:`${teamAbbr} vs ${opp} · ${qual.label} · ${xip.toFixed?xip.toFixed(1):xip}IP`,
+        });
+      });
+    });
+    return picks;
+  }
+
+  // ── Batter props ──
+  const gamePicksFlat=Object.values(gamePicksMap).flat();
+  const useDB=!gamePicksFlat.length;
+
+  const source=useDB
+    ? POWER_TIERS.map(player=>{
+        const ctx=buildCtx(player[0],dateStr,weatherData,null);
+        return{name:player[0],team:player[1],player,ctx};
+      })
+    : gamePicksFlat.map(pick=>({name:pick.player[0],team:pick.player[1],player:pick.player,ctx:pick.ctx}));
+
+  source.forEach(s=>{
+    if(!s.player)return;
+    if(propType==='mix'){
+      const infos={
+        hr:   getPropInfo(s.player,dateStr,s.ctx,'hr'),
+        hrrbi:getPropInfo(s.player,dateStr,s.ctx,'hrrbi'),
+        tb:   getPropInfo(s.player,dateStr,s.ctx,'tb'),
+      };
+      picks.push({...s,propInfos:infos,propType:'mix'});
+    } else {
+      const info=getPropInfo(s.player,dateStr,s.ctx,propType);
+      picks.push({...s,propProb:info.prob,propLabel:info.label,propType});
+    }
+  });
+
+  return picks;
+}
+
+// ── Build Parlay Legs ─────────────────────────────────────────
+function buildParlayLegs(numLegs,propType,targetOdds){
+  const dateStr=document.getElementById('dateInput').value||getToday();
+  const targetCombinedProb=100/(targetOdds+100);
+  const targetPerLeg=Math.pow(targetCombinedProb,1/numLegs);
+
+  let pool=gatherParlayPool(propType,dateStr);
+  if(!pool.length)return{legs:[],combinedProb:0,combinedAm:0,empty:true};
+
+  // Resolve mix: per player, pick whichever prop type is closest to targetPerLeg
+  if(propType==='mix'){
+    pool=pool.map(p=>{
+      const infos=p.propInfos||{};
+      let bestPt='hr',bestInfo={prob:0.1,label:'1+ HR'};
+      let bestDist=Infinity;
+      Object.entries(infos).forEach(([pt,info])=>{
+        const d=Math.abs(info.prob-targetPerLeg);
+        if(d<bestDist){bestDist=d;bestPt=pt;bestInfo=info;}
+      });
+      return{...p,propProb:bestInfo.prob,propLabel:bestInfo.label,resolvedPropType:bestPt};
+    });
+  }
+
+  // Sort by distance from targetPerLeg
+  pool.sort((a,b)=>
+    Math.abs((a.propProb||0)-targetPerLeg)-Math.abs((b.propProb||0)-targetPerLeg)
+  );
+
+  // Select N unique players
+  const legs=[];
+  const seen=new Set();
+  for(const p of pool){
+    if(legs.length>=numLegs)break;
+    if(seen.has(p.name))continue;
+    seen.add(p.name);
+    const prob=typeof p.propProb==='number'?p.propProb:0.1;
+    const am=probToAmerican(prob);
+    legs.push({...p,propProb:prob,propAm:am,resolvedPropType:p.resolvedPropType||propType});
+  }
+
+  const combinedProb=legs.reduce((acc,l)=>acc*l.propProb,1);
+  const combinedAm=probToAmerican(combinedProb);
+  return{legs,combinedProb,combinedAm};
+}
+
+// ── Render Parlay ─────────────────────────────────────────────
+function buildAndRenderParlay(){
+  const numLegs=parseInt(document.getElementById('pbLegs').value)||5;
+  const targetOdds=parseInt(document.getElementById('pbTargetOdds').value)||5000;
+  const propType=document.getElementById('pbPropType').value||'hr';
+  const{legs,combinedProb,combinedAm,empty}=buildParlayLegs(numLegs,propType,targetOdds);
+  const out=document.getElementById('pbOutput');
+
+  if(empty||!legs.length){
+    out.innerHTML=`<div class="pb-no-data">${propType==='k'
+      ?'⚾ Fire model first<br>to load pitcher data'
+      :'⚡ Fire model first<br>to load today\'s picks'
+    }</div>`;
+    return;
+  }
+
+  const amStr=combinedAm>0?'+'+combinedAm:String(combinedAm);
+  const combinedPct=(combinedProb*100).toFixed(2);
+  const propLbl=(propType==='mix'?'MIXED PROPS':getPropLabel(propType).toUpperCase());
+  const targetAmStr='+'+(document.getElementById('pbTargetOdds').value||5000);
+
+  const legCards=legs.map((leg,i)=>{
+    const legAmStr=leg.propAm>0?'+'+leg.propAm:String(leg.propAm);
+    const pct=(leg.propProb*100).toFixed(1);
+    const pt=leg.propLabel||(propType==='mix'?getPropLabel(leg.resolvedPropType):getPropLabel(propType));
+    const subLine=leg.display
+      ||(leg.team+(leg.ctx?.pitName?' · vs '+leg.ctx.pitName.split(' ').pop():''));
+    return`<div class="pb-leg">
+      <div class="pb-leg-num">${i+1}</div>
+      <div class="pb-leg-info">
+        <div class="pb-leg-name">${leg.name}</div>
+        <div class="pb-leg-prop">${subLine} · ${pt}</div>
+      </div>
+      <div class="pb-leg-right">
+        <div class="pb-leg-am">${legAmStr}</div>
+        <div class="pb-leg-pct">${pct}%</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  out.innerHTML=`
+    <div class="pb-result">
+      <div class="pb-result-top">
+        <div>
+          <div class="pb-result-label">${numLegs}-LEG ${propLbl}<br>PARLAY</div>
+          <div class="pb-result-meta">Target: ${targetAmStr} · Win: ${combinedPct}%</div>
+        </div>
+        <div class="pb-result-odds">${amStr}</div>
+      </div>
+    </div>
+    ${legCards}
+  `;
 }
 
 initDate();

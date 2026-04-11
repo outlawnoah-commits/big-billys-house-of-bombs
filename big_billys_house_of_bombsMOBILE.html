@@ -29,17 +29,30 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
 
 /* ── HEADER ─────────────────────────────────────────── */
 .app-header{
-  background:linear-gradient(180deg,rgba(255,80,0,0.07),transparent);
-  border-bottom:1px solid rgba(255,140,0,0.35);
+  background:
+    linear-gradient(180deg,
+      rgba(185,118,52,0.22) 0%,
+      rgba(210,162,88,0.12) 45%,
+      rgba(155,92,38,0.05) 100%
+    ),
+    radial-gradient(ellipse 80% 60% at 50% 0%,rgba(220,175,95,0.10),transparent 70%);
+  border-bottom:1px solid rgba(195,148,72,0.28);
   padding:20px 16px 14px;position:relative;overflow:hidden;
+}
+.app-header::before{
+  /* subtle heat-shimmer dust texture overlay */
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 35% 40% at 20% 50%,rgba(210,170,90,0.06),transparent),
+    radial-gradient(ellipse 25% 30% at 75% 30%,rgba(190,130,60,0.06),transparent);
 }
 .app-header::after{
   content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,#00d4ff 30%,#ff8c00 50%,#00d4ff 70%,transparent);
-  box-shadow:0 0 10px #ff8c00;
+  background:linear-gradient(90deg,transparent,rgba(215,168,80,0.50) 25%,rgba(190,122,52,0.80) 50%,rgba(215,168,80,0.50) 75%,transparent);
+  box-shadow:0 0 8px rgba(195,140,58,0.40);
 }
 .badge-strip{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;}
-.badge-line{height:1px;flex:1;max-width:120px;background:linear-gradient(90deg,transparent,#00d4ff,transparent);}
+.badge-line{height:1px;flex:1;max-width:120px;background:linear-gradient(90deg,transparent,rgba(210,168,85,0.55),transparent);}
 .badge-star{color:#ff8c00;font-size:11px;letter-spacing:5px;}
 .app-title{font-family:'Rye',serif;font-size:clamp(22px,5vw,44px);color:#ffcc00;letter-spacing:3px;text-align:center;
   text-shadow:0 0 20px rgba(255,200,0,0.8),3px 3px 0 rgba(0,0,0,0.9);}
@@ -252,7 +265,38 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
 .history-tbl td:first-child{color:rgba(255,200,100,0.85);font-size:11px;}
 .ht-hr{color:#39ff14!important;text-shadow:0 0 5px rgba(57,255,20,0.5);}
 
-/* ── HR TARGETS SIDEBAR ─────────────────────────────── */
+/* ── xH / xR / xRBI projection cells ───────────────────────────────────── */
+.bgr-proj{
+  font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;
+  text-align:center;padding:2px 1px;border-radius:1px;
+  color:rgba(0,212,255,0.82);letter-spacing:.5px;
+}
+.bgr-proj-hdr{
+  text-align:center;font-size:8px;font-weight:700;
+  color:rgba(0,212,255,0.5);letter-spacing:1px;
+}
+/* Sidebar card projection strip */
+.hr-tc-proj{
+  display:flex;gap:0;margin-top:5px;
+  border-top:1px solid rgba(0,212,255,0.12);padding-top:5px;
+}
+.hr-tc-proj-stat{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;
+  border-right:1px solid rgba(0,212,255,0.08);
+}
+.hr-tc-proj-stat:last-child{border-right:none;}
+.hr-tc-proj-val{
+  font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;
+  color:#00d4ff;text-shadow:0 0 6px rgba(0,212,255,0.45);
+  line-height:1;
+}
+.hr-tc-proj-lbl{
+  font-size:8px;font-weight:700;color:rgba(0,212,255,0.45);
+  letter-spacing:1.5px;font-family:'Rajdhani',sans-serif;
+  text-transform:uppercase;margin-top:1px;
+}
+
+/* ── TOP HITTERS SIDEBAR ────────────────────────────── */
 .hr-target-card{
   border-bottom:1px solid rgba(255,140,0,0.1);padding:10px 12px;
   transition:background .15s;cursor:default;position:relative;
@@ -328,52 +372,25 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
 .sidebar-tab:hover{color:rgba(255,200,100,0.7);background:rgba(255,140,0,0.04);}
 .sidebar-tab.active{color:#ffcc00;border-bottom:2px solid #ff8c00;background:rgba(255,140,0,0.06);}
 
-/* ── PARLAY BUILDER ───────────────────────────────────── */
-.pb-controls{padding:12px 14px 14px;background:rgba(0,3,10,0.7);border-bottom:1px solid rgba(255,140,0,0.15);}
-.pb-row{display:flex;gap:8px;}
-.pb-grp{flex:1;display:flex;flex-direction:column;gap:4px;}
-.pb-lbl{font-size:8px;font-weight:700;color:#00d4ff;letter-spacing:2px;text-transform:uppercase;}
-.pb-select{
-  background:rgba(0,5,15,0.95);border:1px solid rgba(255,140,0,0.25);border-radius:2px;
-  color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:12px;
-  padding:6px 8px;outline:none;min-height:34px;cursor:pointer;width:100%;
-}
-.pb-select:focus{border-color:#ff8c00;}
-.pb-build-btn{
-  width:100%;margin-top:10px;
-  background:linear-gradient(135deg,#ff6a00,#ff9500,#ff6a00);
-  border:1px solid #ffcc00;border-radius:2px;color:#05070f;
-  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;
-  padding:10px;cursor:pointer;box-shadow:0 0 14px rgba(255,140,0,0.5);transition:all .15s;
-}
-.pb-build-btn:hover{background:linear-gradient(135deg,#ff8c00,#ffcc00,#ff8c00);box-shadow:0 0 22px rgba(255,180,0,0.7);transform:translateY(-1px);}
-.pb-result{
-  background:rgba(255,140,0,0.07);border-bottom:1px solid rgba(255,140,0,0.2);
-  padding:12px 14px;
-}
-.pb-result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
-.pb-result-label{font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;color:rgba(255,200,100,0.7);letter-spacing:1.5px;line-height:1.5;}
-.pb-result-odds{
-  font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;
-  color:#39ff14;text-shadow:0 0 16px rgba(57,255,20,0.7);white-space:nowrap;
-}
-.pb-result-meta{font-size:10px;color:rgba(0,212,255,0.5);letter-spacing:1px;margin-top:3px;}
-.pb-leg{
-  display:flex;align-items:center;gap:8px;padding:8px 14px;
-  border-bottom:1px solid rgba(255,140,0,0.06);transition:background .1s;
-}
-.pb-leg:hover{background:rgba(255,140,0,0.04);}
-.pb-leg-num{
-  font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;
-  color:rgba(255,140,0,0.45);width:14px;flex-shrink:0;text-align:center;
-}
-.pb-leg-info{flex:1;min-width:0;}
-.pb-leg-name{font-size:12px;font-weight:700;color:#ffe8c0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pb-leg-prop{font-size:9px;color:rgba(0,212,255,0.55);letter-spacing:.8px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pb-leg-right{text-align:right;flex-shrink:0;}
-.pb-leg-am{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:#ffcc00;}
-.pb-leg-pct{font-size:9px;color:rgba(0,212,255,0.45);letter-spacing:.5px;margin-top:1px;}
-.pb-no-data{padding:28px 14px;text-align:center;color:rgba(255,140,0,0.3);font-family:'Rye',serif;font-size:12px;line-height:1.8;}
+/* ── H+R+RBI OVER 1.5 RANK PANEL ────────────────────────── */
+.mhr-header{padding:8px 12px 6px;border-bottom:1px solid rgba(255,140,0,0.15);display:flex;justify-content:space-between;align-items:center;}
+.mhr-header-lbl{font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;color:#00d4ff;letter-spacing:2px;}
+.mhr-header-count{font-size:9px;color:rgba(255,200,100,0.4);letter-spacing:1px;}
+.mhr-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(255,140,0,0.07);transition:background .1s;}
+.mhr-row:hover{background:rgba(255,140,0,0.04);}
+.mhr-rank{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:rgba(255,140,0,0.4);width:18px;text-align:center;flex-shrink:0;}
+.mhr-rank.top{color:#ffcc00;text-shadow:0 0 8px rgba(255,204,0,0.5);}
+.mhr-info{flex:1;min-width:0;}
+.mhr-name{font-size:13px;font-weight:700;color:#ffe8c0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mhr-sub{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:.8px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mhr-right{text-align:right;flex-shrink:0;}
+.mhr-pct{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;}
+.mhr-pct.hot{color:#ff4500;text-shadow:0 0 8px rgba(255,69,0,0.6);}
+.mhr-pct.warm{color:#ff8c00;text-shadow:0 0 6px rgba(255,140,0,0.4);}
+.mhr-pct.cool{color:rgba(255,200,100,0.55);}
+.mhr-odds{font-size:9px;color:rgba(0,212,255,0.45);letter-spacing:.5px;margin-top:1px;}
+.mhr-bar-wrap{margin-top:3px;height:2px;background:rgba(255,140,0,0.1);border-radius:1px;overflow:hidden;}
+.mhr-bar{height:2px;border-radius:1px;background:linear-gradient(90deg,#ff4500,#ffcc00);}
 </style>
   <!-- ── App Icons / PWA ───────────────────────────────────── -->
   <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAI6UlEQVR4nO2dPW8dRRSGz3WIIyGhIApCEup0MQlWJGo6Gho6KxIIIaVPQ/gFJg3UlhACKfIPSMNfQLKMY9O5jMAhrrCCItmWFQozYb3eOzsfZ3bOOfM+XRTfvXtnn3333Jlzd2dUgYuXLr+q8b5gWo4PD2ZTv+ckbwiBAdE0ghd7A0gMfJSSm3WjkBikwCn3AteGIDNIhdOd7DMDIgNOctM6K6EhM+Am16mkswEigylISevohIbMYCpSXIsSGjKDqYl1LlhoyAxqEeNekNCQGdQm1MFRoSEzkEKIi16hITOQxpiTbCuFAEhgrtBIZyAVn5uDQkNmIJ15jqLkAKY4JzTSGWhhyNXZ2B9Y5/nPbyW/dv3xc8Y9+Z+VT68kv/bK5y8Y90QH3Z6PN2ruiARypNzYPaE7Ny4w7s3pNj/e+ztjC7z7ow3U0BncuXGBNnZP2La3sXtCX6+8yba9FnktdIvlBgdcUkPmdLruIqEZyJUaMvMBoZlIlRoy87JAhHKDCyd1qNiQmQ/n8Kz7j9b4/rOXxbY9NgNSUuYPvmlzpuP48GCGkqMQvhIEyVwOCF2QIakhc1kWWi03pqIrNWQuy8VLl18hoSfASQ2ZywOhJ4J7iRwMA6GBKSA0MAWEBqaA0MAUEBqYAkIDU0BoYIpmhS7ZmFSb7VW+X9Foo1mhgU0gNDAFhAamgNDAFBAamAJCA1NAaGAKCA1MAaGBKSA0MAWEBqZoUmjLfRyOVvs5mhQa2MXsDc99d+Zff2w/oYn8Y2D1Tv+zWjeayXkURC4//HhUdPvXb+0H/+2fT94tth9ffblYbNtj1Dph2BK6pqCSuH5rn57+Efa3D+4TrdN+UalrEesD1wkQJTSkDefBff//f/vdNPuhBa7yaFRoixI/3f+n2LavJ7ym3P68U2i709J1cExuzHIAU4wmdPeMsJjWQD6sJYdje/WE/vI8P++9a28Hv2kLoEaOw+fW9mr4UwmChA5ZdfLt0BCWT4CxL4QtEOvDGNurJ0FSj85Da11CrXnC/PJb4LwdEX3y4fsF92Q+3MJNxZjUQQsrWqUGtghJ6NFZjpWbL+jhehtLxUAuD9df0srN8S+HQQnd3RAeqwCmpBum67+Pz7IF93IMnR2QG5RgqCIIkZkooTlpLPYhOYhhrJwNFdmR1W0XUtM4IHrbxHwPi5W4C3v7aIzkXSC8blInDnLkHWKyfuhU0YeA/NPAObvFLe48qjX49+EUPgZrJ0etKdaphB1DjNAx1JK/NaRIGoNKofscrV1dorubOymv/eIjfQfNx0+/Jp7sj5aXFu89SxpDSagXOkdm0MOA1Kob/CEzM3c3d47Wri7V3o0c1AoNmQuhXGqVQkPmwiiWWqXQAMxDndAc6bx57TbX7thFaUqrEppT5hakzv6MCqVWIzR3Mi/vbWXvk2TYTlxlUqsROpeWZCY6+xlbuBo5VAjNOavRgswONqkVpbR4oTFFlwfbCaxEavFCc+DSqaV07tLS5xYtdEw6z7uktlQ/jpE9RgpSWqzQsaXG8t4WbV67PffgtJRSPrrj48YramyESy1W6BSW97Zei02EdO7Sl9aJbO1EF9k+ijnnMrCOidBWU1MJDcKxevUS9xSsEunc+ixH//OzyHx3c+eI5KW06YR2B7BfW7eEr1a2OB6mhe7TYkIPfWbL4yBKaM5yw/JB44BlfARO4YkSOheLl9DSWBszMUKjAakelhqXxAgNpsfiiW9GaGuXTpCGCKFjm5B88lpMnSnoj+nYOJ9BUNkhbmFljP7iQKvzy1z0x0/7LJE6oR1Dq15aD4IUojvvBCKi5OAi6jIJ0tpHhVM9obmm64Z+P2fpQHHiG59kwYX0dlQXugQQ2c+85XALVzdTJQcAqoW2kCiAF9VCO1Bi8KI5KKoKjXtuyCI7GAQssJhIaAAcEBqYQq3Qmus8UA61QjvwhbAMWgNDvdCAF+0BoWKlEA1I9dA29iqE9t3n2FpzTU0sjK0KobuM9UNrOwC1GRo7zc1d6oQeQuPAS8Ha2OFLITAFhAamgNDAFBAamAJCA1NAaGCKqkIv3nu2Q4+WRdygBDAg4DEVSGhgCggNTKF+pbDff2Bt5as0WttE56FCaNycsRy+Z69oDAsRzylM+bGs5gYaySQ3egn4QkhkoIa2dsmUgtagUCu01gEHZVErNABDiBAaCywySC7fhNTPREKEzgV1NC+ayznVQmseeFAGMUJzlh24k7+fofGxUG4QKVlYCQE/lA3H92NY7WMnSujFe892jmg5+Y6k2g/G1Aw9eCkKYelMJKjkiMXiA28koL1cE5XQIRR54A0gIhsPXhLRy9EHvR3Tob13o4/akmMemi+XNbESBCKFTpnCs3JAVCA0nYmECg2mweLVTKzQOQstFg9USSzUzg6xQhPFS42yI5ykk164zETChc4BKT0fy6uq4oXOSWlI7cdSqeEQLzQRSg9OrJYaDhVC54CUHsbqSb9wfHgwq70TISCl80ju0VCUzseHBzNVCZ06lYeUPkvwya5IZseMiEhiP4ePmF4P9HgkolDm48ODmbpuu1ggclssEJ2aXXtHYsCvxAujNJ2JFM9yQOpCKJS5i1qhiSA1O8plJuoIra3scEBqJhTL3HVXdUI7IHUmimXucyaVtU3f9Tlau3oqdeKvxpvjvxDQLnM3oc+VGdqlJkr7TWJzGEnlfql8ruTQWkt3QQkyglGZiQYSmshGShOhBDmHkRLDESw0kR2piVCCEJGZVHbMqyS85YU5qYnaS2tjqUzkL4ubEdrRVFobS2VHstBEhqUmspvWBlPZMTZpETSjYVFqIoNiGxaZKGwGLniKzqrURB2xifTJ3ZmetCoyUfh0ctScs2WpHWpS23gad4lZG4leRGlBaiKhqd1IGneJXehLWhVsRWrHGbmJphO8t9rZisSOlFXrrGXu1sR2nBOcKF/ygaX61gR25LRfZPdttCp1n0HJI2hV3j65vURsjUgQG+TA1RTH1uBvoUsP1IHTnWISIrGBj1IBOEmqQm5ANM1VvEqZAMHboEYZ+i+S8VGDGcn/ywAAAABJRU5ErkJggg==">
@@ -404,26 +421,28 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
     <button class="fire-btn" id="fireBtn" onclick="runModel()">⚡ FIRE!</button>
     <div class="status-chips">
       <span class="sc sc-off" id="schedChip">SCHED: —</span>
-      <span class="sc sc-off" id="oddsChip">ODDS: SIM</span>
+      <span class="sc sc-off" id="oddsChip">ODDS: —</span>
       <span class="sc sc-off" id="windChip">WIND: SIM</span>
+<span class="sc sc-off" id="totalsChip">TOTALS: —</span>
+<span class="sc sc-off" id="h2hChip">H2H: —</span>
     </div>
   </div>
   <div class="api-panel">
     <div class="api-toggle" onclick="toggleApi()">
       <span style="color:#ff8c00;font-size:11px;">🔑</span>
-      <span class="api-toggle-lbl">Live Sportsbook Lines · Ballpark Weather</span>
+      <span class="api-toggle-lbl">Sportsbook Lines (optional key)</span>
       <span class="api-arrow" id="apiArrow">▶</span>
     </div>
     <div class="api-body" id="apiBody">
       <div class="api-grp">
-        <label>The Odds API Key</label>
+        <label>THE-ODDS-API KEY (OPTIONAL)</label>
         <input type="text" id="oddsKey" placeholder="key from the-odds-api.com" autocomplete="off" />
-        <div class="api-note">Live HR prop lines + game totals</div>
+        <div class="api-note">Live HR prop lines from sportsbooks</div>
       </div>
       <div class="api-grp">
-        <label>OpenWeatherMap Key</label>
-        <input type="text" id="owmKey" placeholder="key from openweathermap.org" autocomplete="off" />
-        <div class="api-note">Live wind, temp &amp; humidity per ballpark</div>
+        <label>OPENWEATHERMAP KEY (OPTIONAL OVERRIDE)</label>
+        <input type="text" id="owmKey" placeholder="optional — weather auto-loaded from wttr.in" autocomplete="off" />
+        <div class="api-note">🟢 Weather auto-fetched live (no key needed)</div>
       </div>
     </div>
   </div>
@@ -444,8 +463,8 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
   <div class="hr-sidebar">
     <div class="sidebar-header" style="padding:0;">
       <div class="sidebar-tabs">
-        <button class="sidebar-tab active" id="tabHR" onclick="switchSidebarTab('hr')">HR TARGETS</button>
-        <button class="sidebar-tab" id="tabParlay" onclick="switchSidebarTab('parlay')">PARLAY BUILDER</button>
+        <button class="sidebar-tab active" id="tabHR" onclick="switchSidebarTab('hr')">TOP HITTERS</button>
+        <button class="sidebar-tab" id="tabMultiHR" onclick="switchSidebarTab('multihr')">H+R+RBI</button>
       </div>
     </div>
 
@@ -454,51 +473,9 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
       <div id="hrTargetsList"><div class="sidebar-empty">Fire to load targets</div></div>
     </div>
 
-    <!-- PARLAY BUILDER PANEL -->
-    <div id="parlayPanel" style="display:none;">
-      <div class="pb-controls">
-        <div class="pb-row">
-          <div class="pb-grp">
-            <label class="pb-lbl">LEGS</label>
-            <select class="pb-select" id="pbLegs">
-              <option value="2">2 Legs</option>
-              <option value="3">3 Legs</option>
-              <option value="4">4 Legs</option>
-              <option value="5" selected>5 Legs</option>
-              <option value="6">6 Legs</option>
-              <option value="7">7 Legs</option>
-              <option value="8">8 Legs</option>
-            </select>
-          </div>
-          <div class="pb-grp">
-            <label class="pb-lbl">TARGET ODDS</label>
-            <select class="pb-select" id="pbTargetOdds">
-              <option value="300">+300</option>
-              <option value="500">+500</option>
-              <option value="1000">+1000</option>
-              <option value="2000">+2000</option>
-              <option value="3000">+3000</option>
-              <option value="5000" selected>+5000</option>
-              <option value="10000">+10000</option>
-              <option value="25000">+25000</option>
-            </select>
-          </div>
-        </div>
-        <div class="pb-grp" style="margin-top:8px;">
-          <label class="pb-lbl">PROP TYPE</label>
-          <select class="pb-select" id="pbPropType">
-            <option value="hr">Home Runs (1+ HR)</option>
-            <option value="hrrbi">Hits + Runs + RBIs (Over 1.5)</option>
-            <option value="tb">Total Bases (Over 1.5)</option>
-            <option value="k">Strikeouts (Pitcher K Over 4.5)</option>
-            <option value="mix">Best Mix (Auto-Select)</option>
-          </select>
-        </div>
-        <button class="pb-build-btn" onclick="buildAndRenderParlay()">🎯 BUILD PARLAY</button>
-      </div>
-      <div id="pbOutput">
-        <div class="pb-no-data">Set filters above &amp; click<br>BUILD PARLAY</div>
-      </div>
+    <!-- H+R+RBI PANEL -->
+    <div id="multiHRPanel" style="display:none;">
+      <div id="multiHRList"><div class="sidebar-empty">Fire to load rankings</div></div>
     </div>
   </div>
 </div>
@@ -725,22 +702,10 @@ function fuzzyPark(name){
 // ─────────────────────────────────────────────────────────────
 // Default pitch arsenal based on pitcher hand when API unavailable
 function getDefaultArsenal(pitcherName,pitcherHand,qualityLabel){
-  const seed=hashStr(pitcherName||'unknown');
-  const rh=[
-    {code:'4SM',pct:40+Math.round(getRandom(seed,0,20))},
-    {code:'SL', pct:20+Math.round(getRandom(seed*2,0,10))},
-    {code:'CU', pct:12+Math.round(getRandom(seed*3,0,8))},
-    {code:'CH', pct:10+Math.round(getRandom(seed*4,0,8))},
-    {code:'SI', pct:8+Math.round(getRandom(seed*5,0,6))},
-  ];
-  const lh=[
-    {code:'4SM',pct:38+Math.round(getRandom(seed,0,18))},
-    {code:'CH', pct:22+Math.round(getRandom(seed*2,0,10))},
-    {code:'CU', pct:14+Math.round(getRandom(seed*3,0,8))},
-    {code:'SL', pct:14+Math.round(getRandom(seed*4,0,8))},
-    {code:'SI', pct:6+Math.round(getRandom(seed*5,0,6))},
-  ];
-  return (pitcherHand==='L'?lh:rh).sort((a,b)=>b.pct-a.pct);
+  // Fixed MLB league-average pitch-mix by hand — no fake random variance
+  const rh=[{code:'4SM',pct:51},{code:'SL',pct:24},{code:'CH',pct:11},{code:'CU',pct:9},{code:'SI',pct:5}];
+  const lh=[{code:'4SM',pct:47},{code:'CH',pct:24},{code:'CU',pct:14},{code:'SL',pct:11},{code:'SI',pct:4}];
+  return (pitcherHand==='L'?lh:rh);
 }
 
 // How hittable is a specific pitch type? (higher = better for batters)
@@ -771,7 +736,8 @@ function getBatterPitchRating(batterName,batterHand,pitchCode,baseOVR){
 
 // Map trueProb → OVR scale (30–80)
 function probToOVR(trueProb){
-  return Math.round(30+Math.max(0,Math.min(1,(trueProb-0.05)/0.25))*50);
+  // Recalibrated for overall hitter success score (range 0.05–0.43 → OVR 30–80)
+  return Math.round(30+Math.max(0,Math.min(1,(trueProb-0.05)/0.38))*50);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -780,9 +746,11 @@ function probToOVR(trueProb){
 function calcHandFactor(windSpd,windDir,park){
   const pd=PARK_DATA[park]||{rfDir:50,lfDir:320};
   function angle(from,to){let d=Math.abs(from-to);if(d>180)d=360-d;return d;}
+  // Weather APIs report direction wind comes FROM; convert to direction blowing TOWARD
+  const windTo=(windDir+180)%360;
   // tailwind to pull alley = good; headwind = bad
-  const lhbAngle=angle(windDir,pd.rfDir); // LHBs pull to RF
-  const rhbAngle=angle(windDir,pd.lfDir); // RHBs pull to LF
+  const lhbAngle=angle(windTo,pd.rfDir); // LHBs pull to RF
+  const rhbAngle=angle(windTo,pd.lfDir); // RHBs pull to LF
   const spd=Math.min(windSpd||0,25);
   const lhb=1+Math.cos(lhbAngle*Math.PI/180)*spd*0.009;
   const rhb=1+Math.cos(rhbAngle*Math.PI/180)*spd*0.009;
@@ -809,40 +777,125 @@ function lineupCalc(pos){
   return{factor:f[p],label:'BAT #'+p};
 }
 function calcWindFactor(spd,wDir,cfDir){
-  let d=Math.abs(wDir-cfDir);if(d>180)d=360-d;
+  // Weather APIs report direction wind comes FROM; convert to direction blowing TOWARD
+  const windTo=(wDir+180)%360;
+  let d=Math.abs(windTo-cfDir);if(d>180)d=360-d;
   const s=Math.min(spd||0,25);
   return Math.max(0.88,Math.min(1.20,1+Math.cos(d*Math.PI/180)*s*0.01));
 }
 function calcTempFactor(t){
+  // Real-world effect: ~±4-5% across extreme temps (not the 14% the old model used)
   const temp=t||72;
-  return temp<50?0.93:temp<60?0.96:temp<70?0.99:temp<80?1.0:temp<90?1.04:1.07;
+  return temp<50?0.96:temp<60?0.98:temp<70?0.99:temp<80?1.0:temp<90?1.02:1.04;
 }
 function calcHumFactor(h){const hum=h||55;return hum<40?1.01:hum<60?1.0:hum<75?0.99:0.98;}
-function recentFormFactor(name,date){
-  const seed=hashStr(name+date.slice(0,7));
-  const r=getRandom(seed,0,1);
-  if(r<0.15)return{factor:1.12,label:'ON FIRE'};
-  if(r<0.30)return{factor:1.06,label:'HOT'};
-  if(r<0.60)return{factor:1.00,label:'NEUTRAL'};
-  if(r<0.80)return{factor:0.95,label:'COLD'};
-  return{factor:0.88,label:'SLUMP'};
+
+// ── NEW: Barometric pressure (standard = 1013 hPa; lower = less drag = more carry)
+function barometricFactor(pressure){
+  if(!pressure)return{factor:1.0,label:null};
+  const delta=1013-pressure; // positive = lower pressure = helpful
+  const f=Math.max(0.97,Math.min(1.04,1+delta*0.0012));
+  const lbl=delta>10?'LOW PRES':delta<-10?'HIGH PRES':null;
+  return{factor:f,label:lbl};
 }
-function pitcherQualityFactor(name,seed){
-  if(!name)return{factor:1.0,label:'UNKNOWN',era:'?'};
-  const h=hashStr(name);
-  const r=(h%100)/100;
-  if(r<0.20)return{factor:0.84,label:'ACE',era:'sub-2.80'};
-  if(r<0.55)return{factor:0.94,label:'SOLID',era:'3.20–4.00'};
-  return{factor:1.08,label:'HITTABLE',era:'4.00+'};
+
+// ── NEW: Day game vs night game (~3% HR suppression for day games)
+function dayNightFactor(gameTime){
+  if(!gameTime)return{factor:1.0,label:null};
+  // gameTime is ISO UTC string; day games start before ~22:00 UTC (6pm ET)
+  const hr=new Date(gameTime).getUTCHours();
+  const isDay=hr>=15&&hr<22;
+  return isDay?{factor:0.97,label:'DAY GAME'}:{factor:1.0,label:null};
 }
-function pitcherXip(name){
-  const h=hashStr(name||'x');
-  const r=(h%100)/100;
-  if(r<0.20)return(6.0+getRandom(h,0,1.5)).toFixed(1);
-  if(r<0.55)return(5.5+getRandom(h,0,1.0)).toFixed(1);
-  return(4.5+getRandom(h,0,1.0)).toFixed(1);
+
+// ── NEW: Pitcher fatigue — short average outings suggest arm wear
+function pitcherFatigueFactor(pitStats){
+  if(!pitStats||!pitStats.gs||pitStats.gs<3||!pitStats.ip)return{factor:1.0,label:null};
+  const avgIP=pitStats.ip/pitStats.gs;
+  if(avgIP<4.5)return{factor:1.06,label:'FATIGUED SP'};
+  if(avgIP<5.5)return{factor:1.02,label:'SHORT OUTINGS'};
+  if(avgIP>=6.5)return{factor:0.97,label:'WORKHORSE'};
+  return{factor:1.0,label:null};
 }
-function pitcherHrFb(seed){const r=getRandom(seed*3,0.06,0.20);return r<0.09?{factor:0.88,label:'LOW HR/FB'}:r>0.15?{factor:1.12,label:'HIGH HR/FB'}:{factor:1.0,label:'AVG HR/FB'};}
+
+// ── NEW: Pitcher fastball velocity (softer = easier to elevate)
+function pitcherFBVeloFactor(fbVelo){
+  if(!fbVelo)return{factor:1.0,label:null};
+  if(fbVelo<90)return{factor:1.10,label:'SOFT FB'};
+  if(fbVelo<92)return{factor:1.05,label:'BELOW AVG FB'};
+  if(fbVelo<95)return{factor:1.00,label:null};
+  if(fbVelo<97)return{factor:0.96,label:'HARD FB'};
+  return{factor:0.92,label:'ELITE VELO'};
+}
+
+// ── NEW: Per-player home/away split factor (replaces flat 1.06/0.97 when data available)
+function homeAwaySplitFactor(haLabel,splits){
+  const MIN_AB=50;
+  if(!splits||splits.homeAB<MIN_AB||splits.awayAB<MIN_AB){
+    return haLabel==='HOME'?{factor:1.06,label:'HOME'}:{factor:0.97,label:'AWAY'};
+  }
+  const homeRate=splits.homeHR/splits.homeAB;
+  const awayRate=splits.awayHR/splits.awayAB;
+  if(haLabel==='HOME'){
+    const ratio=homeRate/Math.max(0.001,awayRate);
+    const f=Math.max(0.85,Math.min(1.28,1+(ratio-1)*0.5));
+    return{factor:f,label:'HOME'+(ratio>1.2?' BOOST':ratio<0.8?' WEAK':'')};
+  }else{
+    const ratio=awayRate/Math.max(0.001,homeRate);
+    const f=Math.max(0.85,Math.min(1.28,1+(ratio-1)*0.5));
+    return{factor:f,label:'AWAY'+(ratio>1.2?' BOOST':ratio<0.8?' WEAK':'')};
+  }
+}
+
+// ── UPDATED: recentFormFactor uses real 30-day rolling data when available
+function recentFormFactor(name,date,recentStats){
+  if(recentStats&&recentStats.games>=5){
+    const rate=recentStats.hr/recentStats.games; // HR/game last 30 days
+    const avg=0.059; // ~1 HR per 17 games league avg
+    if(rate>=avg*3)return{factor:1.10,label:'ON FIRE'};
+    if(rate>=avg*1.8)return{factor:1.05,label:'HOT'};
+    if(rate>=avg*0.4)return{factor:1.00,label:'NEUTRAL'};
+    if(rate>0)return{factor:0.95,label:'COLD'};
+    return{factor:0.91,label:'SLUMP'}; // 0 HRs in 30 days
+  }
+  // No live recent data — return neutral (no fake random inflation)
+  return{factor:1.00,label:'NEUTRAL'};
+}
+
+// ── UPDATED: pitcherQualityFactor uses real ERA when available
+function pitcherQualityFactor(name,seed,pitStats){
+  if(pitStats&&pitStats.era!=null){
+    const e=pitStats.era;
+    if(e<2.80)return{factor:0.84,label:'ACE',era:e.toFixed(2)};
+    if(e<3.50)return{factor:0.90,label:'SOLID',era:e.toFixed(2)};
+    if(e<4.20)return{factor:0.97,label:'AVG',era:e.toFixed(2)};
+    if(e<5.00)return{factor:1.06,label:'HITTABLE',era:e.toFixed(2)};
+    return{factor:1.13,label:'SHELLED',era:e.toFixed(2)};
+  }
+  // No live ERA data — use league-average (4.50 ERA) instead of fake hash
+  return{factor:0.97,label:'AVG',era:'4.50'};
+}
+
+// ── UPDATED: pitcherHrFb uses real HR/9 when available
+function pitcherHrFb(seed,pitStats){
+  if(pitStats&&pitStats.hrPer9!=null){
+    const h=pitStats.hrPer9;
+    if(h<0.8)return{factor:0.88,label:'LOW HR/9'};
+    if(h<1.1)return{factor:0.94,label:'OK HR/9'};
+    if(h<1.5)return{factor:1.00,label:'AVG HR/9'};
+    if(h<2.0)return{factor:1.08,label:'HIGH HR/9'};
+    return{factor:1.15,label:'GOPHER BALL'};
+  }
+  return{factor:1.0,label:'AVG HR/9'}; // no live HR/9 — neutral
+}
+function pitcherXip(name,pitStats){
+  // Use real season IP/GS average when available, else MLB starter average
+  if(pitStats&&pitStats.ip&&pitStats.gs>0){
+    const ipPer=(pitStats.ip/pitStats.gs);
+    return Math.max(3.0,Math.min(7.5,ipPer)).toFixed(1);
+  }
+  return'5.1'; // MLB 2024 starter average
+}
 function impliedTotal(v){return v>=10?{factor:1.06}:v>=9?{factor:1.02}:v<=7?{factor:0.94}:{factor:0.98};}
 function calcSprayAlignment(batH,park){
   const s=PARK_SPRAY[park];
@@ -854,56 +907,248 @@ function calcSprayAlignment(batH,park){
 
 function computeProb(player,dateStr,ctx){
   const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
-  const evN=Math.max(0,(ev-85)/12);
-  const barN=Math.max(0,(barrel-4)/20);
-  const laN=la>=12&&la<=22?1:la>=10&&la<=24?0.75:0.4;
-  const pullN=Math.max(0,(pull-35)/20);
-  const fbN=Math.max(0,(fb-30)/18);
-  const isoN=Math.max(0,(iso-0.10)/0.28);
-  const xslgN=Math.max(0,(xslg-0.350)/0.30);
-  const xhrN=Math.max(0,(60-Math.min(xhr,60))/50);
-  const kbbN=Math.max(0,Math.min(1,(kbb-0.8)/3.5));
-  const hhN=Math.max(0,(hh-28)/32);
-  const base=evN*0.20+barN*0.18+laN*0.08+pullN*0.07+fbN*0.07+
-    isoN*0.10+xslgN*0.08+xhrN*0.09+kbbN*0.05+hhN*0.08;
+
+  // ── FACTOR 1: K% (Strikeout Rate) — most stable predictor; lower K = better ──
+  // kbb is BB/K ratio; higher kbb → fewer strikeouts relative to walks
+  const kPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
+
+  // ── FACTOR 2: Exit Velocity — raw power & contact strength (85–97 mph range) ──
+  const evN=Math.max(0,Math.min(1,(ev-85)/12));
+
+  // ── FACTOR 3: Hard-Hit Rate — balls hit 95+ mph; best contact quality signal (28–60%) ──
+  const hhN=Math.max(0,Math.min(1,(hh-28)/32));
+
+  // ── FACTOR 4: Walk Rate (BB%) — plate discipline & OBP contribution ──
+  // Derived from BB/K ratio; weighted separately from K% per model priority ranking
+  const bbPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
+
+  // ── FACTOR 5: Launch Angle — optimal 10–24° for extra bases; 10–18° = line drive zone ──
+  const laN=la>=12&&la<=22?1.0:la>=10&&la<=24?0.78:la>=8&&la<=26?0.50:0.20;
+
+  // ── FACTOR 6: wOBA proxy — comprehensive offensive value; weights all hit types ──
+  // Approximate: xBA component + power bonus + walk bonus from BB/K
+  const xbaProxy=Math.max(0.195,Math.min(0.345,xslg-iso));
+  const walkBonus=Math.min(0.06,(kbb-0.8)*0.016);
+  const wobaRaw=xbaProxy*0.88+iso*0.85+walkBonus;
+  const wobaN=Math.max(0,Math.min(1,(wobaRaw-0.28)/0.20));
+
+  // ── FACTOR 7: BABIP proxy — sustainable contact skill / luck indicator ──
+  // Line drive zone (10–18° LA) + hard contact = highest sustainable BABIP
+  const ldFactor=la>=10&&la<=18?1.0:la>=8&&la<=22?0.72:0.40;
+  const babipRaw=(hh/100)*0.55*ldFactor+0.245;
+  const babipN=Math.max(0,Math.min(1,(babipRaw-0.245)/0.10));
+
+  // ── FACTOR 8: Park Factors — applied as multiplier below (pd.factor) ──
+  // ── FACTOR 9: Lineup Position — applied via ctx.lineup.factor multiplier below ──
+
+  // ── Supporting power metrics (reduced vs old HR model) ──
+  const xslgN=Math.max(0,Math.min(1,(xslg-0.350)/0.30));
+  const isoN=Math.max(0,Math.min(1,(iso-0.10)/0.28));
+
+  // ── Overall hitter success base score (weights sum to 1.00) ──
+  const base=
+    kPctN *0.15+   // K% avoidance — most stable hitter quality signal
+    evN   *0.13+   // Exit velocity — raw power/contact strength
+    hhN   *0.12+   // Hard-hit rate — contact quality
+    bbPctN*0.12+   // Walk rate — plate discipline & OBP
+    laN   *0.10+   // Launch angle — hit type optimization
+    wobaN *0.14+   // wOBA proxy — comprehensive offensive value
+    babipN*0.10+   // BABIP proxy — sustainable contact skill
+    xslgN *0.09+   // xSLG — power component
+    isoN  *0.05;   // ISO — isolated power (lowest: already captured in wOBA/xSLG)
+
+  // Park factor (8) + lineup/situational context (9) multipliers
   const pd=PARK_DATA[ctx.gamePark]||{factor:1.0};
+  // hrfb blended toward neutral — pitcher HR/FB less central to overall hitting success
+  const hrfbBlend=1.0+(ctx.hrfb.factor-1.0)*0.40;
   let prob=base*pd.factor*ctx.windFactor*ctx.tempFactor*ctx.humFactor*
     ctx.platoon.factor*ctx.recentForm.factor*ctx.homeAway.factor*
-    ctx.lineup.factor*ctx.hrfb.factor*ctx.total.factor*
-    ctx.pitcherQuality.factor*ctx.sprayAlign;
-  return Math.max(0.03,Math.min(0.38,prob*0.22));
+    ctx.lineup.factor*hrfbBlend*ctx.total.factor*
+    ctx.pitcherQuality.factor*ctx.sprayAlign*
+    (ctx.barometric?.factor||1.0)*(ctx.dayNight?.factor||1.0)*
+    (ctx.pitcherFatigue?.factor||1.0)*(ctx.pitcherFBVelo?.factor||1.0);
+  return Math.max(0.03,Math.min(0.45,prob*0.28));
 }
 function computeBaseProb(player){
   const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
-  const evN=Math.max(0,(ev-85)/12);
-  const barN=Math.max(0,(barrel-4)/20);
-  const laN=la>=12&&la<=22?1:la>=10&&la<=24?0.75:0.4;
-  const pullN=Math.max(0,(pull-35)/20);
-  const fbN=Math.max(0,(fb-30)/18);
-  const isoN=Math.max(0,(iso-0.10)/0.28);
-  const xslgN=Math.max(0,(xslg-0.350)/0.30);
-  const xhrN=Math.max(0,(60-Math.min(xhr,60))/50);
-  const kbbN=Math.max(0,Math.min(1,(kbb-0.8)/3.5));
-  const hhN=Math.max(0,(hh-28)/32);
-  const base=evN*0.20+barN*0.18+laN*0.08+pullN*0.07+fbN*0.07+
-    isoN*0.10+xslgN*0.08+xhrN*0.09+kbbN*0.05+hhN*0.08;
-  return Math.max(0.03,Math.min(0.28,base*0.20));
+  const kPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
+  const evN=Math.max(0,Math.min(1,(ev-85)/12));
+  const hhN=Math.max(0,Math.min(1,(hh-28)/32));
+  const bbPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
+  const laN=la>=12&&la<=22?1.0:la>=10&&la<=24?0.78:la>=8&&la<=26?0.50:0.20;
+  const xbaProxy=Math.max(0.195,Math.min(0.345,xslg-iso));
+  const walkBonus=Math.min(0.06,(kbb-0.8)*0.016);
+  const wobaRaw=xbaProxy*0.88+iso*0.85+walkBonus;
+  const wobaN=Math.max(0,Math.min(1,(wobaRaw-0.28)/0.20));
+  const ldFactor=la>=10&&la<=18?1.0:la>=8&&la<=22?0.72:0.40;
+  const babipRaw=(hh/100)*0.55*ldFactor+0.245;
+  const babipN=Math.max(0,Math.min(1,(babipRaw-0.245)/0.10));
+  const xslgN=Math.max(0,Math.min(1,(xslg-0.350)/0.30));
+  const isoN=Math.max(0,Math.min(1,(iso-0.10)/0.28));
+  const base=
+    kPctN *0.15+evN*0.13+hhN*0.12+bbPctN*0.12+laN*0.10+
+    wobaN *0.14+babipN*0.10+xslgN*0.09+isoN*0.05;
+  return Math.max(0.03,Math.min(0.38,base*0.26));
 }
 
-function buildCtx(name,dateStr,w,schedInfo,liveTotals){
+// ─────────────────────────────────────────────────────────────
+// LIVE DATA SOURCES
+// ─────────────────────────────────────────────────────────────
+
+// wttr.in — free real-time weather, no API key needed
+// Fetches only for parks with games today
+async function fetchWeatherAll(games){
+  const parkSet=new Set();
+  games.forEach(g=>{const p=fuzzyPark(g.venue)||g.venue;if(p&&PARK_DATA[p])parkSet.add(p);});
+  const results={};
+  await Promise.all([...parkSet].map(async park=>{
+    const pd=PARK_DATA[park];
+    if(!pd?.lat)return;
+    try{
+      const r=await fetch(`https://wttr.in/${pd.lat},${pd.lon}?format=j1`,{signal:AbortSignal.timeout(6000)});
+      if(!r.ok)return;
+      const d=await r.json();
+      const cur=d.current_condition?.[0];
+      if(!cur)return;
+      results[park]={
+        spd:parseFloat(cur.windspeedMiles||0),
+        dir:parseFloat(cur.winddirDegree||0),
+        temp:parseFloat(cur.temp_F||72),
+        hum:parseFloat(cur.humidity||55),
+        pressure:parseFloat(cur.pressure||1013),
+      };
+    }catch(e){}
+  }));
+  return results;
+}
+
+// ESPN public scoreboard — free game totals/lines, no API key needed
+async function fetchGameTotals(dateStr){
+  const d=dateStr.replace(/-/g,'');
+  const out={};
+  try{
+    const r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=${d}`,{signal:AbortSignal.timeout(6000)});
+    if(!r.ok)return out;
+    const data=await r.json();
+    (data.events||[]).forEach(ev=>{
+      const comp=ev.competitions?.[0];
+      if(!comp)return;
+      const home=normalizeTeamAbbr(comp.competitors?.find(c=>c.homeAway==='home')?.team?.abbreviation||'');
+      const away=normalizeTeamAbbr(comp.competitors?.find(c=>c.homeAway==='away')?.team?.abbreviation||'');
+      const total=comp.odds?.[0]?.overUnder;
+      if(total&&home&&away)out[`${away}@${home}`]=parseFloat(total);
+    });
+  }catch(e){}
+  return out;
+}
+
+// MLB Stats API — real career batter vs pitcher head-to-head stats
+async function fetchH2HBatters(pairs){
+  const out={};
+  const unique=[...new Set(pairs.map(p=>`${p.batterId}_${p.pitcherId}`))];
+  // Batch with Promise.all — MLB Stats API is public, no rate limit
+  await Promise.all(unique.map(async key=>{
+    const[batterId,pitcherId]=key.split('_');
+    if(!batterId||!pitcherId||batterId==='null'||pitcherId==='null')return;
+    try{
+      const r=await fetch(`https://statsapi.mlb.com/api/v1/people/${batterId}/stats?stats=vsPlayer&opposingPlayerId=${pitcherId}&group=hitting`,{signal:AbortSignal.timeout(8000)});
+      if(!r.ok)return;
+      const d=await r.json();
+      const splits=(d.stats||[]).flatMap(s=>s.splits||[]);
+      if(!splits.length)return;
+      const s=splits[0].stat;
+      out[key]={
+        ab:s.atBats||0,h:s.hits||0,hr:s.homeRuns||0,
+        bb:s.baseOnBalls||0,k:s.strikeOuts||0,
+        avg:parseFloat(s.avg||'0')||0,
+        ops:parseFloat(s.ops||'0')||0,
+        rbi:s.rbi||0,
+      };
+    }catch(e){}
+  }));
+  return out;
+}
+
+// extraData = { pitcherStatsMap, recentStatsMap, splitsMap }
+// schedInfo.pitcher should include {name,hand,id}; schedInfo.batterId for player lookup
+// ─────────────────────────────────────────────────────────────
+// HITS / RUNS / RBI PROJECTIONS
+// ─────────────────────────────────────────────────────────────
+function computeHitsRunsRBI(player,ctx,successScore){
+  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
+
+  // ── xBA from model data (xSLG - ISO ≈ batting average) ──
+  // Also integrate BB/K-derived walk factor for more complete OBP picture
+  const rawXBA=Math.max(0.195,Math.min(0.345,xslg-iso));
+  const walkAdj=Math.min(0.012,(kbb-0.8)*0.006); // plate discipline OBP bonus
+  const adjustedXBA=Math.min(0.360,rawXBA+walkAdj);
+
+  // ── Expected PA per game by lineup position (MLB empirical rates) ──
+  const pos=ctx.lineupPos||5;
+  const PA_BY_POS=[0,4.5,4.4,4.2,4.1,4.0,3.9,3.8,3.7,3.6];
+  const xPA=PA_BY_POS[Math.min(9,pos)]||4.0;
+
+  // ── Pitcher contact suppression — scales with overall pitcher quality ──
+  const pqLabel=ctx.pitcherQuality?.label||'UNKNOWN';
+  const PIT_CONTACT={ACE:0.77,SOLID:0.91,HITTABLE:1.08,SHELLED:1.22,UNKNOWN:0.96};
+  const pitContactMod=PIT_CONTACT[pqLabel]||0.96;
+
+  // ── Park hit factor (35% of park factor — hits spread across all hit types) ──
+  const pd=PARK_DATA[ctx.gamePark]||{factor:1.0};
+  const parkHitF=1.0+(pd.factor-1.0)*0.35;
+
+  // ── Platoon + recent form ──
+  const platMod=1.0+(ctx.platoon.factor-1.0)*0.45;
+  const formMod=1.0+(ctx.recentForm.factor-1.0)*0.35;
+
+  // ── Adjusted xBA ──
+  const xBA=adjustedXBA*pitContactMod*parkHitF*platMod*formMod;
+
+  // ── xH — PA × adjusted contact rate ──
+  const xH=xPA*xBA;
+
+  // ── xR by lineup position ──
+  // successScore replaces hrProb; represents overall offensive quality bonus,
+  // not just HR contribution. Coefficient reduced vs old HR model.
+  const R_BY_POS=[0,0.78,0.71,0.68,0.64,0.60,0.54,0.50,0.45,0.40];
+  const baseR=R_BY_POS[Math.min(9,pos)]||0.56;
+  const homeAwayMod=1.0+(ctx.homeAway.factor-1.0)*0.4;
+  const xR=(baseR*(xBA/0.248)*pitContactMod*homeAwayMod)+(successScore*0.42);
+
+  // ── xRBI by lineup position ──
+  const RBI_BY_POS=[0,0.46,0.54,0.72,0.78,0.71,0.62,0.54,0.47,0.42];
+  const baseRBI=RBI_BY_POS[Math.min(9,pos)]||0.56;
+  const xRBI=(baseRBI*(xBA/0.248)*pitContactMod*parkHitF)+(successScore*0.55);
+
+  return{
+    xH:+Math.max(0.05,Math.min(2.5,xH)).toFixed(2),
+    xR:+Math.max(0.05,Math.min(1.8,xR)).toFixed(2),
+    xRBI:+Math.max(0.05,Math.min(2.2,xRBI)).toFixed(2),
+  };
+}
+
+function buildCtx(name,dateStr,w,schedInfo,liveTotals,extraData){
   const seed=hashStr(name+dateStr);
   const weather=w||{};
   const pitcher=schedInfo?.pitcher;
   const pitName=pitcher?.name||null;
-  const pitHand=pitcher?.hand||(getRandom(seed*5,0,1)<0.55?'R':'L');
-  const haLabel=schedInfo?.homeAway||(getRandom(seed*6,0,1)<0.5?'HOME':'AWAY');
-  const lineupPos=schedInfo?.lineupPos||(2+Math.floor(hashStr(name+dateStr+'lu')%5));
+  const pitId=pitcher?.id||null;
+  const pitHand=pitcher?.hand||'R';  // default RHP (61% of MLB starters)
+  const haLabel=schedInfo?.homeAway||'HOME';
+  const lineupPos=schedInfo?.lineupPos||5;
   const gamePark=schedInfo?.venue?fuzzyPark(schedInfo.venue)||schedInfo.venue:
     TEAM_TO_HOME_PARK[schedInfo?.team]||'Unknown';
-  const wpk=weather[gamePark]||{spd:getRandom(seed*7,3,12),dir:getRandom(seed*8,0,360),temp:getRandom(seed*9,60,85),hum:getRandom(seed*10,45,70)};
+  // Real weather from wttr.in when available; neutral (league avg) when not
+  const wpk=weather[gamePark]||{spd:0,dir:0,temp:72,hum:55,pressure:1013};
   const [,,,,,,,,,,,,hand]=findPlayerData(name)||[null,null,null,null,null,null,null,null,null,null,null,null,'R'];
-  const totalVal=liveTotals?.(schedInfo?.team)||getRandom(seed*9,7.5,11.0);
-  const pq=pitcherQualityFactor(pitName,seed);
+  // Real game total from ESPN when available; MLB 2024 average (9.0) otherwise
+  const totalVal=schedInfo?.gameTotal||liveTotals?.(schedInfo?.team)||9.0;
+  // Resolve new data from maps
+  const batterId=schedInfo?.batterId||null;
+  const pitStats=extraData?.pitcherStatsMap?.[pitId]||null;
+  const recentStats=extraData?.recentStatsMap?.[batterId]||null;
+  const splits=extraData?.splitsMap?.[batterId]||null;
+  const pq=pitcherQualityFactor(pitName,seed,pitStats);
   return{
     gamePark,
     windFactor:calcWindFactor(wpk.spd,wpk.dir,(PARK_DATA[gamePark]||{cfDir:0}).cfDir),
@@ -912,13 +1157,18 @@ function buildCtx(name,dateStr,w,schedInfo,liveTotals){
     humFactor:calcHumFactor(wpk.hum),hum:wpk.hum,
     platoon:platoon(hand,pitHand),pitHand,batHand:hand,
     pitName,pitcherQuality:pq,
-    recentForm:recentFormFactor(name,dateStr),
-    homeAway:homeAwayCalc(haLabel),
+    recentForm:recentFormFactor(name,dateStr,recentStats),
+    homeAway:homeAwaySplitFactor(haLabel,splits),
     lineup:lineupCalc(lineupPos),lineupPos,
-    hrfb:pitcherHrFb(seed),
+    hrfb:pitcherHrFb(seed,pitStats),
     total:{factor:impliedTotal(totalVal).factor,val:totalVal.toFixed(1)},
     sprayAlign:calcSprayAlignment(hand,gamePark),
     weatherFactors:calcHandFactor(wpk.spd,wpk.dir,gamePark),
+    // New factors
+    barometric:barometricFactor(wpk.pressure),
+    dayNight:dayNightFactor(schedInfo?.gameTime||null),
+    pitcherFatigue:pitcherFatigueFactor(pitStats),
+    pitcherFBVelo:pitcherFBVeloFactor(pitStats?.fbVelo||null),
   };
 }
 
@@ -929,10 +1179,23 @@ function findPlayerData(name){
 
 function buildSyntheticPlayer(name,team,hand,homePark,stats){
   const s=stats||{};
-  const avg=s.avg||0.248;const slg=s.slg||0.402;
+  const rawAvg=s.avg||0.248;const rawSlg=s.slg||0.402;
+  const rawHr=s.hr||0;const rawAb=s.ab||0;
+  // Bayesian shrinkage: blend live API stats toward league averages weighted
+  // by sample size. This prevents a player who hit a HR yesterday (e.g. 1 HR
+  // in 5 ABs) from appearing as a power hitter due to tiny sample inflation.
+  const LEAGUE_AVG=0.248,LEAGUE_SLG=0.402,LEAGUE_XHR=34;
+  const MIN_AB=250; // ABs needed for full trust in observed stats
+  const w=rawAb>0?Math.min(1,rawAb/MIN_AB):0;
+  const avg=rawAb>0?rawAvg*w+LEAGUE_AVG*(1-w):LEAGUE_AVG;
+  const slg=rawAb>0?rawSlg*w+LEAGUE_SLG*(1-w):LEAGUE_SLG;
   const iso=Math.max(0.05,slg-avg);
-  const hr=s.hr||8;const ab=s.ab||200;
-  const xhr=ab>0&&hr>0?Math.round(ab/hr):35;
+  // HR pace (ab/hr): blend observed rate toward league average to avoid
+  // small-sample spikes (e.g. 1 HR in 4 ABs → xhr=4 → near-perfect score)
+  let xhr;
+  if(rawHr>0&&rawAb>0){const obs=rawAb/rawHr;xhr=Math.round(obs*w+LEAGUE_XHR*(1-w));}
+  else{xhr=LEAGUE_XHR;}
+  const ab=rawAb||200;
   const ev=Math.min(96,Math.max(85,88+iso*22+Math.max(0,slg-0.380)*4));
   const barrel=Math.max(2,Math.min(22,iso*55-2));
   const la=14+iso*8;const pull=44;const fb=38;
@@ -958,7 +1221,8 @@ function buildOdds(trueProb,seed){
 async function fetchMLBSchedule(dateStr){
   try{
     const url=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=${dateStr}&hydrate=probablePitcher,lineups,team,venue`;
-    const data=await(await fetch(url)).json();
+    const _r0=await fetch(url);if(!_r0.ok)throw new Error(`Schedule API ${_r0.status}`);
+    const data=await _r0.json();
     const games=[];
     const teamsPlaying=new Set();
     (data.dates||[]).forEach(d=>{
@@ -1002,7 +1266,8 @@ async function fetchPitcherArsenals(pitcherIds){
   try{
     const year=new Date().getFullYear();
     const url=`https://statsapi.mlb.com/api/v1/people?personIds=${pitcherIds.join(',')}&hydrate=pitchArsenal(season=${year}),stats(group=pitching,type=season,season=${year})`;
-    const data=await(await fetch(url)).json();
+    const _r1=await fetch(url);if(!_r1.ok)throw new Error(`Pitcher arsenal API ${_r1.status}`);
+    const data=await _r1.json();
     const out={};
     (data.people||[]).forEach(p=>{
       const arsenal=(p.pitchArsenal||[]).map(pt=>({
@@ -1010,12 +1275,19 @@ async function fetchPitcherArsenals(pitcherIds){
         pct:Math.round((pt.percentage||0)*100),
         speed:Math.round(pt.avgSpeed||0),
       })).filter(x=>x.pct>=3).sort((a,b)=>b.pct-a.pct);
-      // Also get xIP from stats
       const ss=((p.stats||[]).find(s=>s.group?.displayName==='pitching'&&s.type?.displayName==='season')?.splits||[])[0]?.stat;
-      const ip=ss?.inningsPitched?parseFloat(ss.inningsPitched):null;
+      const ipRaw=ss?.inningsPitched?parseFloat(ss.inningsPitched):null;
+      // Convert MLB "34.2" IP notation (34 inn + 2 outs) to decimal innings
+      const ip=ipRaw!=null?Math.floor(ipRaw)+((ipRaw%1)*10/3):null;
       const gs=ss?.gamesStarted||null;
       const xip=ip&&gs&&gs>0?(ip/gs).toFixed(1):null;
-      out[p.id]={arsenal:arsenal.length?arsenal:null,xip};
+      const hrAllowed=ss?.homeRuns||0;
+      const hrPer9=ip&&ip>0?parseFloat((hrAllowed/ip*9).toFixed(2)):null;
+      const eraVal=ss?.era?parseFloat(ss.era):null;
+      // Best fastball velocity: prefer 4-seam (FF) or sinker (SI), fall back to anything
+      const fbPitch=arsenal.find(a=>a.code==='FF')||arsenal.find(a=>a.code==='SI')||arsenal.find(a=>a.code==='FC');
+      const fbVelo=fbPitch?.speed||null;
+      out[p.id]={arsenal:arsenal.length?arsenal:null,xip,hrPer9,era:eraVal,fbVelo,gs:gs||0,ip:ip||0};
     });
     return out;
   }catch(e){
@@ -1028,7 +1300,8 @@ async function fetchBatterStats(playerIds){
   try{
     const year=new Date().getFullYear();
     const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=season,season=${year}),batSide`;
-    const data=await(await fetch(url)).json();
+    const _r2=await fetch(url);if(!_r2.ok)throw new Error(`Batter stats API ${_r2.status}`);
+    const data=await _r2.json();
     const out={};
     (data.people||[]).forEach(p=>{
       const bs=p.batSide?.code||'R';
@@ -1046,13 +1319,53 @@ async function fetchBatterStats(playerIds){
   }catch(e){return{};}
 }
 
+async function fetchBatterRecentStats(playerIds,dateStr){
+  if(!playerIds||!playerIds.length)return{};
+  try{
+    const year=parseInt(dateStr.slice(0,4),10);
+    const end=dateStr;
+    const d=new Date(dateStr+'T12:00:00');d.setDate(d.getDate()-30);
+    const start=d.toISOString().slice(0,10);
+    const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=byDateRange,startDate=${start},endDate=${end},season=${year})`;
+    const _r3=await fetch(url);if(!_r3.ok)throw new Error(`Batter recent stats API ${_r3.status}`);
+    const data=await _r3.json();
+    const out={};
+    (data.people||[]).forEach(p=>{
+      const ss=((p.stats||[]).find(s=>s.group?.displayName==='hitting')?.splits||[])[0]?.stat;
+      if(ss)out[p.id]={hr:ss.homeRuns||0,ab:ss.atBats||0,games:ss.gamesPlayed||0};
+    });
+    return out;
+  }catch(e){return{};}
+}
+
+async function fetchBatterSplits(playerIds,dateStr){
+  if(!playerIds||!playerIds.length)return{};
+  try{
+    const year=parseInt(dateStr.slice(0,4),10);
+    const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=homeAndAway,season=${year})`;
+    const _r4=await fetch(url);if(!_r4.ok)throw new Error(`Batter splits API ${_r4.status}`);
+    const data=await _r4.json();
+    const out={};
+    (data.people||[]).forEach(p=>{
+      const splits=((p.stats||[]).find(s=>s.group?.displayName==='hitting')?.splits)||[];
+      const home=splits.find(s=>s.isHome===true||s.split?.code==='H');
+      const away=splits.find(s=>s.isHome===false||s.split?.code==='A');
+      out[p.id]={
+        homeHR:home?.stat?.homeRuns||0,homeAB:home?.stat?.atBats||0,
+        awayHR:away?.stat?.homeRuns||0,awayAB:away?.stat?.atBats||0,
+      };
+    });
+    return out;
+  }catch(e){return{};}
+}
+
 async function fetchWeather(owmKey){
   const results={};
   await Promise.all(Object.entries(PARK_DATA).map(async([park,pd])=>{
     try{
       const r=await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pd.lat}&lon=${pd.lon}&units=imperial&appid=${owmKey}`);
       const d=await r.json();
-      if(d.wind)results[park]={spd:d.wind.speed,dir:d.wind.deg||0,temp:d.main.temp,hum:d.main.humidity};
+      if(d.wind)results[park]={spd:d.wind.speed,dir:d.wind.deg||0,temp:d.main.temp,hum:d.main.humidity,pressure:d.main.pressure||1013};
     }catch(e){}
   }));
   return results;
@@ -1076,18 +1389,21 @@ async function fetchActiveRosters(teamIds){
 
 async function fetchOdds(apiKey,dateStr){
   try{
-    const r=await fetch(`https://api.the-odds-api.com/v4/sports/baseball_mlb/odds/?apiKey=${apiKey}&regions=us&markets=batter_home_runs&oddsFormat=american`);
+    const dayStart=dateStr+'T00:00:00Z';
+    const dayEnd=dateStr+'T23:59:59Z';
+    const r=await fetch(`https://api.the-odds-api.com/v4/sports/baseball_mlb/odds/?apiKey=${apiKey}&regions=us&markets=batter_home_runs&oddsFormat=american&commenceTimeFrom=${dayStart}&commenceTimeTo=${dayEnd}`);
+    if(!r.ok)throw new Error(`Odds API ${r.status}`);
     const d=await r.json();
     const out={};
     if(Array.isArray(d))d.forEach(game=>{
       (game.bookmakers||[]).forEach(bm=>{
         (bm.markets||[]).filter(m=>m.key==='batter_home_runs').forEach(mkt=>{
           (mkt.outcomes||[]).forEach(o=>{
-            const last=o.name.split(' ').pop();
-            if(!out[last])out[last]=[];
+            const fullKey=o.name.trim().toLowerCase();
+            if(!out[fullKey])out[fullKey]=[];
             const am=o.price;
             const p=am>0?100/(100+am):Math.abs(am)/(Math.abs(am)+100);
-            out[last].push({book:bm.key,american:am,impliedProb:p,ev:0,live:true});
+            out[fullKey].push({book:bm.key,american:am,impliedProb:p,ev:0,live:true});
           });
         });
       });
@@ -1114,7 +1430,7 @@ function renderRatingCell(val,isOvr){
   return`<div class="bgr-cell ${cls}">${fmtOVR(v)}</div>`;
 }
 
-function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
+function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap,extraData){
   if(!pitcher){
     return`<div class="pitcher-side">
       <div class="no-lineup-msg">⬡ NO PROBABLE PITCHER POSTED</div>
@@ -1125,7 +1441,7 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
   const teamAbbr=side==='left'?game.awayAbbr:game.homeAbbr;
   const arsenalInfo=arsenalData?.[pitcher.id]||{};
   const arsenalRaw=arsenalInfo.arsenal||getDefaultArsenal(pitName,pitHand,'SOLID');
-  const xipDisplay=arsenalInfo.xip||pitcherXip(pitName);
+  const xipDisplay=arsenalInfo.xip||pitcherXip(pitName,arsenalInfo);
   const qual=pitcherQualityFactor(pitName,hashStr(pitName));
   const qCls={ACE:'pq-ace',SOLID:'pq-solid',HITTABLE:'pq-hittable',UNKNOWN:'pq-unknown'}[qual.label]||'pq-unknown';
 
@@ -1140,10 +1456,10 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
   // Top 5 pitch types
   const top5=arsenalRaw.slice(0,5);
   const colHeaders=top5.map(pt=>`<div class="bgr-cell-hdr">${pt.code}</div>`).join('');
-  const colHeadersFull=`<div class="bgr-name-hdr" style="min-width:130px;">BATTER</div>${colHeaders}<div class="bgr-ovr-hdr">OVR</div>`;
+  const colHeadersFull=`<div class="bgr-name-hdr" style="min-width:130px;">BATTER</div>${colHeaders}<div class="bgr-proj-hdr">xH</div><div class="bgr-proj-hdr">xR</div><div class="bgr-proj-hdr">xRBI</div><div class="bgr-ovr-hdr">OVR</div>`;
 
   // Determine grid template
-  const cols=`130px ${top5.map(()=>'1fr').join(' ')} 42px`;
+  const cols=`130px ${top5.map(()=>'1fr').join(' ')} 32px 32px 32px 42px`;
 
   // VS LHB row
   function vsHandRow(vsHand,label){
@@ -1191,30 +1507,40 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
       return renderRatingCell(r,false);
     }).join('');
 
+    const hrrbi=computeHitsRunsRBI(playerData,ctx,trueProb);
     return`<div class="batter-grid-row" style="grid-template-columns:${cols};">
       <div class="bgr-name">${batter.name}<span class="bgr-hand">${hand}</span></div>
       ${pitchCells}
+      <div class="bgr-proj">${hrrbi.xH}</div>
+      <div class="bgr-proj">${hrrbi.xR}</div>
+      <div class="bgr-proj">${hrrbi.xRBI}</div>
       ${renderRatingCell(ovr,true)}
     </div>`;
   }).filter(Boolean).join('');
 
-  // History section (synthetic)
+  // ── Real career H2H stats from MLB Stats API ──
+  const h2hMap=extraData?.h2hMap||{};
+  const h2hAvail=batters.slice(0,7).filter(b=>b.id&&pitcher?.id&&h2hMap[`${b.id}_${pitcher.id}`]&&h2hMap[`${b.id}_${pitcher.id}`].ab>0).length;
   const histRows=batters.slice(0,7).map(batter=>{
-    const seed=hashStr(batter.name+pitName);
-    const ab=Math.round(getRandom(seed,2,18));
-    const h=Math.round(getRandom(seed*2,0,ab*0.4));
-    const hr=ab>8&&getRandom(seed*3,0,1)<0.35?1:0;
-    const kpct=Math.round(getRandom(seed*4,15,50));
-    const bbpct=Math.round(getRandom(seed*5,0,20));
-    const avg=ab>0?(h/ab).toFixed(3):'.000';
-    const hrCls=hr>0?' class="ht-hr"':'';
     const [,,,,,,,,,,,, hand]=findPlayerData(batter.name)||[,,,,,,,,,,,,,'R'];
+    const h2h=batter.id&&pitcher?.id?h2hMap[`${batter.id}_${pitcher.id}`]:null;
+    if(h2h&&h2h.ab>0){
+      const avg=h2h.avg>0?h2h.avg.toFixed(3):h2h.ab>0?(h2h.h/h2h.ab).toFixed(3):'.000';
+      const hrCls=h2h.hr>0?' class="ht-hr"':'';
+      const kpct=h2h.ab>0?Math.round(h2h.k/h2h.ab*100):0;
+      const bbpct=h2h.ab>0?Math.round(h2h.bb/h2h.ab*100):0;
+      return`<tr>
+        <td>${batter.name} <span style="color:rgba(255,140,0,0.4);font-size:9px;">${hand}</span></td>
+        <td>${h2h.ab}</td><td>${h2h.h}</td>
+        <td${hrCls}>${h2h.hr}</td>
+        <td>${kpct}%</td><td>${bbpct}%</td>
+        <td style="color:rgba(255,220,140,0.85);">${avg}</td>
+      </tr>`;
+    }
+    // No H2H data — show dashes (not fake numbers)
     return`<tr>
       <td>${batter.name} <span style="color:rgba(255,140,0,0.4);font-size:9px;">${hand}</span></td>
-      <td>${ab}</td><td>${h}</td>
-      <td${hrCls}>${hr}</td>
-      <td>${kpct}%</td><td>${bbpct}%</td>
-      <td style="color:rgba(255,220,140,0.85);">${avg}</td>
+      <td colspan="6" style="color:rgba(255,140,0,0.2);font-size:9px;letter-spacing:1px;">NO CAREER DATA VS ${pitName.split(' ').pop().toUpperCase()}</td>
     </tr>`;
   }).join('');
 
@@ -1254,7 +1580,7 @@ function buildPitcherPanel(pitcher,batters,arsenalData,side,game,liveOddsMap){
     ${batters.length?`
     <div class="history-section">
       <div class="history-hdr">
-        <span class="history-hdr-lbl">BATTER vs ${pitName.split(' ').pop()} · SIMULATED HISTORY</span>
+        <span class="history-hdr-lbl">BATTER vs ${pitName.split(' ').pop()} · CAREER H2H</span>
       </div>
       <table class="history-tbl">
         <thead><tr>
@@ -1331,14 +1657,14 @@ function buildGameView(gameIdx,arsenalData){
   return`
     ${buildGameHeader(game)}
     <div class="matchup-wrap">
-      ${buildPitcherPanel(leftPitcher,leftBatters,arsenalData,'left',game,{})}
-      ${buildPitcherPanel(rightPitcher,rightBatters,arsenalData,'right',game,{})}
+      ${buildPitcherPanel(leftPitcher,leftBatters,arsenalData,'left',game,{},cachedExtraData)}
+      ${buildPitcherPanel(rightPitcher,rightBatters,arsenalData,'right',game,{},cachedExtraData)}
     </div>
   `;
 }
 
 // ─────────────────────────────────────────────────────────────
-// HR TARGETS SIDEBAR
+// TOP HITTERS SIDEBAR
 // ─────────────────────────────────────────────────────────────
 function buildHRTargetCard(pick,rank){
   const{player,trueProb,baseProb,situationalEdge,odds,ctx}=pick;
@@ -1346,12 +1672,26 @@ function buildHRTargetCard(pick,rank){
   const best=odds.reduce((a,b)=>b.ev>a.ev?b:a);
   const edgePct=Math.round((situationalEdge-1)*100);
   const tags=[];
-  if(ctx.windFactor>1.05)tags.push({t:'WIND',c:'htt-pos'});
-  if(ctx.recentForm.label==='ON FIRE'||ctx.recentForm.label==='HOT')tags.push({t:ctx.recentForm.label,c:'htt-pos'});
+  // Batter signals
+  if(ctx.recentForm.label==='ON FIRE')tags.push({t:'ON FIRE 🔥',c:'htt-pos'});
+  else if(ctx.recentForm.label==='HOT')tags.push({t:'HOT',c:'htt-pos'});
+  else if(ctx.recentForm.label==='SLUMP')tags.push({t:'SLUMP',c:'htt-neg'});
   if(ctx.platoon.factor>1.05)tags.push({t:'PLATOON ADV',c:'htt-pos'});
-  if(ctx.homeAway.label==='HOME')tags.push({t:'HOME',c:'htt-pos'});
-  if(ctx.pitcherQuality.label==='HITTABLE')tags.push({t:'SOFT SP',c:'htt-pos'});
-  if(ctx.pitcherQuality.label==='ACE')tags.push({t:'ACE',c:'htt-neg'});
+  if(ctx.homeAway.label&&ctx.homeAway.label.includes('BOOST'))tags.push({t:ctx.homeAway.label,c:'htt-pos'});
+  else if(ctx.homeAway.label&&ctx.homeAway.label.includes('WEAK'))tags.push({t:ctx.homeAway.label,c:'htt-neg'});
+  // Pitcher signals
+  if(ctx.pitcherQuality.label==='SHELLED'||ctx.pitcherQuality.label==='HITTABLE')tags.push({t:ctx.pitcherQuality.label+' SP',c:'htt-pos'});
+  if(ctx.pitcherQuality.label==='ACE')tags.push({t:'ACE SP',c:'htt-neg'});
+  if(ctx.hrfb.label==='GOPHER BALL'||ctx.hrfb.label==='HIGH HR/9')tags.push({t:ctx.hrfb.label,c:'htt-pos'});
+  if(ctx.hrfb.label==='LOW HR/9'||ctx.hrfb.label==='LOW HR/FB')tags.push({t:ctx.hrfb.label,c:'htt-neg'});
+  if(ctx.pitcherFBVelo?.label)tags.push({t:ctx.pitcherFBVelo.label,c:ctx.pitcherFBVelo.factor>1?'htt-pos':'htt-neg'});
+  if(ctx.pitcherFatigue?.label)tags.push({t:ctx.pitcherFatigue.label,c:ctx.pitcherFatigue.factor>1?'htt-pos':'htt-neg'});
+  // Environmental signals
+  if(ctx.windFactor>1.05)tags.push({t:'WIND AID',c:'htt-pos'});
+  else if(ctx.windFactor<0.95)tags.push({t:'HEADWIND',c:'htt-neg'});
+  if(ctx.barometric?.label)tags.push({t:ctx.barometric.label,c:ctx.barometric.factor>1?'htt-pos':'htt-neg'});
+  if(ctx.dayNight?.label==='DAY GAME')tags.push({t:'DAY GAME',c:'htt-neg'});
+  // Edge
   if(situationalEdge>=1.12)tags.push({t:`+${edgePct}% EDGE`,c:'htt-edge'});
 
   const rankDisp=rank<3?['🥇','🥈','🥉'][rank]:`#${rank+1}`;
@@ -1362,12 +1702,20 @@ function buildHRTargetCard(pick,rank){
         <div class="hr-tc-name">${name}</div>
         <div class="hr-tc-sub">${team} · ${ctx.homeAway.label}${ctx.pitName?' · vs '+ctx.pitName.split(' ').pop():''}</div>
       </div>
-      <div class="hr-tc-prob">${fmtP(trueProb)}</div>
+      <div style="text-align:right">
+        <div class="hr-tc-prob">${fmtP(trueProb)}</div>
+        <div style="font-size:7px;color:rgba(0,212,255,0.5);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;">SUCCESS</div>
+      </div>
     </div>
     <div class="hr-tc-odds">
       ${odds.slice(0,4).map(o=>`<span class="hr-tc-odd${o.book===best.book?' best':''}">${o.book} ${fmtAm(o.american)}</span>`).join('')}
     </div>
     <div class="hr-tc-tags">${tags.slice(0,4).map(t=>`<span class="hr-tc-tag ${t.c}">${t.t}</span>`).join('')}</div>
+    ${(()=>{const h=pick.hrrbi||computeHitsRunsRBI(player,ctx,trueProb);return`<div class="hr-tc-proj">
+      <div class="hr-tc-proj-stat"><span class="hr-tc-proj-val">${h.xH}</span><span class="hr-tc-proj-lbl">xH</span></div>
+      <div class="hr-tc-proj-stat"><span class="hr-tc-proj-val">${h.xR}</span><span class="hr-tc-proj-lbl">xR</span></div>
+      <div class="hr-tc-proj-stat"><span class="hr-tc-proj-val">${h.xRBI}</span><span class="hr-tc-proj-lbl">xRBI</span></div>
+    </div>`})()}
   </div>`;
 }
 
@@ -1398,10 +1746,10 @@ function renderGameTabs(games,activeIdx){
 // ─────────────────────────────────────────────────────────────
 // COMPUTE PICKS FOR A GAME
 // ─────────────────────────────────────────────────────────────
-function computeGamePicks(game,dateStr){
+function computeGamePicks(game,dateStr,extraData){
   const allBatters=[
-    ...game.homeLineup.map(b=>({...b,team:game.homeAbbr,ha:'HOME',venue:game.venue,pitcher:game.awayPitcher})),
-    ...game.awayLineup.map(b=>({...b,team:game.awayAbbr,ha:'AWAY',venue:game.venue,pitcher:game.homePitcher})),
+    ...game.homeLineup.map(b=>({...b,team:game.homeAbbr,ha:'HOME',venue:game.venue,pitcher:game.awayPitcher,gameTime:game.gameTime})),
+    ...game.awayLineup.map(b=>({...b,team:game.awayAbbr,ha:'AWAY',venue:game.venue,pitcher:game.homePitcher,gameTime:game.gameTime})),
   ];
 
   const picks=allBatters.map(batter=>{
@@ -1414,18 +1762,22 @@ function computeGamePicks(game,dateStr){
     }
     if(!playerData)return null;
 
+    const gameKey=`${game.awayAbbr||''}@${game.homeAbbr||''}`;
     const schedInfo={
       homeAway:batter.ha,venue:batter.venue,
-      pitcher:batter.pitcher?{name:batter.pitcher.name,hand:batter.pitcher.hand}:null,
+      pitcher:batter.pitcher?{name:batter.pitcher.name,hand:batter.pitcher.hand,id:batter.pitcher.id}:null,
       lineupPos:batter.order,team:batter.team,
+      batterId:batter.id||null,
+      gameTime:batter.gameTime||null,
+      gameTotal:extraData?.gameTotalsMap?.[gameKey]||null,
     };
-    const ctx=buildCtx(batter.name,dateStr,weatherData,schedInfo);
+    const ctx=buildCtx(batter.name,dateStr,weatherData,schedInfo,null,extraData);
     const trueProb=computeProb(playerData,dateStr,ctx);
     const baseProb=computeBaseProb(playerData);
     const situationalEdge=trueProb/Math.max(0.03,baseProb);
     const seed=hashStr(batter.name+dateStr);
     const odds=buildOdds(trueProb,seed);
-    return{player:playerData,trueProb,baseProb,situationalEdge,odds,ctx};
+    return{player:playerData,trueProb,baseProb,situationalEdge,odds,ctx,hrrbi:computeHitsRunsRBI(playerData,ctx,trueProb)};
   }).filter(Boolean).sort((a,b)=>b.trueProb-a.trueProb);
 
   return picks;
@@ -1435,6 +1787,7 @@ function computeGamePicks(game,dateStr){
 // SWITCH GAME
 // ─────────────────────────────────────────────────────────────
 let cachedArsenalData={};
+let cachedExtraData={};
 function switchGame(idx){
   activeGameIdx=idx;
   renderGameTabs(allGames,idx);
@@ -1448,6 +1801,8 @@ function switchGame(idx){
     return;
   }
   sidebar.innerHTML=picks.slice(0,20).map((p,i)=>buildHRTargetCard(p,i)).join('');
+  // Rebuild multi-HR leaderboard to reflect all games (not per-game)
+  buildMultiHRPanel();
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1457,6 +1812,7 @@ async function runModel(){
   const dateStr=document.getElementById('dateInput').value||getToday();
   const btn=document.getElementById('fireBtn');
   btn.disabled=true;btn.textContent='⏳ LOADING...';
+  try{
 
   const owmKey=document.getElementById('owmKey').value.trim();
   const oddsKey=document.getElementById('oddsKey').value.trim();
@@ -1471,24 +1827,36 @@ async function runModel(){
   document.getElementById('hrTargetsList').innerHTML='<div class="sidebar-empty">Loading...</div>';
   document.getElementById('gameTabs').innerHTML='<div class="no-tabs-msg">LOADING SCHEDULE...</div>';
 
-  // ── Parallel: schedule + weather ──
-  const [schedData, weather] = await Promise.all([
+  // ── Parallel: schedule + ESPN game totals (both free, no keys needed) ──
+  const [schedData, gameTotalsMap] = await Promise.all([
     fetchMLBSchedule(dateStr),
-    owmKey ? fetchWeather(owmKey) : Promise.resolve({}),
+    fetchGameTotals(dateStr),
   ]);
 
-  weatherData = weather;
-  usingLiveWind = Object.keys(weather).length > 0;
   usingLiveSchedule = schedData.success && schedData.games.length > 0;
+  const usingLiveTotals = Object.keys(gameTotalsMap).length > 0;
 
-  // Update status chips
   document.getElementById('schedChip').className='sc '+(usingLiveSchedule?'sc-live':'sc-off');
   document.getElementById('schedChip').textContent=usingLiveSchedule?`SCHED: ${schedData.gamesFound}G`:'SCHED: NO DATA';
-  document.getElementById('windChip').className='sc '+(usingLiveWind?'sc-conn':'sc-off');
-  document.getElementById('windChip').textContent=usingLiveWind?'WIND: LIVE':'WIND: SIM';
+  document.getElementById('totalsChip').className='sc '+(usingLiveTotals?'sc-conn':'sc-off');
+  document.getElementById('totalsChip').textContent=usingLiveTotals?`TOTALS: ${Object.keys(gameTotalsMap).length}G`:'TOTALS: AVG';
 
   const games=schedData.games;
   allGames=games;
+
+  // ── Fetch real weather: wttr.in auto (no key) + optional OWM override ──
+  const wttrWeather = await fetchWeatherAll(games);
+  let finalWeather = wttrWeather;
+  if(owmKey){
+    // Optional: OWM key provides higher-precision data (merges on top of wttr.in)
+    const owmWeather = await fetchWeather(owmKey);
+    finalWeather = {...wttrWeather,...owmWeather};
+  }
+  weatherData = finalWeather;
+  usingLiveWind = Object.keys(finalWeather).length > 0;
+  document.getElementById('windChip').className='sc '+(usingLiveWind?'sc-conn':'sc-off');
+  const windSource = owmKey&&Object.keys(await Promise.resolve(finalWeather)).length>0?'WEATHER: OWM':'WEATHER: LIVE';
+  document.getElementById('windChip').textContent=usingLiveWind?'WEATHER: LIVE':'WEATHER: OFFLINE';
 
   // ── If API returned nothing, show HR targets from database only ──────────
   if(!games.length){
@@ -1505,12 +1873,12 @@ async function runModel(){
     const allDbPicks=POWER_TIERS.map(player=>{
       const[name,team]=player;
       const seed=hashStr(name+dateStr);
-      const ctx=buildCtx(name,dateStr,weatherData,null);
+      const ctx=buildCtx(name,dateStr,weatherData,{gameTotal:9.0});
       const trueProb=computeProb(player,dateStr,ctx);
       const baseProb=computeBaseProb(player);
       const situationalEdge=trueProb/Math.max(0.03,baseProb);
       const odds=buildOdds(trueProb,seed);
-      return{player,trueProb,baseProb,situationalEdge,odds,ctx};
+      return{player,trueProb,baseProb,situationalEdge,odds,ctx,hrrbi:computeHitsRunsRBI(player,ctx,trueProb)};
     }).sort((a,b)=>b.trueProb-a.trueProb);
     document.getElementById('hrTargetsList').innerHTML=
       allDbPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('');
@@ -1543,16 +1911,50 @@ async function runModel(){
     }
   });
 
-  // ── Fetch batter stats for non-POWER_TIERS players ──
+  // ── Collect all batter IDs (known + unknown) for new data fetches ──
   const unknownPlayerIds=[];
+  const allBatterIds=[];
   games.forEach(game=>{
     [...game.homeLineup,...game.awayLineup].forEach(b=>{
-      if(!findPlayerData(b.name)&&b.id){
-        unknownPlayerIds.push(b.id);
+      if(b.id)allBatterIds.push(b.id);
+      if(!findPlayerData(b.name)&&b.id)unknownPlayerIds.push(b.id);
+    });
+  });
+  const uniqueBatterIds=[...new Set(allBatterIds)];
+  const uniqueUnknownIds=[...new Set(unknownPlayerIds)];
+  // Fetch season stats for ALL batters (including known POWER_TIERS) so we can
+  // overlay live BA/SLG/ISO onto every player's projection
+  const uniqueAllIds=[...new Set(allBatterIds)];
+
+  // ── Parallel: season stats for ALL + recent 30-day stats + home/away splits ──
+  const [batchStats, recentStatsMap, splitsMap] = await Promise.all([
+    uniqueAllIds.length?fetchBatterStats(uniqueAllIds):{},
+    uniqueBatterIds.length?fetchBatterRecentStats(uniqueBatterIds,dateStr):{},
+    uniqueBatterIds.length?fetchBatterSplits(uniqueBatterIds,dateStr):{},
+  ]);
+
+  // ── Pitcher stats map keyed by pitcher ID (already in arsenalData) ──
+  const pitcherStatsMap=arsenalData; // same object, renamed for clarity in extraData
+
+  // ── Overlay live season BA/SLG onto ALL players (including POWER_TIERS) ──
+  // This updates the ISO used by computeHitsRunsRBI with current-season data
+  games.forEach(game=>{
+    [...game.homeLineup,...game.awayLineup].forEach(b=>{
+      if(b.id&&batchStats[b.id]){
+        const ls=batchStats[b.id];
+        if(ls&&ls.avg>0){
+          const liveISO=Math.max(0.05,(ls.slg||0)-(ls.avg||0));
+          const liveXSLG=Math.max(0.250,ls.slg||0);
+          const existing=findPlayerData(b.name);
+          if(existing){
+            // Overlay live stats onto POWER_TIERS entry (indices 7=iso, 8=xslg)
+            existing[7]=liveISO;
+            existing[8]=liveXSLG;
+          }
+        }
       }
     });
   });
-  const batchStats=unknownPlayerIds.length?await fetchBatterStats([...new Set(unknownPlayerIds)]):{};
 
   // Attach MLB stats to unknown players
   games.forEach(game=>{
@@ -1564,16 +1966,33 @@ async function runModel(){
           fuzzyPark(game.venue)||TEAM_TO_HOME_PARK[b.team]||'Unknown',
           batchStats[b.id]
         );
-        // Register in index for quick lookup
         POWER_TIER_INDEX[b.name.toLowerCase()]=b._synthetic;
       }
     });
   });
 
+  // ── Fetch real H2H career stats: every batter vs their probable pitcher ──
+  const h2hPairs=[];
+  games.forEach(game=>{
+    if(game.awayPitcher?.id){
+      game.homeLineup.forEach(b=>{if(b.id)h2hPairs.push({batterId:b.id,pitcherId:game.awayPitcher.id});});
+    }
+    if(game.homePitcher?.id){
+      game.awayLineup.forEach(b=>{if(b.id)h2hPairs.push({batterId:b.id,pitcherId:game.homePitcher.id});});
+    }
+  });
+  const h2hMap=await fetchH2HBatters(h2hPairs);
+  const usingLiveH2H=Object.keys(h2hMap).length>0;
+  document.getElementById('h2hChip').className='sc '+(usingLiveH2H?'sc-conn':'sc-off');
+  document.getElementById('h2hChip').textContent=usingLiveH2H?`H2H: ${Object.keys(h2hMap).length} PAIRS`:'H2H: NONE';
+
+  const extraData={pitcherStatsMap,recentStatsMap,splitsMap,gameTotalsMap,h2hMap};
+  cachedExtraData=extraData;
+
   // ── Compute picks per game ──
   gamePicksMap={};
   games.forEach((game,idx)=>{
-    gamePicksMap[idx]=computeGamePicks(game,dateStr);
+    gamePicksMap[idx]=computeGamePicks(game,dateStr,extraData);
   });
 
   // ── Render ──
@@ -1587,278 +2006,143 @@ async function runModel(){
     ? firstPicks.slice(0,25).map((p,i)=>buildHRTargetCard(p,i)).join('')
     : '<div class="sidebar-empty">No picks available</div>';
 
+  // Populate Multi-HR panel (background build — visible when user clicks tab)
+  buildMultiHRPanel();
+
   btn.disabled=false;btn.textContent='⚡ FIRE!';
+  }catch(e){
+    console.error('runModel error',e);
+    document.getElementById('gameContent').innerHTML=
+      '<div class="loading-wrap"><div class="loading-txt" style="color:#ff2d55;">ERROR — check console</div></div>';
+  }finally{
+    btn.disabled=false;btn.textContent='⚡ FIRE!';
+  }
 }
 
 // ─────────────────────────────────────────────────────────────
-// PARLAY BUILDER
+// H+R+RBI OVER 1.5 PANEL
 // ─────────────────────────────────────────────────────────────
 
 function switchSidebarTab(tab){
   document.getElementById('hrTargetsPanel').style.display=tab==='hr'?'':'none';
-  document.getElementById('parlayPanel').style.display=tab==='parlay'?'':'none';
+  document.getElementById('multiHRPanel').style.display=tab==='multihr'?'':'none';
   document.getElementById('tabHR').className='sidebar-tab'+(tab==='hr'?' active':'');
-  document.getElementById('tabParlay').className='sidebar-tab'+(tab==='parlay'?' active':'');
+  document.getElementById('tabMultiHR').className='sidebar-tab'+(tab==='multihr'?' active':'');
+  if(tab==='multihr')buildMultiHRPanel();
 }
 
-// ── Extended Prop Probability Models ──────────────────────────
+// ─────────────────────────────────────────────────────────────
+// H+R+RBI OVER 1.5 PROBABILITY ENGINE
+// ─────────────────────────────────────────────────────────────
 
-// 1+ Hit probability (used internally by other models)
-function computeHitProb(player,dateStr,ctx){
-  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
-  const contactN=1-Math.max(0,(barrel-4)/20);
-  const disciplineN=Math.max(0,Math.min(1,(kbb-0.8)/3.5));
-  const hhN=Math.max(0,(hh-28)/32);
-  const base=0.58+contactN*0.08+disciplineN*0.06+hhN*0.04;
-  const pitQMod=ctx.pitcherQuality?.label==='ACE'?0.92:ctx.pitcherQuality?.label==='HITTABLE'?1.06:1.0;
-  const prob=base*(ctx.platoon?.factor||1)*pitQMod*(ctx.recentForm?.factor||1)*(ctx.homeAway?.factor||1)*(ctx.lineup?.factor||1);
-  return Math.max(0.42,Math.min(0.82,prob));
+// P(H+R+RBI > 1.5) via Poisson: lambda = xH+xR+xRBI, P(X>=2) = 1 - e^-λ(1+λ)
+function computeHRRProb(player, dateStr, ctx){
+  const successScore = computeProb(player, dateStr, ctx);
+  const hrrbi  = computeHitsRunsRBI(player, ctx, successScore);
+  const lambda = Math.max(0.1, hrrbi.xH + hrrbi.xR + hrrbi.xRBI); // expected total
+  const prob   = 1 - Math.exp(-lambda) * (1 + lambda);             // Poisson P(X≥2)
+  return { prob: Math.max(0.01, Math.min(0.97, prob)), hrrbi };
 }
 
-// ── Dynamic-Line Prop Engine ──────────────────────────────────
-// Computes an expected value (Poisson lambda) for the prop, then
-// tests lines from highest → lowest and takes the highest line
-// where the model still has ≥ minConf confidence.
-
-// Expected H+R+RBI per game (drives Poisson mean)
-function expectedHRRBI(player,dateStr,ctx){
-  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
-  const hitProb=computeHitProb(player,dateStr,ctx);
-  const hrProb=computeProb(player,dateStr,ctx);
-  const isoN=Math.max(0,(iso-0.10)/0.28);
-  const totalVal=parseFloat(ctx.total?.val||'8.5');
-  const totalMod=totalVal/8.5;
-  const lineupBonus=(ctx.lineupPos||5)<=3?1.15:(ctx.lineupPos||5)<=5?1.05:0.92;
-  return Math.max(0.5,
-    (hitProb*1.1+hrProb*3.0+isoN*0.4)*totalMod*lineupBonus*
-    (ctx.recentForm?.factor||1)*(ctx.platoon?.factor||1));
-}
-
-// Expected Total Bases per game (drives Poisson mean)
-function expectedTB(player,dateStr,ctx){
-  const[,,ev,barrel,la,pull,fb,iso,xslg]=player;
-  const hrProb=computeProb(player,dateStr,ctx);
-  const evN=Math.max(0,(ev-85)/12);
-  const isoN=Math.max(0,(iso-0.10)/0.28);
-  const xslgN=Math.max(0,(xslg-0.350)/0.30);
-  const pitQMod=ctx.pitcherQuality?.label==='ACE'?0.91:ctx.pitcherQuality?.label==='HITTABLE'?1.08:1.0;
-  return Math.max(0.5,
-    (0.8+evN*0.8+isoN*0.7+xslgN*0.5+hrProb*4.0)*pitQMod*
-    (ctx.recentForm?.factor||1)*(ctx.homeAway?.factor||1));
-}
-
-// Poisson CDF: P(X > line) — line can be x.5 so floor(line) = x
-function poissonOver(lambda,line){
-  const k=Math.floor(line);
-  let cdf=0,term=1;
-  for(let i=0;i<=k;i++){
-    if(i>0)term*=lambda/i;
-    cdf+=Math.exp(-lambda)*term;
-  }
-  return Math.max(0.02,Math.min(0.92,1-cdf));
-}
-
-// Try each line (desc order); pick highest where P ≥ minConf
-function pickBestLine(lambda,propName,lines,minConf){
-  for(const line of lines){
-    const p=poissonOver(lambda,line);
-    if(p>=minConf)return{prob:p,label:`${propName} Over ${line}`};
-  }
-  const fallback=lines[lines.length-1];
-  return{prob:poissonOver(lambda,fallback),label:`${propName} Over ${fallback}`};
-}
-
-// H+R+RBI — tests 3.5, 2.5, 1.5; min 22 % confidence per line
-function computeHRRBIInfo(player,dateStr,ctx){
-  const mu=expectedHRRBI(player,dateStr,ctx);
-  return pickBestLine(mu,'H+R+RBI',[3.5,2.5,1.5],0.22);
-}
-
-// Total Bases — tests 3.5, 2.5, 1.5; min 22 % confidence per line
-function computeTBInfo(player,dateStr,ctx){
-  const mu=expectedTB(player,dateStr,ctx);
-  return pickBestLine(mu,'Total Bases',[3.5,2.5,1.5],0.22);
-}
-
-// Pitcher K Over 4.5 probability
-function computeKProbPitcher(pitcherName,pitcherHand){
-  const qual=pitcherQualityFactor(pitcherName,hashStr(pitcherName));
-  const xip=parseFloat(pitcherXip(pitcherName)||'5.5');
-  const base=qual.label==='ACE'?0.64:qual.label==='SOLID'?0.47:0.31;
-  const ipMod=xip>=6.0?1.12:xip>=5.5?1.05:xip>=5.0?1.0:0.88;
-  return{prob:Math.max(0.22,Math.min(0.78,base*ipMod)),qual,xip};
-}
-
-// Unified accessor → { prob, label }
-function getPropInfo(player,dateStr,ctx,propType){
-  if(propType==='hr')    return{prob:computeProb(player,dateStr,ctx),label:'1+ HR'};
-  if(propType==='hrrbi') return computeHRRBIInfo(player,dateStr,ctx);
-  if(propType==='tb')    return computeTBInfo(player,dateStr,ctx);
-  return{prob:computeProb(player,dateStr,ctx),label:'1+ HR'};
-}
-
-function getPropProb(player,dateStr,ctx,propType){
-  return getPropInfo(player,dateStr,ctx,propType).prob;
-}
-
-function getPropLabel(propType){
-  return{hr:'1+ HR',hrrbi:'H+R+RBI',tb:'Total Bases',k:'K Over 4.5',mix:'Mixed Props'}[propType]||propType;
-}
-
+// Probability → American odds string
 function probToAmerican(p){
-  if(p<=0||p>=1)return p<=0?99999:-9999;
-  return p<0.5?Math.round((1-p)/p*100):-Math.round(p/(1-p)*100);
+  if(p<=0||p>=1) return p<=0?99999:-9999;
+  return p<0.5 ? Math.round((1-p)/p*100) : -Math.round(p/(1-p)*100);
 }
 
-// ── Gather Pick Pool ──────────────────────────────────────────
-function gatherParlayPool(propType,dateStr){
-  const picks=[];
+// Build and render the H+R+RBI Over 1.5 leaderboard
+function buildMultiHRPanel(){
+  const container = document.getElementById('multiHRList');
+  if(!container) return;
+  const dateStr = document.getElementById('dateInput').value || getToday();
 
-  // ── Pitcher K props (from live game data only) ──
-  if(propType==='k'){
-    if(!allGames.length)return[];
-    allGames.forEach(game=>{
-      [game.homePitcher,game.awayPitcher].forEach(pitcher=>{
-        if(!pitcher||!pitcher.name)return;
-        const teamAbbr=pitcher===game.homePitcher?game.homeAbbr:game.awayAbbr;
-        const opp=pitcher===game.homePitcher?game.awayAbbr:game.homeAbbr;
-        const{prob,qual,xip}=computeKProbPitcher(pitcher.name,pitcher.hand||'R');
-        picks.push({
-          name:pitcher.name,team:teamAbbr,
-          propProb:prob,propType:'k',
-          display:`${teamAbbr} vs ${opp} · ${qual.label} · ${xip.toFixed?xip.toFixed(1):xip}IP`,
-        });
+  // Collect candidates from live picks or POWER_TIERS fallback
+  const gamePicksFlat = Object.values(gamePicksMap).flat();
+  const candidates = [];
+
+  if(gamePicksFlat.length){
+    gamePicksFlat.forEach(pick=>{
+      if(!pick.player) return;
+      const { prob, hrrbi } = computeHRRProb(pick.player, dateStr, pick.ctx);
+      const pitLast = (pick.ctx?.pitName||'').split(' ').pop() || '';
+      candidates.push({
+        name: pick.player[0], team: pick.player[1],
+        prob, hrrbi, pitLast,
+        isLive: true, tags: _mhrTags(pick.ctx)
       });
     });
-    return picks;
-  }
-
-  // ── Batter props ──
-  const gamePicksFlat=Object.values(gamePicksMap).flat();
-  const useDB=!gamePicksFlat.length;
-
-  const source=useDB
-    ? POWER_TIERS.map(player=>{
-        const ctx=buildCtx(player[0],dateStr,weatherData,null);
-        return{name:player[0],team:player[1],player,ctx};
-      })
-    : gamePicksFlat.map(pick=>({name:pick.player[0],team:pick.player[1],player:pick.player,ctx:pick.ctx}));
-
-  source.forEach(s=>{
-    if(!s.player)return;
-    if(propType==='mix'){
-      const infos={
-        hr:   getPropInfo(s.player,dateStr,s.ctx,'hr'),
-        hrrbi:getPropInfo(s.player,dateStr,s.ctx,'hrrbi'),
-        tb:   getPropInfo(s.player,dateStr,s.ctx,'tb'),
-      };
-      picks.push({...s,propInfos:infos,propType:'mix'});
-    } else {
-      const info=getPropInfo(s.player,dateStr,s.ctx,propType);
-      picks.push({...s,propProb:info.prob,propLabel:info.label,propType});
-    }
-  });
-
-  return picks;
-}
-
-// ── Build Parlay Legs ─────────────────────────────────────────
-function buildParlayLegs(numLegs,propType,targetOdds){
-  const dateStr=document.getElementById('dateInput').value||getToday();
-  const targetCombinedProb=100/(targetOdds+100);
-  const targetPerLeg=Math.pow(targetCombinedProb,1/numLegs);
-
-  let pool=gatherParlayPool(propType,dateStr);
-  if(!pool.length)return{legs:[],combinedProb:0,combinedAm:0,empty:true};
-
-  // Resolve mix: per player, pick whichever prop type is closest to targetPerLeg
-  if(propType==='mix'){
-    pool=pool.map(p=>{
-      const infos=p.propInfos||{};
-      let bestPt='hr',bestInfo={prob:0.1,label:'1+ HR'};
-      let bestDist=Infinity;
-      Object.entries(infos).forEach(([pt,info])=>{
-        const d=Math.abs(info.prob-targetPerLeg);
-        if(d<bestDist){bestDist=d;bestPt=pt;bestInfo=info;}
+  } else {
+    POWER_TIERS.forEach(player=>{
+      const ctx = buildCtx(player[0], dateStr, weatherData, {gameTotal:9.0});
+      const { prob, hrrbi } = computeHRRProb(player, dateStr, ctx);
+      candidates.push({
+        name: player[0], team: player[1],
+        prob, hrrbi, pitLast: '',
+        isLive: false, tags: []
       });
-      return{...p,propProb:bestInfo.prob,propLabel:bestInfo.label,resolvedPropType:bestPt};
     });
   }
 
-  // Sort by distance from targetPerLeg
-  pool.sort((a,b)=>
-    Math.abs((a.propProb||0)-targetPerLeg)-Math.abs((b.propProb||0)-targetPerLeg)
-  );
-
-  // Select N unique players
-  const legs=[];
-  const seen=new Set();
-  for(const p of pool){
-    if(legs.length>=numLegs)break;
-    if(seen.has(p.name))continue;
-    seen.add(p.name);
-    const prob=typeof p.propProb==='number'?p.propProb:0.1;
-    const am=probToAmerican(prob);
-    legs.push({...p,propProb:prob,propAm:am,resolvedPropType:p.resolvedPropType||propType});
-  }
-
-  const combinedProb=legs.reduce((acc,l)=>acc*l.propProb,1);
-  const combinedAm=probToAmerican(combinedProb);
-  return{legs,combinedProb,combinedAm};
-}
-
-// ── Render Parlay ─────────────────────────────────────────────
-function buildAndRenderParlay(){
-  const numLegs=parseInt(document.getElementById('pbLegs').value)||5;
-  const targetOdds=parseInt(document.getElementById('pbTargetOdds').value)||5000;
-  const propType=document.getElementById('pbPropType').value||'hr';
-  const{legs,combinedProb,combinedAm,empty}=buildParlayLegs(numLegs,propType,targetOdds);
-  const out=document.getElementById('pbOutput');
-
-  if(empty||!legs.length){
-    out.innerHTML=`<div class="pb-no-data">${propType==='k'
-      ?'⚾ Fire model first<br>to load pitcher data'
-      :'⚡ Fire model first<br>to load today\'s picks'
-    }</div>`;
+  if(!candidates.length){
+    container.innerHTML='<div class="sidebar-empty">No data — Fire model first</div>';
     return;
   }
 
-  const amStr=combinedAm>0?'+'+combinedAm:String(combinedAm);
-  const combinedPct=(combinedProb*100).toFixed(2);
-  const propLbl=(propType==='mix'?'MIXED PROPS':getPropLabel(propType).toUpperCase());
-  const targetAmStr='+'+(document.getElementById('pbTargetOdds').value||5000);
+  candidates.sort((a,b)=>b.prob-a.prob);
+  const top = candidates.slice(0, 30);
 
-  const legCards=legs.map((leg,i)=>{
-    const legAmStr=leg.propAm>0?'+'+leg.propAm:String(leg.propAm);
-    const pct=(leg.propProb*100).toFixed(1);
-    const pt=leg.propLabel||(propType==='mix'?getPropLabel(leg.resolvedPropType):getPropLabel(propType));
-    const subLine=leg.display
-      ||(leg.team+(leg.ctx?.pitName?' · vs '+leg.ctx.pitName.split(' ').pop():''));
-    return`<div class="pb-leg">
-      <div class="pb-leg-num">${i+1}</div>
-      <div class="pb-leg-info">
-        <div class="pb-leg-name">${leg.name}</div>
-        <div class="pb-leg-prop">${subLine} · ${pt}</div>
+  const rows = top.map((c,i)=>{
+    const pct    = (c.prob*100).toFixed(1)+'%';
+    const am     = probToAmerican(c.prob);
+    const amStr  = am>0 ? '+'+am : String(am);
+    const pctCls = c.prob>=0.60?'hot': c.prob>=0.42?'warm':'cool';
+    const rkCls  = i<3?'top':'';
+    const rkLbl  = i===0?'🥇': i===1?'🥈': i===2?'🥉': `${i+1}`;
+    const subParts = [c.team];
+    if(c.pitLast) subParts.push('vs '+c.pitLast);
+    // bar scales from 0–80% probability → 0–100% width
+    const barW = Math.min(100, Math.round(c.prob / 0.80 * 100));
+    const tagStr = c.tags.slice(0,2).map(t=>
+      `<span style="font-size:8px;color:rgba(0,212,255,0.55);letter-spacing:.5px;">${t}</span>`
+    ).join(' · ');
+    return `<div class="mhr-row">
+      <div class="mhr-rank ${rkCls}">${rkLbl}</div>
+      <div class="mhr-info">
+        <div class="mhr-name">${c.name}</div>
+        <div class="mhr-sub">${subParts.join(' · ')}</div>
+        <div style="display:flex;gap:8px;margin-top:3px;">
+          <span style="font-size:9px;color:rgba(255,200,100,0.7);">xH <strong style="color:#ffe8c0;">${c.hrrbi.xH}</strong></span>
+          <span style="font-size:9px;color:rgba(255,200,100,0.7);">xR <strong style="color:#ffe8c0;">${c.hrrbi.xR}</strong></span>
+          <span style="font-size:9px;color:rgba(255,200,100,0.7);">xRBI <strong style="color:#ffe8c0;">${c.hrrbi.xRBI}</strong></span>
+        </div>
+        ${tagStr?`<div style="margin-top:2px;">${tagStr}</div>`:''}
+        <div class="mhr-bar-wrap"><div class="mhr-bar" style="width:${barW}%"></div></div>
       </div>
-      <div class="pb-leg-right">
-        <div class="pb-leg-am">${legAmStr}</div>
-        <div class="pb-leg-pct">${pct}%</div>
+      <div class="mhr-right">
+        <div class="mhr-pct ${pctCls}">${pct}</div>
+        <div class="mhr-odds">${amStr}</div>
       </div>
     </div>`;
   }).join('');
 
-  out.innerHTML=`
-    <div class="pb-result">
-      <div class="pb-result-top">
-        <div>
-          <div class="pb-result-label">${numLegs}-LEG ${propLbl}<br>PARLAY</div>
-          <div class="pb-result-meta">Target: ${targetAmStr} · Win: ${combinedPct}%</div>
-        </div>
-        <div class="pb-result-odds">${amStr}</div>
-      </div>
+  const srcLbl = gamePicksFlat.length ? `${candidates.length} PLAYERS · LIVE` : `${candidates.length} PLAYERS · DB`;
+  container.innerHTML = `
+    <div class="mhr-header">
+      <span class="mhr-header-lbl">H+R+RBI OVR 1.5</span>
+      <span class="mhr-header-count">${srcLbl}</span>
     </div>
-    ${legCards}
-  `;
+    ${rows}`;
+}
+
+// Extract short context tags for display
+function _mhrTags(ctx){
+  const t=[];
+  if(!ctx) return t;
+  if(ctx.recentForm?.label==='ON FIRE'||ctx.recentForm?.label==='HOT') t.push('🔥 HOT');
+  if(ctx.platoon?.factor>1.05) t.push('PLATOON ADV');
+  if(ctx.pitcherQuality?.label==='HITTABLE'||ctx.pitcherQuality?.label==='SHELLED') t.push(ctx.pitcherQuality.label+' SP');
+  if(ctx.windFactor>1.05) t.push('WIND AID');
+  return t;
 }
 
 initDate();

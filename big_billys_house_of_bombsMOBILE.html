@@ -5,392 +5,703 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Big Billy's House of Bombs</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Rye&family=Rajdhani:wght@500;600;700&family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
 
-/* ── PALETTE
-   Gold:    #ffcc00   Orange: #ff8c00
-   Cyan:    #00d4ff   Green:  #39ff14
-   Red:     #ff2d55   BG:     #05070f
-   Surface: #0a0d1a
-─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   BIG BILLY'S — Consumer-grade dark sports design system
+   Palette:
+     bg        #0a0c10   near-black
+     bg-2      #10131a   elevated surface
+     bg-3      #171b24   panels
+     border    rgba(255,255,255,0.06)
+     border-2  rgba(255,255,255,0.10)
+     text      #e7ecf3
+     text-2    #9aa3b2   secondary
+     text-3    #6b7380   tertiary
+     brand     #f5a524   warm amber ("bomb" fuse)
+     brand-2   #ff6a3d   ignition orange
+     hot       #ef4444   red-hot signal
+     cool      #60a5fa   data / info
+     ok        #34d399   positive
+     warn      #fbbf24
+───────────────────────────────────────────────────────────── */
+
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-weight:600;min-height:100vh;-webkit-font-smoothing:antialiased;}
+html,body{height:100%;}
+body{
+  background:#0a0c10;
+  color:#e7ecf3;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-weight:500;
+  font-feature-settings:"cv11","ss01","ss03";
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  min-height:100vh;
+  letter-spacing:-0.005em;
+}
 
 .app-root{
   background:
-    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,140,0,0.03) 60px),
-    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,212,255,0.02) 60px),
-    radial-gradient(ellipse at 50% 0%,rgba(255,100,0,0.08),#05070f 65%);
-}
-.app-root::before{
-  content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.13) 2px,rgba(0,0,0,0.13) 4px);
+    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(245,165,36,0.09), transparent 60%),
+    radial-gradient(ellipse 70% 45% at 100% 0%, rgba(255,106,61,0.06), transparent 60%),
+    #0a0c10;
+  min-height:100vh;
 }
 
 /* ── HEADER ─────────────────────────────────────────── */
 .app-header{
-  background:
-    linear-gradient(180deg,
-      rgba(185,118,52,0.22) 0%,
-      rgba(210,162,88,0.12) 45%,
-      rgba(155,92,38,0.05) 100%
-    ),
-    radial-gradient(ellipse 80% 60% at 50% 0%,rgba(220,175,95,0.10),transparent 70%);
-  border-bottom:1px solid rgba(195,148,72,0.28);
-  padding:20px 16px 14px;position:relative;overflow:hidden;
+  padding:28px 24px 20px;
+  position:relative;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:linear-gradient(180deg, rgba(245,165,36,0.04), transparent 70%);
 }
-.app-header::before{
-  /* subtle heat-shimmer dust texture overlay */
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 35% 40% at 20% 50%,rgba(210,170,90,0.06),transparent),
-    radial-gradient(ellipse 25% 30% at 75% 30%,rgba(190,130,60,0.06),transparent);
+.app-header::before,.app-header::after{content:none;}
+
+.badge-strip{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px;}
+.badge-line{height:1px;flex:1;max-width:80px;background:linear-gradient(90deg,transparent,rgba(245,165,36,0.35),transparent);}
+.badge-star{color:#f5a524;font-size:9px;letter-spacing:8px;font-weight:600;}
+
+.app-title{
+  font-family:'Space Grotesk','Inter',sans-serif;
+  font-weight:700;
+  font-size:clamp(28px,5vw,42px);
+  color:#f5f6f8;
+  letter-spacing:-0.02em;
+  text-align:center;
+  line-height:1.05;
+  text-shadow:none;
+  background:linear-gradient(180deg,#ffd68a 0%,#f5a524 60%,#d68a10 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
-.app-header::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(215,168,80,0.50) 25%,rgba(190,122,52,0.80) 50%,rgba(215,168,80,0.50) 75%,transparent);
-  box-shadow:0 0 8px rgba(195,140,58,0.40);
+.app-title-sub{
+  font-family:'Space Grotesk','Inter',sans-serif;
+  font-weight:600;
+  font-size:clamp(14px,2.4vw,18px);
+  color:#9aa3b2;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  text-align:center;
+  margin-top:2px;
+  text-shadow:none;
 }
-.badge-strip{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;}
-.badge-line{height:1px;flex:1;max-width:120px;background:linear-gradient(90deg,transparent,rgba(210,168,85,0.55),transparent);}
-.badge-star{color:#ff8c00;font-size:11px;letter-spacing:5px;}
-.app-title{font-family:'Rye',serif;font-size:clamp(22px,5vw,44px);color:#ffcc00;letter-spacing:3px;text-align:center;
-  text-shadow:0 0 20px rgba(255,200,0,0.8),3px 3px 0 rgba(0,0,0,0.9);}
-.app-title-sub{font-family:'Rye',serif;font-size:clamp(15px,3.5vw,30px);color:#ff8c00;letter-spacing:3px;text-align:center;margin-bottom:4px;
-  text-shadow:0 0 16px rgba(255,140,0,0.9),2px 2px 0 rgba(0,0,0,0.9);}
-.ornament{color:#ff8c00;font-size:14px;letter-spacing:8px;text-align:center;margin:4px 0;}
+.ornament{display:none;}
 
-.header-row{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;justify-content:center;}
-.date-grp{display:flex;flex-direction:column;gap:4px;}
-.date-grp label{font-size:9px;font-weight:700;color:#00d4ff;letter-spacing:3px;text-transform:uppercase;}
-.date-grp input{background:rgba(0,10,25,0.95);border:1px solid rgba(255,140,0,0.35);border-radius:2px;
-  color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;padding:8px 10px;outline:none;min-height:40px;width:150px;}
-.date-grp input:focus{border-color:#ff8c00;box-shadow:0 0 8px rgba(255,140,0,0.3);}
+.header-row{
+  display:flex;align-items:flex-end;gap:10px;margin-top:22px;
+  flex-wrap:wrap;justify-content:center;
+}
+.date-grp{display:flex;flex-direction:column;gap:6px;}
+.date-grp label{
+  font-size:10px;font-weight:600;color:#6b7380;letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+.date-grp input{
+  background:#10131a;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px;
+  color:#e7ecf3;
+  font-family:inherit;font-weight:500;font-size:14px;
+  padding:0 14px;min-height:42px;width:170px;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s, background .15s;
+}
+.date-grp input::placeholder{color:#5c6472;}
+.date-grp input:focus{
+  border-color:rgba(245,165,36,0.5);
+  box-shadow:0 0 0 3px rgba(245,165,36,0.12);
+  background:#141820;
+}
 
-.fire-btn{background:linear-gradient(135deg,#ff6a00,#ff9500,#ff6a00);border:1px solid #ffcc00;border-radius:2px;
-  color:#05070f;font-family:'Orbitron',sans-serif;font-size:12px;font-weight:900;letter-spacing:2px;
-  padding:0 20px;min-height:40px;cursor:pointer;white-space:nowrap;
-  box-shadow:0 0 18px rgba(255,140,0,0.6);position:relative;overflow:hidden;transition:all .15s;}
-.fire-btn:hover{background:linear-gradient(135deg,#ff8c00,#ffcc00,#ff8c00);box-shadow:0 0 28px rgba(255,180,0,0.8);transform:translateY(-1px);}
-.fire-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.fire-btn{
+  background:linear-gradient(180deg,#ff8a4c 0%,#f5a524 100%);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px;
+  color:#1a0e00;
+  font-family:'Inter',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:0 22px;min-height:42px;
+  cursor:pointer;white-space:nowrap;
+  box-shadow:0 1px 0 rgba(255,255,255,0.25) inset, 0 10px 24px -10px rgba(245,165,36,0.6);
+  transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.fire-btn:hover{
+  filter:brightness(1.08);
+  box-shadow:0 1px 0 rgba(255,255,255,0.3) inset, 0 14px 28px -10px rgba(245,165,36,0.75);
+  transform:translateY(-1px);
+}
+.fire-btn:active{transform:translateY(0);}
+.fire-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;filter:none;}
 
-.status-chips{display:flex;gap:5px;flex-wrap:wrap;}
-.sc{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 7px;border-radius:2px;
-  border:1px solid;font-family:'Rajdhani',sans-serif;}
-.sc-off{color:rgba(255,140,0,0.3);border-color:rgba(255,140,0,0.15);}
-.sc-live{color:#ffcc00;border-color:#ffcc00;background:rgba(255,200,0,0.08);animation:pglow 2s ease-in-out infinite;}
-.sc-conn{color:#39ff14;border-color:#39ff14;background:rgba(57,255,20,0.08);}
-@keyframes pglow{0%,100%{opacity:1}50%{opacity:.5}}
+.status-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.sc{
+  font-size:10px;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.02);
+  color:#6b7380;
+  font-family:'JetBrains Mono','Inter',monospace;
+}
+.sc-off{color:#5c6472;border-color:rgba(255,255,255,0.06);}
+.sc-live{
+  color:#f5a524;border-color:rgba(245,165,36,0.4);background:rgba(245,165,36,0.08);
+  animation:pglow 2.4s ease-in-out infinite;
+}
+.sc-conn{color:#34d399;border-color:rgba(52,211,153,0.35);background:rgba(52,211,153,0.08);}
+@keyframes pglow{0%,100%{opacity:1}50%{opacity:.55}}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ── API PANEL ──────────────────────────────────────── */
-.api-panel{background:rgba(0,10,25,0.85);border:1px solid rgba(0,212,255,0.18);border-radius:2px;margin-top:10px;}
-.api-toggle{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;min-height:38px;}
-.api-toggle:hover{background:rgba(0,212,255,0.04);}
-.api-toggle-lbl{font-size:9px;font-weight:700;color:rgba(0,212,255,0.6);letter-spacing:2px;text-transform:uppercase;flex:1;}
-.api-arrow{color:rgba(0,212,255,0.4);font-size:10px;transition:transform .2s;}
+.api-panel{
+  background:#10131a;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:10px;
+  margin-top:16px;
+  max-width:780px;margin-left:auto;margin-right:auto;
+}
+.api-toggle{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;cursor:pointer;min-height:44px;
+  user-select:none;
+}
+.api-toggle:hover{background:rgba(255,255,255,0.02);border-radius:10px;}
+.api-toggle-lbl{
+  font-size:11px;font-weight:600;color:#9aa3b2;
+  letter-spacing:0.08em;text-transform:uppercase;flex:1;
+}
+.api-arrow{color:#6b7380;font-size:10px;transition:transform .2s;}
 .api-arrow.open{transform:rotate(90deg);}
-.api-body{display:none;padding:0 14px 12px;gap:10px;flex-wrap:wrap;}
+.api-body{display:none;padding:0 16px 16px;gap:12px;flex-wrap:wrap;}
 .api-body.open{display:flex;}
-.api-grp{flex:1;min-width:180px;display:flex;flex-direction:column;gap:4px;}
-.api-grp label{font-size:9px;font-weight:700;color:#00d4ff;letter-spacing:2px;text-transform:uppercase;}
-.api-grp input{background:rgba(0,5,15,0.95);border:1px solid rgba(0,212,255,0.18);border-radius:2px;
-  color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:13px;padding:7px 10px;outline:none;min-height:38px;}
-.api-grp input:focus{border-color:#00d4ff;}
-.api-note{font-size:10px;color:rgba(0,212,255,0.35);letter-spacing:.3px;}
+.api-grp{flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px;}
+.api-grp label{
+  font-size:10px;font-weight:600;color:#6b7380;
+  letter-spacing:0.1em;text-transform:uppercase;
+}
+.api-grp input{
+  background:#0a0c10;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:7px;
+  color:#e7ecf3;
+  font-family:'JetBrains Mono',monospace;font-weight:500;font-size:12px;
+  padding:0 12px;min-height:38px;outline:none;
+  transition:border-color .15s, box-shadow .15s;
+}
+.api-grp input::placeholder{color:#5c6472;}
+.api-grp input:focus{
+  border-color:rgba(96,165,250,0.45);
+  box-shadow:0 0 0 3px rgba(96,165,250,0.1);
+}
+.api-note{font-size:11px;color:#6b7380;letter-spacing:0;}
 
 /* ── GAME TABS ──────────────────────────────────────── */
 .game-tabs-outer{
-  background:rgba(0,5,15,0.9);border-bottom:1px solid rgba(255,140,0,0.2);
+  background:#0a0c10;
+  border-bottom:1px solid rgba(255,255,255,0.06);
   overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
 .game-tabs-outer::-webkit-scrollbar{display:none;}
-.game-tabs{display:flex;gap:0;min-width:max-content;}
+.game-tabs{display:flex;gap:0;min-width:max-content;padding:0 8px;}
 .gtab{
-  background:transparent;border:none;border-right:1px solid rgba(255,140,0,0.12);
-  color:rgba(255,200,100,0.45);font-family:'Rajdhani',sans-serif;font-weight:700;
-  font-size:12px;letter-spacing:1px;padding:10px 18px;cursor:pointer;
-  transition:all .15s;white-space:nowrap;text-align:left;min-height:48px;
+  background:transparent;border:none;
+  color:#6b7380;
+  font-family:inherit;font-weight:600;
+  font-size:13px;letter-spacing:0;
+  padding:14px 18px;cursor:pointer;
+  transition:color .15s, background .15s, border-color .15s;
+  white-space:nowrap;text-align:left;min-height:52px;
+  position:relative;
+  border-bottom:2px solid transparent;
 }
-.gtab:hover{background:rgba(255,140,0,0.05);color:rgba(255,200,100,0.7);}
-.gtab.active{background:rgba(255,140,0,0.1);color:#ffcc00;border-bottom:2px solid #ff8c00;
-  text-shadow:0 0 8px rgba(255,200,0,0.5);}
-.gtab-match{font-size:13px;font-weight:700;display:block;}
-.gtab-time{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:1px;margin-top:1px;display:block;}
-.gtab-time.active{color:rgba(0,212,255,0.8);}
-.no-tabs-msg{padding:14px 20px;color:rgba(255,140,0,0.3);font-size:11px;letter-spacing:2px;font-family:'Orbitron',sans-serif;}
+.gtab:hover{color:#c4cbd7;background:rgba(255,255,255,0.02);}
+.gtab.active{
+  color:#f5f6f8;
+  border-bottom-color:#f5a524;
+  background:linear-gradient(180deg, transparent, rgba(245,165,36,0.05));
+  text-shadow:none;
+}
+.gtab-match{font-size:13px;font-weight:600;display:block;letter-spacing:-0.005em;}
+.gtab-time{
+  font-size:10px;font-weight:500;color:#6b7380;
+  letter-spacing:0.06em;margin-top:3px;display:block;
+  font-family:'JetBrains Mono',monospace;
+}
+.gtab-time.active{color:#9aa3b2;}
+.no-tabs-msg{
+  padding:16px 22px;color:#6b7380;font-size:11px;
+  letter-spacing:0.15em;font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;
+}
 
 /* ── MAIN LAYOUT ────────────────────────────────────── */
-.main-layout{display:flex;min-height:calc(100vh - 260px);}
+.main-layout{display:flex;min-height:calc(100vh - 280px);}
 .game-content{flex:1;min-width:0;padding:0 0 60px;}
 .hr-sidebar{
-  width:300px;flex-shrink:0;
-  background:rgba(0,5,15,0.9);
-  border-left:1px solid rgba(255,140,0,0.18);
+  width:320px;flex-shrink:0;
+  background:#0c0f15;
+  border-left:1px solid rgba(255,255,255,0.06);
   position:sticky;top:0;height:100vh;overflow-y:auto;
-  scrollbar-width:thin;scrollbar-color:rgba(255,140,0,0.2) transparent;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent;
 }
-.hr-sidebar::-webkit-scrollbar{width:3px;}
-.hr-sidebar::-webkit-scrollbar-thumb{background:rgba(255,140,0,0.25);border-radius:2px;}
+.hr-sidebar::-webkit-scrollbar{width:6px;}
+.hr-sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px;}
+.hr-sidebar::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.15);}
 
 .sidebar-header{
-  padding:12px 14px 8px;
-  border-bottom:1px solid rgba(255,140,0,0.18);
-  position:sticky;top:0;background:rgba(0,5,15,0.97);z-index:2;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  position:sticky;top:0;background:rgba(12,15,21,0.96);backdrop-filter:blur(8px);z-index:2;
 }
-.sidebar-title{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:#ffcc00;letter-spacing:3px;
-  text-shadow:0 0 10px rgba(255,200,0,0.6);}
-.sidebar-sub{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:2px;margin-top:2px;text-transform:uppercase;}
-.sidebar-empty{padding:30px 14px;text-align:center;color:rgba(255,140,0,0.25);font-family:'Rye',serif;font-size:13px;}
+.sidebar-title{
+  font-family:'Space Grotesk','Inter',sans-serif;
+  font-size:13px;font-weight:700;color:#f5f6f8;
+  letter-spacing:0.02em;text-shadow:none;
+}
+.sidebar-sub{
+  font-size:10px;color:#6b7380;
+  letter-spacing:0.12em;margin-top:3px;text-transform:uppercase;font-weight:500;
+}
+.sidebar-empty{
+  padding:40px 16px;text-align:center;color:#5c6472;
+  font-family:'Inter',sans-serif;font-size:12px;
+  letter-spacing:0.04em;
+}
 
 /* ── GAME HEADER BAR ────────────────────────────────── */
 .game-hdr{
-  background:rgba(0,5,15,0.85);border-bottom:1px solid rgba(255,140,0,0.2);
-  padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:linear-gradient(180deg, #10131a, #0c0f15);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
 }
-.game-teams{font-family:'Rye',serif;font-size:16px;color:#ffcc00;letter-spacing:2px;
-  text-shadow:0 0 10px rgba(255,200,0,0.4);}
-.game-at{color:#ff8c00;margin:0 4px;}
-.game-meta{font-size:10px;color:rgba(0,212,255,0.6);letter-spacing:1.5px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.game-venue{color:rgba(255,200,100,0.5);}
+.game-teams{
+  font-family:'Space Grotesk','Inter',sans-serif;
+  font-size:18px;font-weight:700;color:#f5f6f8;
+  letter-spacing:-0.01em;text-shadow:none;
+}
+.game-at{color:#6b7380;margin:0 8px;font-weight:500;}
+.game-meta{
+  font-size:11px;color:#9aa3b2;letter-spacing:0.02em;
+  display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-weight:500;
+}
+.game-venue{color:#6b7380;}
 .weather-badge{
-  margin-left:auto;display:flex;gap:6px;align-items:center;font-size:10px;font-weight:700;
-  color:rgba(0,212,255,0.7);letter-spacing:1.5px;
+  margin-left:auto;display:flex;gap:8px;align-items:center;
+  font-size:11px;font-weight:600;color:#9aa3b2;letter-spacing:0.02em;
 }
-.wf-pill{padding:3px 8px;border-radius:2px;border:1px solid;font-size:9px;font-weight:700;font-family:'Orbitron',sans-serif;}
-.wf-boost{color:#39ff14;border-color:rgba(57,255,20,0.5);background:rgba(57,255,20,0.07);}
-.wf-neutral{color:rgba(255,200,100,0.5);border-color:rgba(255,200,100,0.2);}
-.wf-neg{color:#ff2d55;border-color:rgba(255,45,85,0.4);}
+.wf-pill{
+  padding:4px 9px;border-radius:999px;border:1px solid;
+  font-size:10px;font-weight:600;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;
+}
+.wf-boost{color:#34d399;border-color:rgba(52,211,153,0.4);background:rgba(52,211,153,0.07);}
+.wf-neutral{color:#9aa3b2;border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);}
+.wf-neg{color:#60a5fa;border-color:rgba(96,165,250,0.35);background:rgba(96,165,250,0.06);}
 
 /* ── MATCHUP WRAP ───────────────────────────────────── */
-.matchup-wrap{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,140,0,0.1);}
-.pitcher-side{border-right:1px solid rgba(255,140,0,0.12);padding:0;}
+.matchup-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+.pitcher-side{border-right:1px solid rgba(255,255,255,0.06);padding:0;}
 .pitcher-side:last-child{border-right:none;}
 
 /* ── PITCHER CARD ───────────────────────────────────── */
 .pitcher-card{
-  background:linear-gradient(135deg,rgba(255,80,0,0.06),rgba(0,5,15,0.98));
-  border-bottom:1px solid rgba(255,140,0,0.15);
-  padding:10px 14px;display:flex;align-items:center;gap:10px;
+  background:linear-gradient(180deg, rgba(245,165,36,0.04), transparent 80%);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:14px 18px;display:flex;align-items:center;gap:12px;
 }
 .pit-avatar{
-  width:40px;height:40px;border-radius:3px;flex-shrink:0;
+  width:44px;height:44px;border-radius:10px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;
-  border:1px solid rgba(255,140,0,0.4);box-shadow:0 0 8px rgba(255,100,0,0.2);
+  font-family:'Space Grotesk','Inter',sans-serif;font-size:13px;font-weight:700;
+  border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 12px -4px rgba(0,0,0,0.4);
+  letter-spacing:-0.01em;
 }
 .pit-info{flex:1;min-width:0;}
-.pit-name{font-family:'Rye',serif;font-size:13px;color:#ffcc00;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  text-shadow:0 0 6px rgba(255,200,0,0.3);}
-.pit-sub{font-size:10px;color:rgba(255,140,0,0.65);letter-spacing:1px;margin-top:2px;}
-.pit-xip{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:#ff8c00;
-  text-shadow:0 0 10px rgba(255,140,0,0.6);text-align:right;flex-shrink:0;}
-.pit-xip-label{font-size:8px;color:rgba(0,212,255,0.5);letter-spacing:2px;text-align:right;}
-.pit-quality{font-size:8px;font-weight:700;padding:2px 6px;border-radius:2px;border:1px solid;letter-spacing:1px;}
-.pq-ace{color:#ff2d55;border-color:rgba(255,45,85,0.5);background:rgba(255,45,85,0.08);}
-.pq-solid{color:#ffcc00;border-color:rgba(255,200,0,0.4);background:rgba(255,200,0,0.06);}
-.pq-hittable{color:#39ff14;border-color:rgba(57,255,20,0.5);background:rgba(57,255,20,0.08);}
-.pq-unknown{color:rgba(255,140,0,0.5);border-color:rgba(255,140,0,0.2);}
+.pit-name{
+  font-family:'Space Grotesk','Inter',sans-serif;font-size:15px;font-weight:700;color:#f5f6f8;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:-0.01em;text-shadow:none;
+}
+.pit-sub{font-size:11px;color:#9aa3b2;letter-spacing:0.02em;margin-top:3px;font-weight:500;}
+.pit-xip{
+  font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;
+  color:#f5a524;text-shadow:none;text-align:right;flex-shrink:0;letter-spacing:-0.02em;
+}
+.pit-xip-label{
+  font-size:9px;color:#6b7380;letter-spacing:0.12em;
+  text-align:right;text-transform:uppercase;font-weight:600;margin-top:2px;
+}
+.pit-quality{
+  font-size:9px;font-weight:700;padding:3px 8px;border-radius:999px;
+  border:1px solid;letter-spacing:0.08em;text-transform:uppercase;
+}
+.pq-ace{color:#ef4444;border-color:rgba(239,68,68,0.45);background:rgba(239,68,68,0.08);}
+.pq-solid{color:#f5a524;border-color:rgba(245,165,36,0.4);background:rgba(245,165,36,0.07);}
+.pq-hittable{color:#34d399;border-color:rgba(52,211,153,0.4);background:rgba(52,211,153,0.07);}
+.pq-unknown{color:#9aa3b2;border-color:rgba(255,255,255,0.1);}
 
 /* ── PITCH TYPE TABLES (VS LHB / VS RHB) ───────────── */
-.pitch-vs-section{padding:8px 12px 6px;border-bottom:1px solid rgba(255,140,0,0.1);}
-.pvs-label{font-size:9px;font-weight:700;color:rgba(0,212,255,0.6);letter-spacing:2px;
-  text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px;}
-.pvs-ovr{font-size:10px;font-weight:700;font-family:'Orbitron',sans-serif;color:#ff8c00;margin-left:auto;}
-.pvs-table{display:grid;gap:2px;}
+.pitch-vs-section{padding:10px 16px 8px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.pvs-label{
+  font-size:10px;font-weight:600;color:#6b7380;letter-spacing:0.12em;
+  text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;
+}
+.pvs-ovr{
+  font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;
+  color:#f5a524;margin-left:auto;letter-spacing:0;
+}
+.pvs-table{display:grid;gap:3px;}
 .pvs-row{display:flex;gap:0;align-items:center;}
-.pvs-rowlbl{font-size:8px;color:rgba(255,200,100,0.45);letter-spacing:1px;width:52px;flex-shrink:0;text-transform:uppercase;}
-.pvs-cells{display:flex;gap:2px;flex:1;}
-.pvs-cell{flex:1;text-align:center;padding:3px 2px;font-size:10px;font-weight:700;border-radius:1px;}
-.pvs-head{font-size:8px;font-weight:700;color:rgba(0,212,255,0.5);letter-spacing:1px;padding:1px 2px;}
-.pvs-pct{color:rgba(255,200,100,0.55);}
-.pvs-val{font-family:'Orbitron',sans-serif;font-size:9px;}
+.pvs-rowlbl{
+  font-size:9px;color:#6b7380;letter-spacing:0.08em;width:54px;flex-shrink:0;
+  text-transform:uppercase;font-weight:600;
+}
+.pvs-cells{display:flex;gap:3px;flex:1;}
+.pvs-cell{
+  flex:1;text-align:center;padding:4px 3px;font-size:11px;font-weight:600;
+  border-radius:4px;font-family:'JetBrains Mono',monospace;
+}
+.pvs-head{
+  font-size:9px;font-weight:600;color:#6b7380;letter-spacing:0.08em;padding:2px 3px;
+  text-transform:uppercase;
+}
+.pvs-pct{color:#9aa3b2;}
+.pvs-val{font-family:'JetBrains Mono',monospace;font-size:10px;}
 
 /* ── BATTER TABLE ───────────────────────────────────── */
 .batter-section{padding:0;}
 .batter-tbl-header{
-  background:rgba(0,3,10,0.9);border-bottom:1px solid rgba(255,140,0,0.15);
-  padding:6px 12px;display:flex;align-items:center;gap:8px;
+  background:#0c0f15;border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:10px 18px;display:flex;align-items:center;gap:10px;
 }
-.batter-tbl-title{font-size:9px;font-weight:700;color:rgba(255,140,0,0.6);letter-spacing:2px;text-transform:uppercase;flex:1;}
-.batter-tbl-vs{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:1px;}
+.batter-tbl-title{
+  font-size:10px;font-weight:700;color:#9aa3b2;letter-spacing:0.15em;
+  text-transform:uppercase;flex:1;
+}
+.batter-tbl-vs{
+  font-size:10px;color:#6b7380;letter-spacing:0.08em;
+  font-family:'JetBrains Mono',monospace;
+}
 
 .batter-grid{width:100%;border-collapse:collapse;}
 .batter-grid-header{
   display:grid;align-items:center;
-  background:rgba(0,5,15,0.95);border-bottom:1px solid rgba(255,140,0,0.1);
-  padding:4px 10px 4px 12px;
+  background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:7px 14px 7px 18px;
 }
 .batter-grid-row{
   display:grid;align-items:center;
-  border-bottom:1px solid rgba(255,140,0,0.06);padding:3px 10px 3px 12px;
-  transition:background .1s;cursor:default;
+  border-bottom:1px solid rgba(255,255,255,0.04);padding:8px 14px 8px 18px;
+  transition:background .12s;cursor:default;
 }
-.batter-grid-row:hover{background:rgba(255,140,0,0.04);}
-.batter-grid-row.batting-1,.batter-grid-row.batting-2,.batter-grid-row.batting-3{background:rgba(255,140,0,0.03);}
+.batter-grid-row:hover{background:rgba(245,165,36,0.03);}
+.batter-grid-row.batting-1{background:rgba(245,165,36,0.05);}
+.batter-grid-row.batting-2{background:rgba(245,165,36,0.035);}
+.batter-grid-row.batting-3{background:rgba(245,165,36,0.02);}
 
-.bgr-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;color:rgba(255,220,140,0.85);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.bgr-name-hdr{font-size:9px;color:rgba(0,212,255,0.4);letter-spacing:1px;}
-.bgr-hand{font-size:8px;color:rgba(255,140,0,0.45);margin-left:3px;font-weight:600;}
-.bgr-cell{text-align:center;font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;padding:2px 1px;border-radius:1px;}
-.bgr-cell-hdr{text-align:center;font-size:8px;color:rgba(0,212,255,0.45);letter-spacing:1px;}
+.bgr-name{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:#e7ecf3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.005em;
+}
+.bgr-name-hdr{
+  font-size:10px;color:#6b7380;letter-spacing:0.1em;
+  text-transform:uppercase;font-weight:600;
+}
+.bgr-hand{font-size:10px;color:#6b7380;margin-left:4px;font-weight:500;}
+.bgr-cell{
+  text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  padding:4px 2px;border-radius:4px;
+}
+.bgr-cell-hdr{
+  text-align:center;font-size:9px;color:#6b7380;letter-spacing:0.08em;
+  text-transform:uppercase;font-weight:600;
+}
 
-/* Rating color classes */
-.rc-vhigh{background:rgba(180,15,15,0.55);color:#fff;text-shadow:0 0 3px rgba(255,60,60,0.5);}
-.rc-high{background:rgba(160,40,0,0.35);color:rgba(255,200,150,0.95);}
-.rc-med{background:rgba(100,70,0,0.2);color:rgba(255,200,100,0.7);}
-.rc-low{color:rgba(255,255,255,0.3);}
-.rc-dash{color:rgba(255,255,255,0.18);}
+/* Rating color classes — cleaner, no heavy text-shadows */
+.rc-vhigh{background:rgba(239,68,68,0.18);color:#fecaca;}
+.rc-high{background:rgba(245,165,36,0.14);color:#fde0a3;}
+.rc-med{background:rgba(255,255,255,0.04);color:#c4cbd7;}
+.rc-low{color:#5c6472;}
+.rc-dash{color:#3d4450;}
 
 /* OVR column special styling */
-.bgr-ovr{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;text-align:center;padding:2px 3px;border-radius:1px;}
-.bgr-ovr-hdr{font-size:8px;font-weight:700;color:#00d4ff;letter-spacing:1px;text-align:center;
-  text-shadow:0 0 5px rgba(0,212,255,0.4);}
-.ovr-cyan{color:#00d4ff;text-shadow:0 0 6px rgba(0,212,255,0.6);}
-.ovr-gold{color:#ffcc00;text-shadow:0 0 5px rgba(255,200,0,0.5);}
-.ovr-orange{color:#ff8c00;text-shadow:0 0 4px rgba(255,140,0,0.4);}
-.ovr-dim{color:rgba(255,140,0,0.35);}
+.bgr-ovr{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  text-align:center;padding:4px 4px;border-radius:4px;letter-spacing:-0.01em;
+}
+.bgr-ovr-hdr{
+  font-size:9px;font-weight:700;color:#60a5fa;letter-spacing:0.08em;
+  text-align:center;text-shadow:none;text-transform:uppercase;
+}
+.ovr-cyan{color:#60a5fa;text-shadow:none;}
+.ovr-gold{color:#f5a524;text-shadow:none;}
+.ovr-orange{color:#ff8a4c;text-shadow:none;}
+.ovr-dim{color:#5c6472;}
 
 /* ── HISTORY TABLE ──────────────────────────────────── */
 .history-section{
-  border-top:1px solid rgba(0,212,255,0.1);background:rgba(0,3,10,0.7);
+  border-top:1px solid rgba(255,255,255,0.06);background:#0c0f15;
 }
-.history-hdr{padding:6px 12px;background:rgba(0,212,255,0.04);border-bottom:1px solid rgba(0,212,255,0.08);}
-.history-hdr-lbl{font-size:9px;font-weight:700;color:rgba(0,212,255,0.55);letter-spacing:2px;text-transform:uppercase;}
+.history-hdr{
+  padding:10px 18px;background:rgba(255,255,255,0.015);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.history-hdr-lbl{
+  font-size:10px;font-weight:700;color:#9aa3b2;letter-spacing:0.15em;
+  text-transform:uppercase;
+}
 .history-tbl{width:100%;border-collapse:collapse;}
-.history-tbl td,.history-tbl th{padding:3px 8px;font-size:10px;border-bottom:1px solid rgba(255,140,0,0.05);}
-.history-tbl th{font-size:8px;color:rgba(0,212,255,0.4);letter-spacing:1px;text-transform:uppercase;font-weight:700;background:rgba(0,3,10,0.9);}
-.history-tbl td{color:rgba(255,220,140,0.7);font-family:'Rajdhani',sans-serif;font-weight:600;}
-.history-tbl td:first-child{color:rgba(255,200,100,0.85);font-size:11px;}
-.ht-hr{color:#39ff14!important;text-shadow:0 0 5px rgba(57,255,20,0.5);}
+.history-tbl td,.history-tbl th{
+  padding:6px 12px;font-size:11px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.history-tbl th{
+  font-size:9px;color:#6b7380;letter-spacing:0.1em;
+  text-transform:uppercase;font-weight:600;background:transparent;
+}
+.history-tbl td{color:#c4cbd7;font-family:'Inter',sans-serif;font-weight:500;}
+.history-tbl td:first-child{color:#e7ecf3;font-size:12px;font-weight:600;}
+.ht-hr{color:#34d399!important;text-shadow:none;font-weight:700!important;}
 
-/* ── xH / xR / xRBI projection cells ───────────────────────────────────── */
+/* ── xH / xR / xRBI projection cells ──────────────── */
 .bgr-proj{
-  font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;
-  text-align:center;padding:2px 1px;border-radius:1px;
-  color:rgba(0,212,255,0.82);letter-spacing:.5px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  text-align:center;padding:3px 2px;border-radius:4px;
+  color:#60a5fa;letter-spacing:0;
 }
 .bgr-proj-hdr{
-  text-align:center;font-size:8px;font-weight:700;
-  color:rgba(0,212,255,0.5);letter-spacing:1px;
+  text-align:center;font-size:9px;font-weight:600;
+  color:#60a5fa;letter-spacing:0.08em;text-transform:uppercase;
 }
 /* Sidebar card projection strip */
 .hr-tc-proj{
-  display:flex;gap:0;margin-top:5px;
-  border-top:1px solid rgba(0,212,255,0.12);padding-top:5px;
+  display:flex;gap:0;margin-top:10px;
+  border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;
 }
 .hr-tc-proj-stat{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;
-  border-right:1px solid rgba(0,212,255,0.08);
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  border-right:1px solid rgba(255,255,255,0.04);
 }
 .hr-tc-proj-stat:last-child{border-right:none;}
 .hr-tc-proj-val{
-  font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;
-  color:#00d4ff;text-shadow:0 0 6px rgba(0,212,255,0.45);
-  line-height:1;
+  font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;
+  color:#60a5fa;text-shadow:none;line-height:1;letter-spacing:-0.02em;
 }
 .hr-tc-proj-lbl{
-  font-size:8px;font-weight:700;color:rgba(0,212,255,0.45);
-  letter-spacing:1.5px;font-family:'Rajdhani',sans-serif;
-  text-transform:uppercase;margin-top:1px;
+  font-size:9px;font-weight:600;color:#6b7380;
+  letter-spacing:0.12em;font-family:'Inter',sans-serif;
+  text-transform:uppercase;margin-top:2px;
 }
 
-/* ── TOP HITTERS SIDEBAR ────────────────────────────── */
+/* ── HR TARGETS SIDEBAR ─────────────────────────────── */
 .hr-target-card{
-  border-bottom:1px solid rgba(255,140,0,0.1);padding:10px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.05);padding:14px 16px;
   transition:background .15s;cursor:default;position:relative;
 }
-.hr-target-card:hover{background:rgba(255,140,0,0.04);}
-.hr-target-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
-  background:linear-gradient(180deg,#ff8c00,transparent);}
-.hr-tc-top{display:flex;align-items:flex-start;gap:8px;}
-.hr-tc-rank{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:rgba(255,140,0,0.5);
-  letter-spacing:1px;width:22px;flex-shrink:0;margin-top:2px;}
+.hr-target-card:hover{background:rgba(245,165,36,0.035);}
+.hr-target-card::before{
+  content:'';position:absolute;left:0;top:14px;bottom:14px;width:3px;
+  background:linear-gradient(180deg,#f5a524,rgba(245,165,36,0));
+  border-radius:0 2px 2px 0;
+}
+.hr-tc-top{display:flex;align-items:flex-start;gap:10px;}
+.hr-tc-rank{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  color:#6b7380;letter-spacing:0;width:24px;flex-shrink:0;margin-top:3px;
+}
 .hr-tc-info{flex:1;min-width:0;}
-.hr-tc-name{font-family:'Rye',serif;font-size:12px;color:#ffcc00;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  text-shadow:0 0 6px rgba(255,200,0,0.25);}
-.hr-tc-sub{font-size:9px;color:rgba(255,140,0,0.55);letter-spacing:1px;margin-top:1px;}
-.hr-tc-prob{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:#ff8c00;
-  text-shadow:0 0 10px rgba(255,140,0,0.7);text-align:right;flex-shrink:0;}
-.hr-tc-odds{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;}
-.hr-tc-odd{font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;
-  background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.2);color:rgba(0,212,255,0.7);font-family:'Orbitron',sans-serif;}
-.hr-tc-odd.best{background:rgba(255,200,0,0.08);border-color:rgba(255,200,0,0.4);color:#ffcc00;}
-.hr-tc-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;}
-.hr-tc-tag{font-size:8px;padding:1px 5px;border-radius:2px;border:1px solid;letter-spacing:1px;}
-.htt-pos{color:#39ff14;border-color:rgba(57,255,20,0.4);background:rgba(57,255,20,0.05);}
-.htt-neg{color:#ff2d55;border-color:rgba(255,45,85,0.35);}
-.htt-neu{color:rgba(255,140,0,0.5);border-color:rgba(255,140,0,0.2);}
-.htt-edge{color:#00d4ff;border-color:rgba(0,212,255,0.4);background:rgba(0,212,255,0.06);
-  text-shadow:0 0 5px rgba(0,212,255,0.4);}
+.hr-tc-name{
+  font-family:'Space Grotesk','Inter',sans-serif;font-size:14px;font-weight:700;
+  color:#f5f6f8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:-0.01em;text-shadow:none;
+}
+.hr-tc-sub{font-size:11px;color:#9aa3b2;letter-spacing:0.02em;margin-top:2px;font-weight:500;}
+.hr-tc-prob{
+  font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;
+  color:#f5a524;text-shadow:none;text-align:right;flex-shrink:0;
+  letter-spacing:-0.03em;line-height:1;
+}
+.hr-tc-odds{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.hr-tc-odd{
+  font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  color:#9aa3b2;font-family:'JetBrains Mono',monospace;letter-spacing:0;
+}
+.hr-tc-odd.best{
+  background:rgba(245,165,36,0.1);border-color:rgba(245,165,36,0.35);color:#f5a524;
+}
+.hr-tc-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
+.hr-tc-tag{
+  font-size:9px;padding:2px 7px;border-radius:999px;border:1px solid;
+  letter-spacing:0.06em;font-weight:600;text-transform:uppercase;
+}
+.htt-pos{color:#34d399;border-color:rgba(52,211,153,0.4);background:rgba(52,211,153,0.06);}
+.htt-neg{color:#ef4444;border-color:rgba(239,68,68,0.35);background:rgba(239,68,68,0.05);}
+.htt-neu{color:#9aa3b2;border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);}
+.htt-edge{
+  color:#60a5fa;border-color:rgba(96,165,250,0.4);background:rgba(96,165,250,0.08);
+  text-shadow:none;
+}
+.hr-tc-narrative{
+  font-size:12px;color:#c4cbd7;line-height:1.5;margin-top:10px;
+  font-style:normal;letter-spacing:0;font-weight:500;
+}
+.hr-tc-conf{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:0.08em;padding:2px 7px;border-radius:999px;
+  border:1px solid;white-space:nowrap;text-transform:uppercase;
+}
+.conf-high{color:#34d399;border-color:rgba(52,211,153,0.4);background:rgba(52,211,153,0.07);}
+.conf-med{color:#f5a524;border-color:rgba(245,165,36,0.4);background:rgba(245,165,36,0.07);}
+.conf-low{color:#9aa3b2;border-color:rgba(255,255,255,0.1);}
+
+/* ── RESPONSIBLE GAMBLING FOOTER ────────────────────── */
+.rg-footer{
+  border-top:1px solid rgba(255,255,255,0.06);padding:24px 20px;margin-top:24px;
+  background:#0a0c10;text-align:center;
+}
+.rg-footer-headline{
+  font-family:'Space Grotesk','Inter',sans-serif;font-size:11px;font-weight:700;
+  color:#f5a524;letter-spacing:0.2em;margin-bottom:10px;text-transform:uppercase;
+}
+.rg-footer-body{
+  font-size:12px;color:#9aa3b2;line-height:1.65;max-width:680px;margin:0 auto;
+  letter-spacing:0;font-weight:500;
+}
+.rg-footer-body a{color:#60a5fa;text-decoration:none;font-weight:600;}
+.rg-footer-body a:hover{text-decoration:underline;}
+.rg-footer-body strong{color:#e7ecf3;font-weight:600;}
 
 /* ── LOADING / EMPTY ────────────────────────────────── */
-.loading-wrap{padding:60px 20px;text-align:center;}
-.loading-spinner{display:inline-block;width:32px;height:32px;border:2px solid rgba(255,140,0,0.1);
-  border-top-color:#ff8c00;border-right-color:#00d4ff;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:14px;}
-.loading-txt{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:#ff8c00;letter-spacing:3px;
-  text-shadow:0 0 10px rgba(255,140,0,0.6);}
-.loading-sub{font-size:9px;color:rgba(0,212,255,0.45);letter-spacing:2px;margin-top:6px;}
-.empty-center{padding:80px 20px;text-align:center;font-family:'Rye',serif;font-size:16px;
-  color:rgba(255,140,0,0.25);letter-spacing:3px;}
-.no-lineup-msg{padding:14px 12px;font-size:10px;color:rgba(0,212,255,0.4);letter-spacing:1px;text-align:center;
-  border-bottom:1px solid rgba(255,140,0,0.06);}
+.loading-wrap{padding:80px 20px;text-align:center;}
+.loading-spinner{
+  display:inline-block;width:36px;height:36px;
+  border:2px solid rgba(255,255,255,0.08);
+  border-top-color:#f5a524;border-right-color:#60a5fa;
+  border-radius:50%;animation:spin .8s linear infinite;margin-bottom:16px;
+}
+.loading-txt{
+  font-family:'Space Grotesk','Inter',sans-serif;font-size:12px;font-weight:700;
+  color:#f5a524;letter-spacing:0.2em;text-shadow:none;text-transform:uppercase;
+}
+.loading-sub{font-size:11px;color:#6b7380;letter-spacing:0.15em;margin-top:8px;text-transform:uppercase;}
+.empty-center{
+  padding:100px 20px;text-align:center;
+  font-family:'Space Grotesk','Inter',sans-serif;font-size:15px;font-weight:600;
+  color:#5c6472;letter-spacing:0.05em;
+}
+.no-lineup-msg{
+  padding:16px 14px;font-size:11px;color:#6b7380;
+  letter-spacing:0.06em;text-align:center;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
 
 /* ── DIVIDER ─────────────────────────────────────────── */
-.divider-line{height:1px;background:linear-gradient(90deg,transparent,#ff8c00,#00d4ff,#ff8c00,transparent);
-  margin:0;box-shadow:0 0 5px rgba(255,140,0,0.3);}
+.divider-line{
+  height:1px;background:linear-gradient(90deg,transparent,rgba(245,165,36,0.4),rgba(96,165,250,0.4),rgba(245,165,36,0.4),transparent);
+  margin:0;box-shadow:none;
+}
 
 /* ── EDGE BADGE ─────────────────────────────────────── */
-.edge-badge{font-size:8px;font-weight:700;padding:2px 6px;border-radius:2px;font-family:'Orbitron',sans-serif;letter-spacing:1px;}
-.eb-pos{color:#39ff14;border:1px solid rgba(57,255,20,0.5);background:rgba(57,255,20,0.07);text-shadow:0 0 4px rgba(57,255,20,0.4);}
-.eb-neu{color:rgba(255,140,0,0.4);border:1px solid rgba(255,140,0,0.15);}
+.edge-badge{
+  font-size:9px;font-weight:700;padding:3px 8px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;
+}
+.eb-pos{
+  color:#34d399;border:1px solid rgba(52,211,153,0.4);
+  background:rgba(52,211,153,0.07);text-shadow:none;
+}
+.eb-neu{color:#6b7380;border:1px solid rgba(255,255,255,0.08);}
 
 /* ── RESPONSIVE ─────────────────────────────────────── */
 @media(max-width:900px){
   .main-layout{flex-direction:column;}
-  .hr-sidebar{width:100%;height:auto;position:relative;border-left:none;border-top:1px solid rgba(255,140,0,0.18);}
-  .matchup-wrap{grid-template-columns:1fr;} /* stack panels on narrow screens */
-  .pitcher-side{border-right:none;border-bottom:1px solid rgba(255,140,0,0.12);}
+  .hr-sidebar{width:100%;height:auto;position:relative;border-left:none;border-top:1px solid rgba(255,255,255,0.06);}
+  .matchup-wrap{grid-template-columns:1fr;}
+  .pitcher-side{border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);}
 }
 @media(max-width:600px){
-  .app-title{font-size:24px;}
-  .app-title-sub{font-size:18px;}
-  .header-row{gap:7px;}
-  .date-grp input{width:130px;font-size:13px;}
+  .app-header{padding:22px 16px 18px;}
+  .app-title{font-size:28px;}
+  .app-title-sub{font-size:13px;}
+  .header-row{gap:8px;}
+  .date-grp input{width:150px;font-size:14px;}
   .weather-badge{display:none;}
+  .game-hdr{padding:12px 16px;gap:10px;}
 }
 
 /* ── SIDEBAR TABS ─────────────────────────────────────── */
-.sidebar-tabs{display:flex;border-bottom:1px solid rgba(255,140,0,0.18);}
+.sidebar-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.06);}
 .sidebar-tab{
-  flex:1;padding:10px 4px;text-align:center;
-  font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;
-  color:rgba(255,200,100,0.4);cursor:pointer;border:none;border-bottom:2px solid transparent;
-  background:transparent;transition:all .15s;
+  flex:1;padding:14px 6px;text-align:center;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;
+  color:#6b7380;cursor:pointer;border:none;border-bottom:2px solid transparent;
+  background:transparent;transition:all .15s;text-transform:uppercase;
 }
-.sidebar-tab:hover{color:rgba(255,200,100,0.7);background:rgba(255,140,0,0.04);}
-.sidebar-tab.active{color:#ffcc00;border-bottom:2px solid #ff8c00;background:rgba(255,140,0,0.06);}
+.sidebar-tab:hover{color:#c4cbd7;background:rgba(255,255,255,0.02);}
+.sidebar-tab.active{
+  color:#f5f6f8;border-bottom:2px solid #f5a524;
+  background:linear-gradient(180deg,transparent,rgba(245,165,36,0.04));
+}
 
 /* ── H+R+RBI OVER 1.5 RANK PANEL ────────────────────────── */
-.mhr-header{padding:8px 12px 6px;border-bottom:1px solid rgba(255,140,0,0.15);display:flex;justify-content:space-between;align-items:center;}
-.mhr-header-lbl{font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;color:#00d4ff;letter-spacing:2px;}
-.mhr-header-count{font-size:9px;color:rgba(255,200,100,0.4);letter-spacing:1px;}
-.mhr-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(255,140,0,0.07);transition:background .1s;}
-.mhr-row:hover{background:rgba(255,140,0,0.04);}
-.mhr-rank{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:rgba(255,140,0,0.4);width:18px;text-align:center;flex-shrink:0;}
-.mhr-rank.top{color:#ffcc00;text-shadow:0 0 8px rgba(255,204,0,0.5);}
+.mhr-header{
+  padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.mhr-header-lbl{
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:#60a5fa;
+  letter-spacing:0.15em;text-transform:uppercase;
+}
+.mhr-header-count{
+  font-size:10px;color:#6b7380;letter-spacing:0.06em;
+  font-family:'JetBrains Mono',monospace;
+}
+.mhr-row{
+  display:flex;align-items:center;gap:10px;padding:11px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.04);transition:background .12s;
+}
+.mhr-row:hover{background:rgba(245,165,36,0.03);}
+.mhr-rank{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  color:#6b7380;width:22px;text-align:center;flex-shrink:0;
+}
+.mhr-rank.top{color:#f5a524;text-shadow:none;}
 .mhr-info{flex:1;min-width:0;}
-.mhr-name{font-size:13px;font-weight:700;color:#ffe8c0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.mhr-sub{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:.8px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mhr-name{
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#e7ecf3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.005em;
+}
+.mhr-sub{
+  font-size:11px;color:#9aa3b2;letter-spacing:0;margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;
+}
 .mhr-right{text-align:right;flex-shrink:0;}
-.mhr-pct{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;}
-.mhr-pct.hot{color:#ff4500;text-shadow:0 0 8px rgba(255,69,0,0.6);}
-.mhr-pct.warm{color:#ff8c00;text-shadow:0 0 6px rgba(255,140,0,0.4);}
-.mhr-pct.cool{color:rgba(255,200,100,0.55);}
-.mhr-odds{font-size:9px;color:rgba(0,212,255,0.45);letter-spacing:.5px;margin-top:1px;}
-.mhr-bar-wrap{margin-top:3px;height:2px;background:rgba(255,140,0,0.1);border-radius:1px;overflow:hidden;}
-.mhr-bar{height:2px;border-radius:1px;background:linear-gradient(90deg,#ff4500,#ffcc00);}
+.mhr-pct{
+  font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;
+  letter-spacing:-0.02em;
+}
+.mhr-pct.hot{color:#ef4444;text-shadow:none;}
+.mhr-pct.warm{color:#f5a524;text-shadow:none;}
+.mhr-pct.cool{color:#9aa3b2;}
+.mhr-odds{
+  font-size:10px;color:#6b7380;letter-spacing:0;margin-top:2px;
+  font-family:'JetBrains Mono',monospace;
+}
+.mhr-bar-wrap{
+  margin-top:5px;height:3px;background:rgba(255,255,255,0.05);
+  border-radius:2px;overflow:hidden;
+}
+.mhr-bar{
+  height:3px;border-radius:2px;
+  background:linear-gradient(90deg,#ef4444,#f5a524);
+}
+
 </style>
   <!-- ── App Icons / PWA ───────────────────────────────────── -->
   <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAI6UlEQVR4nO2dPW8dRRSGz3WIIyGhIApCEup0MQlWJGo6Gho6KxIIIaVPQ/gFJg3UlhACKfIPSMNfQLKMY9O5jMAhrrCCItmWFQozYb3eOzsfZ3bOOfM+XRTfvXtnn3333Jlzd2dUgYuXLr+q8b5gWo4PD2ZTv+ckbwiBAdE0ghd7A0gMfJSSm3WjkBikwCn3AteGIDNIhdOd7DMDIgNOctM6K6EhM+Am16mkswEigylISevohIbMYCpSXIsSGjKDqYl1LlhoyAxqEeNekNCQGdQm1MFRoSEzkEKIi16hITOQxpiTbCuFAEhgrtBIZyAVn5uDQkNmIJ15jqLkAKY4JzTSGWhhyNXZ2B9Y5/nPbyW/dv3xc8Y9+Z+VT68kv/bK5y8Y90QH3Z6PN2ruiARypNzYPaE7Ny4w7s3pNj/e+ztjC7z7ow3U0BncuXGBNnZP2La3sXtCX6+8yba9FnktdIvlBgdcUkPmdLruIqEZyJUaMvMBoZlIlRoy87JAhHKDCyd1qNiQmQ/n8Kz7j9b4/rOXxbY9NgNSUuYPvmlzpuP48GCGkqMQvhIEyVwOCF2QIakhc1kWWi03pqIrNWQuy8VLl18hoSfASQ2ZywOhJ4J7iRwMA6GBKSA0MAWEBqaA0MAUEBqYAkIDU0BoYIpmhS7ZmFSb7VW+X9Foo1mhgU0gNDAFhAamgNDAFBAamAJCA1NAaGAKCA1MAaGBKSA0MAWEBqZoUmjLfRyOVvs5mhQa2MXsDc99d+Zff2w/oYn8Y2D1Tv+zWjeayXkURC4//HhUdPvXb+0H/+2fT94tth9ffblYbNtj1Dph2BK6pqCSuH5rn57+Efa3D+4TrdN+UalrEesD1wkQJTSkDefBff//f/vdNPuhBa7yaFRoixI/3f+n2LavJ7ym3P68U2i709J1cExuzHIAU4wmdPeMsJjWQD6sJYdje/WE/vI8P++9a28Hv2kLoEaOw+fW9mr4UwmChA5ZdfLt0BCWT4CxL4QtEOvDGNurJ0FSj85Da11CrXnC/PJb4LwdEX3y4fsF92Q+3MJNxZjUQQsrWqUGtghJ6NFZjpWbL+jhehtLxUAuD9df0srN8S+HQQnd3RAeqwCmpBum67+Pz7IF93IMnR2QG5RgqCIIkZkooTlpLPYhOYhhrJwNFdmR1W0XUtM4IHrbxHwPi5W4C3v7aIzkXSC8blInDnLkHWKyfuhU0YeA/NPAObvFLe48qjX49+EUPgZrJ0etKdaphB1DjNAx1JK/NaRIGoNKofscrV1dorubOymv/eIjfQfNx0+/Jp7sj5aXFu89SxpDSagXOkdm0MOA1Kob/CEzM3c3d47Wri7V3o0c1AoNmQuhXGqVQkPmwiiWWqXQAMxDndAc6bx57TbX7thFaUqrEppT5hakzv6MCqVWIzR3Mi/vbWXvk2TYTlxlUqsROpeWZCY6+xlbuBo5VAjNOavRgswONqkVpbR4oTFFlwfbCaxEavFCc+DSqaV07tLS5xYtdEw6z7uktlQ/jpE9RgpSWqzQsaXG8t4WbV67PffgtJRSPrrj48YramyESy1W6BSW97Zei02EdO7Sl9aJbO1EF9k+ijnnMrCOidBWU1MJDcKxevUS9xSsEunc+ixH//OzyHx3c+eI5KW06YR2B7BfW7eEr1a2OB6mhe7TYkIPfWbL4yBKaM5yw/JB44BlfARO4YkSOheLl9DSWBszMUKjAakelhqXxAgNpsfiiW9GaGuXTpCGCKFjm5B88lpMnSnoj+nYOJ9BUNkhbmFljP7iQKvzy1z0x0/7LJE6oR1Dq15aD4IUojvvBCKi5OAi6jIJ0tpHhVM9obmm64Z+P2fpQHHiG59kwYX0dlQXugQQ2c+85XALVzdTJQcAqoW2kCiAF9VCO1Bi8KI5KKoKjXtuyCI7GAQssJhIaAAcEBqYQq3Qmus8UA61QjvwhbAMWgNDvdCAF+0BoWKlEA1I9dA29iqE9t3n2FpzTU0sjK0KobuM9UNrOwC1GRo7zc1d6oQeQuPAS8Ha2OFLITAFhAamgNDAFBAamAJCA1NAaGCKqkIv3nu2Q4+WRdygBDAg4DEVSGhgCggNTKF+pbDff2Bt5as0WttE56FCaNycsRy+Z69oDAsRzylM+bGs5gYaySQ3egn4QkhkoIa2dsmUgtagUCu01gEHZVErNABDiBAaCywySC7fhNTPREKEzgV1NC+ayznVQmseeFAGMUJzlh24k7+fofGxUG4QKVlYCQE/lA3H92NY7WMnSujFe892jmg5+Y6k2g/G1Aw9eCkKYelMJKjkiMXiA28koL1cE5XQIRR54A0gIhsPXhLRy9EHvR3Tob13o4/akmMemi+XNbESBCKFTpnCs3JAVCA0nYmECg2mweLVTKzQOQstFg9USSzUzg6xQhPFS42yI5ykk164zETChc4BKT0fy6uq4oXOSWlI7cdSqeEQLzQRSg9OrJYaDhVC54CUHsbqSb9wfHgwq70TISCl80ju0VCUzseHBzNVCZ06lYeUPkvwya5IZseMiEhiP4ePmF4P9HgkolDm48ODmbpuu1ggclssEJ2aXXtHYsCvxAujNJ2JFM9yQOpCKJS5i1qhiSA1O8plJuoIra3scEBqJhTL3HVXdUI7IHUmimXucyaVtU3f9Tlau3oqdeKvxpvjvxDQLnM3oc+VGdqlJkr7TWJzGEnlfql8ruTQWkt3QQkyglGZiQYSmshGShOhBDmHkRLDESw0kR2piVCCEJGZVHbMqyS85YU5qYnaS2tjqUzkL4ubEdrRVFobS2VHstBEhqUmspvWBlPZMTZpETSjYVFqIoNiGxaZKGwGLniKzqrURB2xifTJ3ZmetCoyUfh0ctScs2WpHWpS23gad4lZG4leRGlBaiKhqd1IGneJXehLWhVsRWrHGbmJphO8t9rZisSOlFXrrGXu1sR2nBOcKF/ygaX61gR25LRfZPdttCp1n0HJI2hV3j65vURsjUgQG+TA1RTH1uBvoUsP1IHTnWISIrGBj1IBOEmqQm5ANM1VvEqZAMHboEYZ+i+S8VGDGcn/ywAAAABJRU5ErkJggg==">
@@ -463,7 +774,7 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
   <div class="hr-sidebar">
     <div class="sidebar-header" style="padding:0;">
       <div class="sidebar-tabs">
-        <button class="sidebar-tab active" id="tabHR" onclick="switchSidebarTab('hr')">TOP HITTERS</button>
+        <button class="sidebar-tab active" id="tabHR" onclick="switchSidebarTab('hr')">HR TARGETS</button>
         <button class="sidebar-tab" id="tabMultiHR" onclick="switchSidebarTab('multihr')">H+R+RBI</button>
       </div>
     </div>
@@ -477,6 +788,15 @@ body{background:#05070f;color:#ffe8c0;font-family:'Rajdhani',sans-serif;font-wei
     <div id="multiHRPanel" style="display:none;">
       <div id="multiHRList"><div class="sidebar-empty">Fire to load rankings</div></div>
     </div>
+  </div>
+</div>
+
+<!-- ── RESPONSIBLE GAMBLING FOOTER ─────────────────── -->
+<div class="rg-footer">
+  <div class="rg-footer-headline">◈ Bet Responsibly ◈</div>
+  <div class="rg-footer-body">
+    Projections and probabilities are modeled estimates for <strong>entertainment and research purposes only</strong> — not financial, gambling, or investment advice. Past performance does not guarantee future results. No model is perfect; variance is real. Only wager what you can afford to lose.<br><br>
+    If gambling is impacting your life, help is available 24/7: call <strong>1-800-GAMBLER</strong> or visit <a href="https://www.ncpgambling.org/" target="_blank" rel="noopener">ncpgambling.org</a>. You must be of legal wagering age in your jurisdiction. Availability of real-money sports wagering varies by state and country.
   </div>
 </div>
 
@@ -530,6 +850,51 @@ const PARK_DATA={
   'Tropicana Field':         {lat:27.7683,lon:-82.6534,cfDir:345, factor:0.90,rfDir:20, lfDir:310},
   'Sutter Health Park':      {lat:38.5802,lon:-121.5015,cfDir:320,factor:1.02,rfDir:355,lfDir:285},
 };
+// Roof state: parks listed here are indoor or retractable. When roof is closed
+// (assumed baseline for domes, frequently closed for retractables), outdoor
+// weather factors — wind, temp, humidity, barometric — should be attenuated
+// or neutralized. Altitude column is informative only; venue HR park factor
+// already incorporates altitude empirically (see Coors = 1.38).
+// type: 'dome' = always closed · 'retract' = frequently closed
+const PARK_ROOF={
+  'Tropicana Field':       {type:'dome',    alt:15},
+  'Rogers Centre':         {type:'retract', alt:300},
+  'Globe Life Field':      {type:'retract', alt:550},
+  'Minute Maid Park':      {type:'retract', alt:45},
+  'Chase Field':           {type:'retract', alt:1080},
+  'LoanDepot Park':        {type:'retract', alt:10},
+  'loanDepot park':        {type:'retract', alt:10},
+  'American Family Field': {type:'retract', alt:620},
+  'T-Mobile Park':         {type:'retract', alt:45},
+};
+// Altitudes for outdoor parks (informational; factor into park HR factor empirically)
+const PARK_ALT={
+  'Coors Field':5200,'Chase Field':1080,'Globe Life Field':550,'Kauffman Stadium':750,
+  'PNC Park':730,'Progressive Field':660,'Nationals Park':30,'Yankee Stadium':55,
+  'Citizens Bank Park':40,'Citi Field':10,'Fenway Park':20,'Petco Park':15,
+  'Oracle Park':10,'Dodger Stadium':515,'Angel Stadium':160,'Truist Park':1050,
+  'Comerica Park':600,'Target Field':815,'Wrigley Field':595,'Guaranteed Rate Field':600,
+  'Camden Yards':35,'Busch Stadium':465,'Great American Ball Park':490,
+  'Sutter Health Park':30,
+};
+function parkIsIndoor(park){
+  const r=PARK_ROOF[park];
+  return r?r.type==='dome':false;
+}
+function parkIsRetractable(park){
+  const r=PARK_ROOF[park];
+  return r?r.type==='retract':false;
+}
+// Weather attenuation: domes fully neutralize (1.0), retractables cut effect
+// in half (assumes roof closed ~50% of time when conditions warrant).
+function roofWeatherMult(park){
+  if(parkIsIndoor(park))return 0.0;     // dome: outdoor wx zeroed
+  if(parkIsRetractable(park))return 0.5; // retractable: half-weight
+  return 1.0;
+}
+// Attenuate any "delta factor" (value near 1.0) toward neutral 1.0 by (1-mult).
+function attenuateFactor(f,mult){return 1+(f-1)*mult;}
+
 const PARK_SPRAY={
   'Yankee Stadium':{L:1.09,R:0.97},'Fenway Park':{L:0.94,R:1.07},
   'Wrigley Field':{L:1.05,R:1.03},'Great American Ball Park':{L:1.05,R:1.06},
@@ -650,6 +1015,9 @@ const POWER_TIERS=[
 // Build fast lookup index by name (lowercase)
 const POWER_TIER_INDEX={};
 POWER_TIERS.forEach(p=>{ POWER_TIER_INDEX[p[0].toLowerCase()]=p; });
+// Per-run overrides (live season BA/SLG overlays, synthetic players) — kept
+// separate from POWER_TIERS to avoid permanently mutating the seed data.
+const LIVE_OVERRIDES={};
 
 // ─────────────────────────────────────────────────────────────
 // STATE
@@ -736,8 +1104,7 @@ function getBatterPitchRating(batterName,batterHand,pitchCode,baseOVR){
 
 // Map trueProb → OVR scale (30–80)
 function probToOVR(trueProb){
-  // Recalibrated for overall hitter success score (range 0.05–0.43 → OVR 30–80)
-  return Math.round(30+Math.max(0,Math.min(1,(trueProb-0.05)/0.38))*50);
+  return Math.round(30+Math.max(0,Math.min(1,(trueProb-0.05)/0.25))*50);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -847,6 +1214,26 @@ function homeAwaySplitFactor(haLabel,splits){
   }
 }
 
+// ── NEW: Arsenal × batter matchup. Weighted hittability of the pitcher's
+// actual pitch mix vs this batter's hand. The arsenal panel already displays
+// this; this wires it into the probability model so the mix actually moves HR%.
+function arsenalFactor(arsenal,pitcherName,batHand){
+  if(!arsenal||!arsenal.length)return{factor:1.0,label:null};
+  // Weighted avg of per-pitch hittability (20–95), weighted by usage %
+  let totalPct=0,weighted=0;
+  for(const pt of arsenal){
+    const h=getPitchHittability(pitcherName,pt.code,batHand);
+    weighted+=h*(pt.pct||0);
+    totalPct+=(pt.pct||0);
+  }
+  if(totalPct<=0)return{factor:1.0,label:null};
+  const avgHit=weighted/totalPct;
+  // Map 50 = neutral (1.0). Spread ~±15% across the realistic 30–70 range.
+  const factor=Math.max(0.85,Math.min(1.18,1+(avgHit-50)/100*0.45));
+  const lbl=factor>=1.08?'ARSENAL+':factor<=0.93?'ARSENAL−':null;
+  return{factor,label:lbl};
+}
+
 // ── UPDATED: recentFormFactor uses real 30-day rolling data when available
 function recentFormFactor(name,date,recentStats){
   if(recentStats&&recentStats.games>=5){
@@ -900,95 +1287,77 @@ function impliedTotal(v){return v>=10?{factor:1.06}:v>=9?{factor:1.02}:v<=7?{fac
 function calcSprayAlignment(batH,park){
   const s=PARK_SPRAY[park];
   if(!s)return 1.0;
-  if(batH==='L')return s.L;
-  if(batH==='R')return s.R;
-  return(s.L+s.R)/2;
+  // Normalize by average so spray captures L/R asymmetry only —
+  // overall park bias already lives in PARK_DATA[park].factor.
+  // Prevents double-counting (e.g. Coors 1.38 × 1.04 spray = 1.43 inflated factor).
+  const avg=(s.L+s.R)/2;
+  if(batH==='L')return s.L/avg;
+  if(batH==='R')return s.R/avg;
+  return 1.0;
 }
+
+// ── Logistic helpers for log-odds model ──
+function logit(p){ const x=Math.max(1e-6,Math.min(1-1e-6,p)); return Math.log(x/(1-x)); }
+function expit(z){ return 1/(1+Math.exp(-z)); }
+
+// Shared feature extractor so computeProb and computeBaseProb can't drift apart.
+function _featScore(player){
+  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,,hh]=player;
+  const evN=Math.max(0,(ev-85)/12);
+  const barN=Math.max(0,(barrel-4)/20);
+  const laN=la>=12&&la<=22?1:la>=10&&la<=24?0.75:0.4;
+  const pullN=Math.max(0,(pull-35)/20);
+  const fbN=Math.max(0,(fb-30)/18);
+  const isoN=Math.max(0,(iso-0.10)/0.28);
+  const xslgN=Math.max(0,(xslg-0.350)/0.30);
+  // xhr = projected full-season HR total; higher = better (fixed from inverted formula)
+  const xhrN=Math.max(0,Math.min(1,(xhr-10)/50));
+  const kbbN=Math.max(0,Math.min(1,(kbb-0.8)/3.5));
+  const hhN=Math.max(0,(hh-28)/32);
+  return evN*0.20+barN*0.18+laN*0.08+pullN*0.07+fbN*0.07+
+    isoN*0.10+xslgN*0.08+xhrN*0.09+kbbN*0.05+hhN*0.08;
+}
+
+// Log-odds model: additive in logit-space, each context factor contributes its
+// log odds-ratio (log(1.0)=0 means no effect). This eliminates multiplicative
+// factor compounding, keeps output in a proper probability space, and makes
+// interpretability easier (coefficients are effectively log-hazard-ratios).
+// Intercept/slope calibrated so featScore 0.30 (avg) ≈ 3.8% baseline HR rate,
+// featScore 0.55 (quality slugger) ≈ 8%, and featScore 0.85 (top-5 power)
+// ≈ 18% — leaving headroom so the 22% cap only triggers on favorable context.
+const LOG_ODDS_ALPHA = -4.20;
+const LOG_ODDS_BETA  =  3.20;
 
 function computeProb(player,dateStr,ctx){
-  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
+  const featScore = _featScore(player);
+  const baseLogit = LOG_ODDS_ALPHA + LOG_ODDS_BETA*featScore;
 
-  // ── FACTOR 1: K% (Strikeout Rate) — most stable predictor; lower K = better ──
-  // kbb is BB/K ratio; higher kbb → fewer strikeouts relative to walks
-  const kPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
+  const pd = PARK_DATA[ctx.gamePark] || {factor:1.0};
+  // Each factor is an odds ratio; sum their natural logs for log-odds adjustment.
+  const ORs = [
+    pd.factor, ctx.windFactor, ctx.tempFactor, ctx.humFactor,
+    ctx.platoon.factor, ctx.recentForm.factor, ctx.homeAway.factor,
+    ctx.lineup.factor, ctx.hrfb.factor, ctx.total.factor,
+    ctx.pitcherQuality.factor, ctx.sprayAlign,
+    ctx.barometric?.factor || 1.0,
+    ctx.dayNight?.factor  || 1.0,
+    ctx.pitcherFatigue?.factor || 1.0,
+    ctx.pitcherFBVelo?.factor  || 1.0,
+    ctx.arsenal?.factor   || 1.0,
+  ];
+  let logAdj = 0;
+  for(const f of ORs) logAdj += Math.log(Math.max(0.4, Math.min(1.8, f)));
 
-  // ── FACTOR 2: Exit Velocity — raw power & contact strength (85–97 mph range) ──
-  const evN=Math.max(0,Math.min(1,(ev-85)/12));
-
-  // ── FACTOR 3: Hard-Hit Rate — balls hit 95+ mph; best contact quality signal (28–60%) ──
-  const hhN=Math.max(0,Math.min(1,(hh-28)/32));
-
-  // ── FACTOR 4: Walk Rate (BB%) — plate discipline & OBP contribution ──
-  // Derived from BB/K ratio; weighted separately from K% per model priority ranking
-  const bbPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
-
-  // ── FACTOR 5: Launch Angle — optimal 10–24° for extra bases; 10–18° = line drive zone ──
-  const laN=la>=12&&la<=22?1.0:la>=10&&la<=24?0.78:la>=8&&la<=26?0.50:0.20;
-
-  // ── FACTOR 6: wOBA proxy — comprehensive offensive value; weights all hit types ──
-  // Approximate: xBA component + power bonus + walk bonus from BB/K
-  const xbaProxy=Math.max(0.195,Math.min(0.345,xslg-iso));
-  const walkBonus=Math.min(0.06,(kbb-0.8)*0.016);
-  const wobaRaw=xbaProxy*0.88+iso*0.85+walkBonus;
-  const wobaN=Math.max(0,Math.min(1,(wobaRaw-0.28)/0.20));
-
-  // ── FACTOR 7: BABIP proxy — sustainable contact skill / luck indicator ──
-  // Line drive zone (10–18° LA) + hard contact = highest sustainable BABIP
-  const ldFactor=la>=10&&la<=18?1.0:la>=8&&la<=22?0.72:0.40;
-  const babipRaw=(hh/100)*0.55*ldFactor+0.245;
-  const babipN=Math.max(0,Math.min(1,(babipRaw-0.245)/0.10));
-
-  // ── FACTOR 8: Park Factors — applied as multiplier below (pd.factor) ──
-  // ── FACTOR 9: Lineup Position — applied via ctx.lineup.factor multiplier below ──
-
-  // ── Supporting power metrics (reduced vs old HR model) ──
-  const xslgN=Math.max(0,Math.min(1,(xslg-0.350)/0.30));
-  const isoN=Math.max(0,Math.min(1,(iso-0.10)/0.28));
-
-  // ── Overall hitter success base score (weights sum to 1.00) ──
-  const base=
-    kPctN *0.15+   // K% avoidance — most stable hitter quality signal
-    evN   *0.13+   // Exit velocity — raw power/contact strength
-    hhN   *0.12+   // Hard-hit rate — contact quality
-    bbPctN*0.12+   // Walk rate — plate discipline & OBP
-    laN   *0.10+   // Launch angle — hit type optimization
-    wobaN *0.14+   // wOBA proxy — comprehensive offensive value
-    babipN*0.10+   // BABIP proxy — sustainable contact skill
-    xslgN *0.09+   // xSLG — power component
-    isoN  *0.05;   // ISO — isolated power (lowest: already captured in wOBA/xSLG)
-
-  // Park factor (8) + lineup/situational context (9) multipliers
-  const pd=PARK_DATA[ctx.gamePark]||{factor:1.0};
-  // hrfb blended toward neutral — pitcher HR/FB less central to overall hitting success
-  const hrfbBlend=1.0+(ctx.hrfb.factor-1.0)*0.40;
-  let prob=base*pd.factor*ctx.windFactor*ctx.tempFactor*ctx.humFactor*
-    ctx.platoon.factor*ctx.recentForm.factor*ctx.homeAway.factor*
-    ctx.lineup.factor*hrfbBlend*ctx.total.factor*
-    ctx.pitcherQuality.factor*ctx.sprayAlign*
-    (ctx.barometric?.factor||1.0)*(ctx.dayNight?.factor||1.0)*
-    (ctx.pitcherFatigue?.factor||1.0)*(ctx.pitcherFBVelo?.factor||1.0);
-  return Math.max(0.03,Math.min(0.45,prob*0.28));
+  const prob = expit(baseLogit + logAdj);
+  // Cap at 22% — realistic per-game HR ceiling even for elite sluggers.
+  return Math.max(0.02, Math.min(0.22, prob));
 }
+
 function computeBaseProb(player){
-  const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
-  const kPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
-  const evN=Math.max(0,Math.min(1,(ev-85)/12));
-  const hhN=Math.max(0,Math.min(1,(hh-28)/32));
-  const bbPctN=Math.max(0,Math.min(1,(kbb-0.5)/3.0));
-  const laN=la>=12&&la<=22?1.0:la>=10&&la<=24?0.78:la>=8&&la<=26?0.50:0.20;
-  const xbaProxy=Math.max(0.195,Math.min(0.345,xslg-iso));
-  const walkBonus=Math.min(0.06,(kbb-0.8)*0.016);
-  const wobaRaw=xbaProxy*0.88+iso*0.85+walkBonus;
-  const wobaN=Math.max(0,Math.min(1,(wobaRaw-0.28)/0.20));
-  const ldFactor=la>=10&&la<=18?1.0:la>=8&&la<=22?0.72:0.40;
-  const babipRaw=(hh/100)*0.55*ldFactor+0.245;
-  const babipN=Math.max(0,Math.min(1,(babipRaw-0.245)/0.10));
-  const xslgN=Math.max(0,Math.min(1,(xslg-0.350)/0.30));
-  const isoN=Math.max(0,Math.min(1,(iso-0.10)/0.28));
-  const base=
-    kPctN *0.15+evN*0.13+hhN*0.12+bbPctN*0.12+laN*0.10+
-    wobaN *0.14+babipN*0.10+xslgN*0.09+isoN*0.05;
-  return Math.max(0.03,Math.min(0.38,base*0.26));
+  // Player-only baseline (no game context). Used as denominator of
+  // situationalEdge — expresses the batter's intrinsic HR rate.
+  const baseLogit = LOG_ODDS_ALPHA + LOG_ODDS_BETA*_featScore(player);
+  return Math.max(0.02, Math.min(0.22, expit(baseLogit)));
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1074,51 +1443,47 @@ async function fetchH2HBatters(pairs){
 // ─────────────────────────────────────────────────────────────
 // HITS / RUNS / RBI PROJECTIONS
 // ─────────────────────────────────────────────────────────────
-function computeHitsRunsRBI(player,ctx,successScore){
+function computeHitsRunsRBI(player,ctx,hrProb){
   const[,,ev,barrel,la,pull,fb,iso,xslg,xhr,kbb,,hand,hh]=player;
 
   // ── xBA from model data (xSLG - ISO ≈ batting average) ──
-  // Also integrate BB/K-derived walk factor for more complete OBP picture
   const rawXBA=Math.max(0.195,Math.min(0.345,xslg-iso));
-  const walkAdj=Math.min(0.012,(kbb-0.8)*0.006); // plate discipline OBP bonus
-  const adjustedXBA=Math.min(0.360,rawXBA+walkAdj);
 
   // ── Expected PA per game by lineup position (MLB empirical rates) ──
   const pos=ctx.lineupPos||5;
   const PA_BY_POS=[0,4.5,4.4,4.2,4.1,4.0,3.9,3.8,3.7,3.6];
   const xPA=PA_BY_POS[Math.min(9,pos)]||4.0;
 
-  // ── Pitcher contact suppression — scales with overall pitcher quality ──
+  // ── Pitcher contact suppression (separate from HR factor) ──
   const pqLabel=ctx.pitcherQuality?.label||'UNKNOWN';
   const PIT_CONTACT={ACE:0.77,SOLID:0.91,HITTABLE:1.08,SHELLED:1.22,UNKNOWN:0.96};
   const pitContactMod=PIT_CONTACT[pqLabel]||0.96;
 
-  // ── Park hit factor (35% of park factor — hits spread across all hit types) ──
+  // ── Park hit factor (35% of the HR park factor — hits spread more broadly) ──
   const pd=PARK_DATA[ctx.gamePark]||{factor:1.0};
   const parkHitF=1.0+(pd.factor-1.0)*0.35;
 
-  // ── Platoon + recent form ──
+  // ── Platoon + recent form (half-weighted vs HR model — contact is steadier) ──
   const platMod=1.0+(ctx.platoon.factor-1.0)*0.45;
   const formMod=1.0+(ctx.recentForm.factor-1.0)*0.35;
 
   // ── Adjusted xBA ──
-  const xBA=adjustedXBA*pitContactMod*parkHitF*platMod*formMod;
+  const xBA=rawXBA*pitContactMod*parkHitF*platMod*formMod;
 
-  // ── xH — PA × adjusted contact rate ──
+  // ── xH ──
   const xH=xPA*xBA;
 
-  // ── xR by lineup position ──
-  // successScore replaces hrProb; represents overall offensive quality bonus,
-  // not just HR contribution. Coefficient reduced vs old HR model.
+  // ── xR by lineup position (runs per game for avg hitter, scaled to contact) ──
+  // Leadoff scores the most; lower spots score fewer runs
   const R_BY_POS=[0,0.78,0.71,0.68,0.64,0.60,0.54,0.50,0.45,0.40];
   const baseR=R_BY_POS[Math.min(9,pos)]||0.56;
   const homeAwayMod=1.0+(ctx.homeAway.factor-1.0)*0.4;
-  const xR=(baseR*(xBA/0.248)*pitContactMod*homeAwayMod)+(successScore*0.42);
+  const xR=(baseR*(xBA/0.248)*pitContactMod*homeAwayMod)+(hrProb*0.95);
 
-  // ── xRBI by lineup position ──
+  // ── xRBI by lineup position (3-5 hole drives in most runners) ──
   const RBI_BY_POS=[0,0.46,0.54,0.72,0.78,0.71,0.62,0.54,0.47,0.42];
   const baseRBI=RBI_BY_POS[Math.min(9,pos)]||0.56;
-  const xRBI=(baseRBI*(xBA/0.248)*pitContactMod*parkHitF)+(successScore*0.55);
+  const xRBI=(baseRBI*(xBA/0.248)*pitContactMod*parkHitF)+(hrProb*1.25);
 
   return{
     xH:+Math.max(0.05,Math.min(2.5,xH)).toFixed(2),
@@ -1141,20 +1506,38 @@ function buildCtx(name,dateStr,w,schedInfo,liveTotals,extraData){
   // Real weather from wttr.in when available; neutral (league avg) when not
   const wpk=weather[gamePark]||{spd:0,dir:0,temp:72,hum:55,pressure:1013};
   const [,,,,,,,,,,,,hand]=findPlayerData(name)||[null,null,null,null,null,null,null,null,null,null,null,null,'R'];
-  // Real game total from ESPN when available; MLB 2024 average (9.0) otherwise
-  const totalVal=schedInfo?.gameTotal||liveTotals?.(schedInfo?.team)||9.0;
+  // Real game total from ESPN (passed via schedInfo.gameTotal); fall back to MLB 2024 average (9.0)
+  const totalVal=schedInfo?.gameTotal||9.0;
   // Resolve new data from maps
   const batterId=schedInfo?.batterId||null;
   const pitStats=extraData?.pitcherStatsMap?.[pitId]||null;
   const recentStats=extraData?.recentStatsMap?.[batterId]||null;
   const splits=extraData?.splitsMap?.[batterId]||null;
   const pq=pitcherQualityFactor(pitName,seed,pitStats);
+
+  // ── Roof attenuation: indoor/closed-roof parks mute outdoor weather ──
+  const roofMult=roofWeatherMult(gamePark);
+  const roofInfo=PARK_ROOF[gamePark]||null;
+  const rawWindFactor=calcWindFactor(wpk.spd,wpk.dir,(PARK_DATA[gamePark]||{cfDir:0}).cfDir);
+  const rawTempFactor=calcTempFactor(wpk.temp);
+  const rawHumFactor=calcHumFactor(wpk.hum);
+  const rawBaro=barometricFactor(wpk.pressure);
+  const windFactor=attenuateFactor(rawWindFactor,roofMult);
+  const tempFactor=attenuateFactor(rawTempFactor,roofMult);
+  const humFactor=attenuateFactor(rawHumFactor,roofMult);
+  const baroAttn={factor:attenuateFactor(rawBaro.factor,roofMult),label:roofMult<1?null:rawBaro.label};
+  const rawHandWx=calcHandFactor(wpk.spd,wpk.dir,gamePark);
+  const handWx={
+    lhb:attenuateFactor(rawHandWx.lhb,roofMult),
+    rhb:attenuateFactor(rawHandWx.rhb,roofMult),
+  };
+
   return{
-    gamePark,
-    windFactor:calcWindFactor(wpk.spd,wpk.dir,(PARK_DATA[gamePark]||{cfDir:0}).cfDir),
+    gamePark,roofInfo,
+    windFactor,
     windSpd:wpk.spd,windDir:wpk.dir,
-    tempFactor:calcTempFactor(wpk.temp),temp:wpk.temp,
-    humFactor:calcHumFactor(wpk.hum),hum:wpk.hum,
+    tempFactor,temp:wpk.temp,
+    humFactor,hum:wpk.hum,
     platoon:platoon(hand,pitHand),pitHand,batHand:hand,
     pitName,pitcherQuality:pq,
     recentForm:recentFormFactor(name,dateStr,recentStats),
@@ -1163,18 +1546,19 @@ function buildCtx(name,dateStr,w,schedInfo,liveTotals,extraData){
     hrfb:pitcherHrFb(seed,pitStats),
     total:{factor:impliedTotal(totalVal).factor,val:totalVal.toFixed(1)},
     sprayAlign:calcSprayAlignment(hand,gamePark),
-    weatherFactors:calcHandFactor(wpk.spd,wpk.dir,gamePark),
+    weatherFactors:handWx,
     // New factors
-    barometric:barometricFactor(wpk.pressure),
+    barometric:baroAttn,
     dayNight:dayNightFactor(schedInfo?.gameTime||null),
     pitcherFatigue:pitcherFatigueFactor(pitStats),
     pitcherFBVelo:pitcherFBVeloFactor(pitStats?.fbVelo||null),
+    arsenal:arsenalFactor(pitStats?.arsenal||getDefaultArsenal(pitName,pitHand,pq.label),pitName,hand),
   };
 }
 
 function findPlayerData(name){
   const lower=name.toLowerCase();
-  return POWER_TIER_INDEX[lower]||null;
+  return LIVE_OVERRIDES[lower]||POWER_TIER_INDEX[lower]||null;
 }
 
 function buildSyntheticPlayer(name,team,hand,homePark,stats){
@@ -1664,7 +2048,65 @@ function buildGameView(gameIdx,arsenalData){
 }
 
 // ─────────────────────────────────────────────────────────────
-// TOP HITTERS SIDEBAR
+// PICK NARRATIVE + CONFIDENCE
+// ─────────────────────────────────────────────────────────────
+// Rank contextual factors by absolute log-odds contribution and surface the
+// top positive + top negative as a human-readable one-liner. Makes the model
+// transparent to users — "why is this a good pick" is a product feature.
+function buildPickNarrative(pick){
+  const c=pick.ctx||{};
+  const parts=[
+    {lbl:'park '+(c.gamePark||'').split(' ')[0],f:(PARK_DATA[c.gamePark]||{factor:1.0}).factor,tag:'park'},
+    {lbl:'wind',f:c.windFactor||1,tag:'wind'},
+    {lbl:'temp',f:c.tempFactor||1,tag:'temp'},
+    {lbl:'platoon',f:c.platoon?.factor||1,tag:'platoon'},
+    {lbl:'recent form',f:c.recentForm?.factor||1,tag:'form'},
+    {lbl:c.homeAway?.label||'home/away',f:c.homeAway?.factor||1,tag:'ha'},
+    {lbl:'lineup slot',f:c.lineup?.factor||1,tag:'lineup'},
+    {lbl:'pitcher HR/9',f:c.hrfb?.factor||1,tag:'hrfb'},
+    {lbl:'game total',f:c.total?.factor||1,tag:'total'},
+    {lbl:'pitcher quality',f:c.pitcherQuality?.factor||1,tag:'pq'},
+    {lbl:'spray alignment',f:c.sprayAlign||1,tag:'spray'},
+    {lbl:'pitch arsenal',f:c.arsenal?.factor||1,tag:'arsenal'},
+    {lbl:'FB velo',f:c.pitcherFBVelo?.factor||1,tag:'velo'},
+    {lbl:'SP fatigue',f:c.pitcherFatigue?.factor||1,tag:'fatigue'},
+    {lbl:'day/night',f:c.dayNight?.factor||1,tag:'dn'},
+    {lbl:'barometric',f:c.barometric?.factor||1,tag:'baro'},
+  ];
+  const scored=parts.map(p=>({...p,imp:Math.abs(Math.log(Math.max(0.4,Math.min(1.8,p.f))))}))
+                    .filter(p=>p.imp>0.02)
+                    .sort((a,b)=>b.imp-a.imp);
+  const positives=scored.filter(p=>p.f>1).slice(0,2);
+  const negatives=scored.filter(p=>p.f<1).slice(0,1);
+  const pros=positives.map(p=>p.lbl).join(' + ');
+  const cons=negatives.map(p=>p.lbl).join(', ');
+  if(!pros&&!cons)return'Neutral context — driven by batter profile.';
+  let s='';
+  if(pros)s+='Boost from '+pros;
+  if(cons)s+=(pros?'; headwind: ':'Headwind: ')+cons;
+  return s+'.';
+}
+
+// Confidence reflects how much live data backs this pick. A lineup-confirmed
+// pick against a known pitcher with live weather and a real H2H record is
+// fundamentally stronger evidence than a synthetic projection for an
+// unconfirmed lineup — even if the model's output probability is identical.
+function computePickConfidence(pick){
+  const c=pick.ctx||{};
+  let score=0;
+  if(c.lineupPos)score++;
+  if(c.pitName)score++;
+  if(c.windSpd!=null&&(c.windSpd>0||c.temp!==72))score++;  // non-default weather
+  if(c.recentForm?.label&&c.recentForm.label!=='NEUTRAL')score++;
+  if(c.homeAway?.label&&(c.homeAway.label.includes('BOOST')||c.homeAway.label.includes('WEAK')))score++;
+  if(c.pitcherQuality?.era&&c.pitcherQuality.era!=='4.50')score++;
+  const level=score>=5?'HIGH':score>=3?'MED':'LOW';
+  const cls=level==='HIGH'?'conf-high':level==='MED'?'conf-med':'conf-low';
+  return{level,cls,score};
+}
+
+// ─────────────────────────────────────────────────────────────
+// HR TARGETS SIDEBAR
 // ─────────────────────────────────────────────────────────────
 function buildHRTargetCard(pick,rank){
   const{player,trueProb,baseProb,situationalEdge,odds,ctx}=pick;
@@ -1695,6 +2137,8 @@ function buildHRTargetCard(pick,rank){
   if(situationalEdge>=1.12)tags.push({t:`+${edgePct}% EDGE`,c:'htt-edge'});
 
   const rankDisp=rank<3?['🥇','🥈','🥉'][rank]:`#${rank+1}`;
+  const narrative=buildPickNarrative(pick);
+  const conf=computePickConfidence(pick);
   return`<div class="hr-target-card">
     <div class="hr-tc-top">
       <div class="hr-tc-rank">${rankDisp}</div>
@@ -1702,15 +2146,16 @@ function buildHRTargetCard(pick,rank){
         <div class="hr-tc-name">${name}</div>
         <div class="hr-tc-sub">${team} · ${ctx.homeAway.label}${ctx.pitName?' · vs '+ctx.pitName.split(' ').pop():''}</div>
       </div>
-      <div style="text-align:right">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
         <div class="hr-tc-prob">${fmtP(trueProb)}</div>
-        <div style="font-size:7px;color:rgba(0,212,255,0.5);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;">SUCCESS</div>
+        <div class="hr-tc-conf ${conf.cls}" title="Data completeness: ${conf.score}/6 signals">${conf.level} CONF</div>
       </div>
     </div>
     <div class="hr-tc-odds">
       ${odds.slice(0,4).map(o=>`<span class="hr-tc-odd${o.book===best.book?' best':''}">${o.book} ${fmtAm(o.american)}</span>`).join('')}
     </div>
     <div class="hr-tc-tags">${tags.slice(0,4).map(t=>`<span class="hr-tc-tag ${t.c}">${t.t}</span>`).join('')}</div>
+    <div class="hr-tc-narrative">${narrative}</div>
     ${(()=>{const h=pick.hrrbi||computeHitsRunsRBI(player,ctx,trueProb);return`<div class="hr-tc-proj">
       <div class="hr-tc-proj-stat"><span class="hr-tc-proj-val">${h.xH}</span><span class="hr-tc-proj-lbl">xH</span></div>
       <div class="hr-tc-proj-stat"><span class="hr-tc-proj-val">${h.xR}</span><span class="hr-tc-proj-lbl">xR</span></div>
@@ -1855,8 +2300,11 @@ async function runModel(){
   weatherData = finalWeather;
   usingLiveWind = Object.keys(finalWeather).length > 0;
   document.getElementById('windChip').className='sc '+(usingLiveWind?'sc-conn':'sc-off');
-  const windSource = owmKey&&Object.keys(await Promise.resolve(finalWeather)).length>0?'WEATHER: OWM':'WEATHER: LIVE';
-  document.getElementById('windChip').textContent=usingLiveWind?'WEATHER: LIVE':'WEATHER: OFFLINE';
+  // Distinguish OWM-enhanced vs plain wttr.in when reporting to the user.
+  const windLabel = usingLiveWind
+    ? (owmKey ? 'WEATHER: OWM' : 'WEATHER: LIVE')
+    : 'WEATHER: OFFLINE';
+  document.getElementById('windChip').textContent=windLabel;
 
   // ── If API returned nothing, show HR targets from database only ──────────
   if(!games.length){
@@ -1937,7 +2385,9 @@ async function runModel(){
   const pitcherStatsMap=arsenalData; // same object, renamed for clarity in extraData
 
   // ── Overlay live season BA/SLG onto ALL players (including POWER_TIERS) ──
-  // This updates the ISO used by computeHitsRunsRBI with current-season data
+  // This updates the ISO used by computeHitsRunsRBI with current-season data.
+  // Reset per-run overrides first so stale values don't persist across runs.
+  Object.keys(LIVE_OVERRIDES).forEach(k=>delete LIVE_OVERRIDES[k]);
   games.forEach(game=>{
     [...game.homeLineup,...game.awayLineup].forEach(b=>{
       if(b.id&&batchStats[b.id]){
@@ -1945,18 +2395,21 @@ async function runModel(){
         if(ls&&ls.avg>0){
           const liveISO=Math.max(0.05,(ls.slg||0)-(ls.avg||0));
           const liveXSLG=Math.max(0.250,ls.slg||0);
-          const existing=findPlayerData(b.name);
+          const existing=POWER_TIER_INDEX[b.name.toLowerCase()];
           if(existing){
-            // Overlay live stats onto POWER_TIERS entry (indices 7=iso, 8=xslg)
-            existing[7]=liveISO;
-            existing[8]=liveXSLG;
+            // Clone POWER_TIERS entry into LIVE_OVERRIDES rather than mutating
+            // the shared seed data (indices 7=iso, 8=xslg).
+            const copy=[...existing];
+            copy[7]=liveISO;
+            copy[8]=liveXSLG;
+            LIVE_OVERRIDES[b.name.toLowerCase()]=copy;
           }
         }
       }
     });
   });
 
-  // Attach MLB stats to unknown players
+  // Attach MLB stats to unknown players (store synthetic in LIVE_OVERRIDES, not index)
   games.forEach(game=>{
     [...game.homeLineup,...game.awayLineup].forEach(b=>{
       if(!findPlayerData(b.name)&&batchStats[b.id]){
@@ -1966,7 +2419,7 @@ async function runModel(){
           fuzzyPark(game.venue)||TEAM_TO_HOME_PARK[b.team]||'Unknown',
           batchStats[b.id]
         );
-        POWER_TIER_INDEX[b.name.toLowerCase()]=b._synthetic;
+        LIVE_OVERRIDES[b.name.toLowerCase()]=b._synthetic;
       }
     });
   });
@@ -2035,11 +2488,15 @@ function switchSidebarTab(tab){
 // H+R+RBI OVER 1.5 PROBABILITY ENGINE
 // ─────────────────────────────────────────────────────────────
 
-// P(H+R+RBI > 1.5) via Poisson: lambda = xH+xR+xRBI, P(X>=2) = 1 - e^-λ(1+λ)
+// P(H+R+RBI > 1.5) via Poisson with correlation correction.
+// A HR contributes 3 to (xH + xR + xRBI) but is a single clustered event —
+// naïve lambda = xH+xR+xRBI double-counts HR co-occurrence. Subtract ~2*hrProb
+// to partially correct the correlation (HR = 1H + 1R + 1RBI simultaneously).
 function computeHRRProb(player, dateStr, ctx){
-  const successScore = computeProb(player, dateStr, ctx);
-  const hrrbi  = computeHitsRunsRBI(player, ctx, successScore);
-  const lambda = Math.max(0.1, hrrbi.xH + hrrbi.xR + hrrbi.xRBI); // expected total
+  const hrProb = computeProb(player, dateStr, ctx);
+  const hrrbi  = computeHitsRunsRBI(player, ctx, hrProb);
+  const rawSum = hrrbi.xH + hrrbi.xR + hrrbi.xRBI;
+  const lambda = Math.max(0.1, rawSum - 2 * hrProb); // correlation-adjusted
   const prob   = 1 - Math.exp(-lambda) * (1 + lambda);             // Poisson P(X≥2)
   return { prob: Math.max(0.01, Math.min(0.97, prob)), hrrbi };
 }

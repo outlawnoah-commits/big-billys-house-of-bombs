@@ -702,6 +702,76 @@ body{
   background:linear-gradient(90deg,#ef4444,#f5a524);
 }
 
+/* ── GRADES PANEL ─────────────────────────────────────── */
+.grades-header{
+  padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.grades-header-lbl{
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:#f5a524;
+  letter-spacing:0.15em;text-transform:uppercase;
+}
+.grades-date{font-size:10px;color:#6b7380;font-family:'JetBrains Mono',monospace;}
+
+.grades-calibration{
+  padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.015);
+}
+.grades-cal-title{
+  font-size:9px;font-weight:700;color:#9aa3b2;letter-spacing:0.15em;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.grades-cal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.grades-cal-bucket{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  border-radius:8px;padding:8px 6px;text-align:center;
+}
+.grades-cal-range{font-size:9px;color:#6b7380;letter-spacing:0.06em;font-weight:600;text-transform:uppercase;margin-bottom:4px;}
+.grades-cal-pct{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;line-height:1;}
+.grades-cal-pct.gc-green{color:#34d399;}
+.grades-cal-pct.gc-amber{color:#f5a524;}
+.grades-cal-pct.gc-red{color:#ef4444;}
+.grades-cal-pct.gc-dim{color:#5c6472;}
+.grades-cal-n{font-size:9px;color:#5c6472;margin-top:3px;}
+.grades-cal-bar{height:3px;border-radius:2px;background:rgba(255,255,255,0.06);margin-top:5px;overflow:hidden;}
+.grades-cal-fill{height:3px;border-radius:2px;}
+
+.grades-summary{
+  padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;gap:0;
+}
+.grades-sum-stat{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  border-right:1px solid rgba(255,255,255,0.04);
+}
+.grades-sum-stat:last-child{border-right:none;}
+.grades-sum-val{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;line-height:1;}
+.grades-sum-lbl{font-size:8px;font-weight:600;color:#6b7380;letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;}
+
+.grade-row{
+  display:flex;align-items:center;gap:8px;padding:9px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.04);transition:background .12s;
+}
+.grade-row:hover{background:rgba(255,255,255,0.02);}
+.grade-icon{font-size:14px;flex-shrink:0;width:20px;text-align:center;}
+.grade-info{flex:1;min-width:0;}
+.grade-name{font-size:12px;font-weight:600;color:#e7ecf3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.005em;}
+.grade-sub{font-size:10px;color:#6b7380;margin-top:1px;letter-spacing:0;}
+.grade-actual{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:#9aa3b2;margin-top:2px;}
+.grade-actual .ga-hit{color:#34d399;}
+.grade-actual .ga-miss{color:#ef4444;}
+.grade-right{text-align:right;flex-shrink:0;}
+.grade-prob{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;}
+.grade-prob.gp-hot{color:#ef4444;}
+.grade-prob.gp-warm{color:#f5a524;}
+.grade-prob.gp-cool{color:#9aa3b2;}
+.grade-delta{font-size:9px;margin-top:2px;font-family:'JetBrains Mono',monospace;}
+.grade-delta.gd-pos{color:#34d399;}
+.grade-delta.gd-neg{color:#ef4444;}
+.grade-delta.gd-neu{color:#6b7380;}
+
+.grades-loading{padding:30px 16px;text-align:center;color:#6b7380;font-size:11px;letter-spacing:0.1em;}
+
 </style>
   <!-- ── App Icons / PWA ───────────────────────────────────── -->
   <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
@@ -776,6 +846,7 @@ body{
       <div class="sidebar-tabs">
         <button class="sidebar-tab active" id="tabHR" onclick="switchSidebarTab('hr')">HR TARGETS</button>
         <button class="sidebar-tab" id="tabMultiHR" onclick="switchSidebarTab('multihr')">H+R+RBI</button>
+        <button class="sidebar-tab" id="tabGrades" onclick="switchSidebarTab('grades')">GRADES</button>
       </div>
     </div>
 
@@ -787,6 +858,11 @@ body{
     <!-- H+R+RBI PANEL -->
     <div id="multiHRPanel" style="display:none;">
       <div id="multiHRList"><div class="sidebar-empty">Fire to load rankings</div></div>
+    </div>
+
+    <!-- GRADES PANEL -->
+    <div id="gradesPanel" style="display:none;">
+      <div id="gradesList"><div class="sidebar-empty">Fire to load yesterday's grades</div></div>
     </div>
   </div>
 </div>
@@ -1681,66 +1757,79 @@ async function fetchPitcherArsenals(pitcherIds){
 
 async function fetchBatterStats(playerIds){
   if(!playerIds||!playerIds.length)return{};
-  try{
-    const year=new Date().getFullYear();
-    const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=season,season=${year}),batSide`;
-    const _r2=await fetch(url);if(!_r2.ok)throw new Error(`Batter stats API ${_r2.status}`);
-    const data=await _r2.json();
-    const out={};
-    (data.people||[]).forEach(p=>{
-      const bs=p.batSide?.code||'R';
-      const ss=((p.stats||[]).find(s=>s.group?.displayName==='hitting'&&s.type?.displayName==='season')?.splits||[])[0]?.stat;
-      out[p.id]={
-        hand:bs==='S'?'B':bs,
-        avg:parseFloat(ss?.avg||'0.248'),
-        slg:parseFloat(ss?.slg||'0.402'),
-        hr:ss?.homeRuns||0,
-        ab:ss?.atBats||1,
-        name:p.fullName,
-      };
-    });
-    return out;
-  }catch(e){return{};}
+  const year=new Date().getFullYear();
+  const CHUNK=150;
+  const out={};
+  // Chunk IDs to stay under MLB API URL length limits (~150 per call)
+  for(let i=0;i<playerIds.length;i+=CHUNK){
+    const chunk=playerIds.slice(i,i+CHUNK);
+    try{
+      const url=`https://statsapi.mlb.com/api/v1/people?personIds=${chunk.join(',')}&hydrate=stats(group=hitting,type=season,season=${year}),batSide`;
+      const r=await fetch(url);if(!r.ok){console.warn(`Batter stats chunk ${i/CHUNK} HTTP ${r.status}`);continue;}
+      const data=await r.json();
+      (data.people||[]).forEach(p=>{
+        const bs=p.batSide?.code||'R';
+        const ss=((p.stats||[]).find(s=>s.group?.displayName==='hitting'&&s.type?.displayName==='season')?.splits||[])[0]?.stat;
+        out[p.id]={
+          hand:bs==='S'?'B':bs,
+          avg:parseFloat(ss?.avg||'0.248'),
+          slg:parseFloat(ss?.slg||'0.402'),
+          hr:ss?.homeRuns||0,
+          ab:ss?.atBats||1,
+          name:p.fullName,
+        };
+      });
+    }catch(e){console.warn(`Batter stats chunk ${i/CHUNK} error:`,e);}
+  }
+  return out;
 }
 
 async function fetchBatterRecentStats(playerIds,dateStr){
   if(!playerIds||!playerIds.length)return{};
-  try{
-    const year=parseInt(dateStr.slice(0,4),10);
-    const end=dateStr;
-    const d=new Date(dateStr+'T12:00:00');d.setDate(d.getDate()-30);
-    const start=d.toISOString().slice(0,10);
-    const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=byDateRange,startDate=${start},endDate=${end},season=${year})`;
-    const _r3=await fetch(url);if(!_r3.ok)throw new Error(`Batter recent stats API ${_r3.status}`);
-    const data=await _r3.json();
-    const out={};
-    (data.people||[]).forEach(p=>{
-      const ss=((p.stats||[]).find(s=>s.group?.displayName==='hitting')?.splits||[])[0]?.stat;
-      if(ss)out[p.id]={hr:ss.homeRuns||0,ab:ss.atBats||0,games:ss.gamesPlayed||0};
-    });
-    return out;
-  }catch(e){return{};}
+  const year=parseInt(dateStr.slice(0,4),10);
+  const end=dateStr;
+  const d=new Date(dateStr+'T12:00:00');d.setDate(d.getDate()-30);
+  const start=d.toISOString().slice(0,10);
+  const CHUNK=150;
+  const out={};
+  for(let i=0;i<playerIds.length;i+=CHUNK){
+    const chunk=playerIds.slice(i,i+CHUNK);
+    try{
+      const url=`https://statsapi.mlb.com/api/v1/people?personIds=${chunk.join(',')}&hydrate=stats(group=hitting,type=byDateRange,startDate=${start},endDate=${end},season=${year})`;
+      const r=await fetch(url);if(!r.ok){console.warn(`Recent stats chunk ${i/CHUNK} HTTP ${r.status}`);continue;}
+      const data=await r.json();
+      (data.people||[]).forEach(p=>{
+        const ss=((p.stats||[]).find(s=>s.group?.displayName==='hitting')?.splits||[])[0]?.stat;
+        if(ss)out[p.id]={hr:ss.homeRuns||0,ab:ss.atBats||0,games:ss.gamesPlayed||0};
+      });
+    }catch(e){console.warn(`Recent stats chunk ${i/CHUNK} error:`,e);}
+  }
+  return out;
 }
 
 async function fetchBatterSplits(playerIds,dateStr){
   if(!playerIds||!playerIds.length)return{};
-  try{
-    const year=parseInt(dateStr.slice(0,4),10);
-    const url=`https://statsapi.mlb.com/api/v1/people?personIds=${playerIds.join(',')}&hydrate=stats(group=hitting,type=homeAndAway,season=${year})`;
-    const _r4=await fetch(url);if(!_r4.ok)throw new Error(`Batter splits API ${_r4.status}`);
-    const data=await _r4.json();
-    const out={};
-    (data.people||[]).forEach(p=>{
-      const splits=((p.stats||[]).find(s=>s.group?.displayName==='hitting')?.splits)||[];
-      const home=splits.find(s=>s.isHome===true||s.split?.code==='H');
-      const away=splits.find(s=>s.isHome===false||s.split?.code==='A');
-      out[p.id]={
-        homeHR:home?.stat?.homeRuns||0,homeAB:home?.stat?.atBats||0,
-        awayHR:away?.stat?.homeRuns||0,awayAB:away?.stat?.atBats||0,
-      };
-    });
-    return out;
-  }catch(e){return{};}
+  const year=parseInt(dateStr.slice(0,4),10);
+  const CHUNK=150;
+  const out={};
+  for(let i=0;i<playerIds.length;i+=CHUNK){
+    const chunk=playerIds.slice(i,i+CHUNK);
+    try{
+      const url=`https://statsapi.mlb.com/api/v1/people?personIds=${chunk.join(',')}&hydrate=stats(group=hitting,type=homeAndAway,season=${year})`;
+      const r=await fetch(url);if(!r.ok){console.warn(`Splits chunk ${i/CHUNK} HTTP ${r.status}`);continue;}
+      const data=await r.json();
+      (data.people||[]).forEach(p=>{
+        const splits=((p.stats||[]).find(s=>s.group?.displayName==='hitting')?.splits)||[];
+        const home=splits.find(s=>s.isHome===true||s.split?.code==='H');
+        const away=splits.find(s=>s.isHome===false||s.split?.code==='A');
+        out[p.id]={
+          homeHR:home?.stat?.homeRuns||0,homeAB:home?.stat?.atBats||0,
+          awayHR:away?.stat?.homeRuns||0,awayAB:away?.stat?.atBats||0,
+        };
+      });
+    }catch(e){console.warn(`Splits chunk ${i/CHUNK} error:`,e);}
+  }
+  return out;
 }
 
 async function fetchWeather(owmKey){
@@ -2344,18 +2433,45 @@ async function runModel(){
   cachedArsenalData=arsenalData;
 
   // ── Fill empty lineups from live rosters, then POWER_TIERS as last resort ──
+  // Confirmed lineups (game.lineups) are used as-is when posted — those are the
+  // truth. When the lineup hasn't been posted yet, we score the FULL active
+  // roster (not just slice(0,9), which cuts stars by jersey-number ordering)
+  // and supplement with any POWER_TIERS player on the team that the active
+  // roster missed (covers IL/option/40-man edge cases). computeGamePicks scores
+  // every batter passed to it; the leaderboards sort by trueProb so top hitters
+  // surface naturally without polluting the display.
+  // When real batting order isn't known, default to order=5 (mid-lineup neutral).
+  // PA_BY_POS / R_BY_POS / RBI_BY_POS at position 9 are ~half of position 4, so
+  // padding stars at order=9 would silently deflate xR/xRBI. Position 5 keeps
+  // them weighted near league average until a confirmed lineup overrides.
+  const NEUTRAL_ORDER=5;
+  const buildFallbackLineup=(roster,teamAbbr)=>{
+    if(roster && roster.length){
+      // All players get NEUTRAL_ORDER since active-roster sort (jersey#) has no
+      // batting-order meaning. Confirmed lineups override these values once posted.
+      const lineup=roster.map(p=>({
+        name:p.name, id:p.id, order:NEUTRAL_ORDER
+      }));
+      const have=new Set(lineup.map(b=>b.name.toLowerCase()));
+      // Append any POWER_TIERS player on this team that wasn't on active roster
+      // (e.g. on IL: rosterType=active excludes them, but we still want them scored)
+      POWER_TIERS
+        .filter(p=>p[1]===teamAbbr && !have.has(p[0].toLowerCase()))
+        .forEach(p=>lineup.push({name:p[0],id:null,order:NEUTRAL_ORDER,_dbFill:true}));
+      return lineup;
+    }
+    // No live roster at all — pure POWER_TIERS fallback
+    return POWER_TIERS
+      .filter(p=>p[1]===teamAbbr)
+      .map((p,i)=>({name:p[0],id:null,order:i+1}));
+  };
+
   games.forEach(game=>{
     if(!game.homeLineup.length){
-      const r=rosterData[game.homeTeamId]||[];
-      game.homeLineup=r.length
-        ? r.slice(0,9).map((p,i)=>({name:p.name,id:p.id,order:i+1}))
-        : POWER_TIERS.filter(p=>p[1]===game.homeAbbr).map((p,i)=>({name:p[0],id:null,order:i+1}));
+      game.homeLineup=buildFallbackLineup(rosterData[game.homeTeamId]||[],game.homeAbbr);
     }
     if(!game.awayLineup.length){
-      const r=rosterData[game.awayTeamId]||[];
-      game.awayLineup=r.length
-        ? r.slice(0,9).map((p,i)=>({name:p.name,id:p.id,order:i+1}))
-        : POWER_TIERS.filter(p=>p[1]===game.awayAbbr).map((p,i)=>({name:p[0],id:null,order:i+1}));
+      game.awayLineup=buildFallbackLineup(rosterData[game.awayTeamId]||[],game.awayAbbr);
     }
   });
 
@@ -2462,6 +2578,9 @@ async function runModel(){
   // Populate Multi-HR panel (background build — visible when user clicks tab)
   buildMultiHRPanel();
 
+  // Clear grades cache so clicking GRADES tab fetches fresh yesterday data
+  gradesCache = null;
+
   btn.disabled=false;btn.textContent='⚡ FIRE!';
   }catch(e){
     console.error('runModel error',e);
@@ -2479,9 +2598,295 @@ async function runModel(){
 function switchSidebarTab(tab){
   document.getElementById('hrTargetsPanel').style.display=tab==='hr'?'':'none';
   document.getElementById('multiHRPanel').style.display=tab==='multihr'?'':'none';
+  document.getElementById('gradesPanel').style.display=tab==='grades'?'':'none';
   document.getElementById('tabHR').className='sidebar-tab'+(tab==='hr'?' active':'');
   document.getElementById('tabMultiHR').className='sidebar-tab'+(tab==='multihr'?' active':'');
+  document.getElementById('tabGrades').className='sidebar-tab'+(tab==='grades'?' active':'');
   if(tab==='multihr')buildMultiHRPanel();
+  if(tab==='grades')buildGradesPanel();
+}
+
+// ─────────────────────────────────────────────────────────────
+// GRADES PANEL — yesterday's H+R+RBI model accuracy checker
+// ─────────────────────────────────────────────────────────────
+
+// Get the date string for yesterday relative to the currently selected date
+function getYesterdayStr(){
+  const sel = document.getElementById('dateInput').value || getToday();
+  const d = new Date(sel + 'T12:00:00');
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
+// Fetch yesterday's completed box scores. Returns array of:
+// { name, id, team, h, r, rbi, actualSum, pitcher:{name,hand}, venue, homeAway }
+async function fetchYesterdayBoxScores(yDateStr){
+  try{
+    const url = `https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=${yDateStr}&hydrate=boxscore,probablePitcher,team,venue`;
+    const resp = await fetch(url);
+    if(!resp.ok) throw new Error(`Schedule ${resp.status}`);
+    const data = await resp.json();
+    const batters = [];
+    (data.dates||[]).forEach(d=>{
+      (d.games||[]).forEach(game=>{
+        // Only include completed games
+        const status = game.status?.detailedState||'';
+        if(!status.includes('Final') && !status.includes('Completed')) return;
+
+        const venueName = game.venue?.name||'';
+        const homeAbbr = normalizeTeamAbbr(game.teams?.home?.team?.abbreviation||'');
+        const awayAbbr = normalizeTeamAbbr(game.teams?.away?.team?.abbreviation||'');
+        const homePitcher = game.teams?.home?.probablePitcher;
+        const awayPitcher = game.teams?.away?.probablePitcher;
+
+        // Helper: extract batting line from a team's boxscore side
+        function extractBatters(side, teamAbbr, oppPitcher, homeAway){
+          const bs = game.liveData?.boxscore?.teams?.[side];
+          if(!bs) return;
+          const batters_order = bs.battingOrder||[];
+          const players = bs.players||{};
+          batters_order.forEach((pid, idx)=>{
+            const pkey = 'ID'+pid;
+            const p = players[pkey];
+            if(!p) return;
+            const stats = p.stats?.batting||{};
+            const h   = stats.hits||0;
+            const r   = stats.runs||0;
+            const rbi = stats.rbi||0;
+            const ab  = stats.atBats||0;
+            // Skip pitchers (0 AB and not in lineup typically; also filter by position)
+            if(p.position?.type==='Pitcher') return;
+            const fullName = p.person?.fullName||'';
+            if(!fullName) return;
+            batters.push({
+              name: fullName,
+              id: pid,
+              team: teamAbbr,
+              h, r, rbi,
+              actualSum: h + r + rbi,
+              ab,
+              lineupPos: idx + 1,
+              pitcher: oppPitcher ? {
+                id: oppPitcher.id,
+                name: oppPitcher.fullName||'',
+                hand: oppPitcher.pitchHand?.code||'R'
+              } : null,
+              venue: venueName,
+              homeAway: homeAway,
+            });
+          });
+        }
+
+        extractBatters('home', homeAbbr, awayPitcher, 'HOME');
+        extractBatters('away', awayAbbr, homePitcher, 'AWAY');
+      });
+    });
+    return batters;
+  }catch(e){
+    console.warn('fetchYesterdayBoxScores error:', e);
+    return [];
+  }
+}
+
+// Re-run the model's H+R+RBI probability for a batter given their game context
+function scoreYesterdayBatter(batter, yDateStr){
+  // Look up player data — use live override if present, fall back to POWER_TIERS
+  let playerData = findPlayerData(batter.name);
+  if(!playerData) return null; // Can't grade players not in our DB
+
+  const schedInfo = {
+    homeAway: batter.homeAway,
+    venue: batter.venue,
+    pitcher: batter.pitcher || null,
+    lineupPos: batter.lineupPos,
+    team: batter.team,
+  };
+  const ctx = buildCtx(batter.name, yDateStr, weatherData, schedInfo);
+  const { prob, hrrbi } = computeHRRProb(playerData, yDateStr, ctx);
+  return { prob, hrrbi, playerData };
+}
+
+// Build calibration buckets: group predictions by prob bucket, measure hit rate
+function buildCalibration(graded){
+  // Buckets: <40%, 40–60%, 60%+
+  const buckets = [
+    { label:'< 40%', min:0,    max:0.40, hits:0, n:0 },
+    { label:'40–60%',min:0.40, max:0.60, hits:0, n:0 },
+    { label:'60%+',  min:0.60, max:1.01, hits:0, n:0 },
+  ];
+  graded.forEach(g=>{
+    const b = buckets.find(bk=>g.prob>=bk.min && g.prob<bk.max);
+    if(b){ b.n++; if(g.hit) b.hits++; }
+  });
+  return buckets;
+}
+
+// Main grades builder — called when user clicks GRADES tab or after runModel
+let gradesCache = null; // {yDateStr, graded}
+
+async function buildGradesPanel(){
+  const container = document.getElementById('gradesList');
+  if(!container) return;
+
+  const yDateStr = getYesterdayStr();
+
+  // Return cached result for the same date
+  if(gradesCache && gradesCache.yDateStr === yDateStr){
+    renderGrades(container, gradesCache.graded, yDateStr);
+    return;
+  }
+
+  container.innerHTML = `<div class="grades-loading">⏳ LOADING YESTERDAY'S RESULTS<br><span style="font-size:9px;color:#5c6472;letter-spacing:.1em;">${yDateStr}</span></div>`;
+
+  const batters = await fetchYesterdayBoxScores(yDateStr);
+  if(!batters.length){
+    container.innerHTML = `<div class="sidebar-empty">No completed games found for ${yDateStr}</div>`;
+    return;
+  }
+
+  // Score each batter who's in our DB
+  const graded = [];
+  batters.forEach(batter=>{
+    const scored = scoreYesterdayBatter(batter, yDateStr);
+    if(!scored) return;
+    const hit = batter.actualSum >= 2; // H+R+RBI > 1.5
+    graded.push({
+      name: batter.name,
+      team: batter.team,
+      prob: scored.prob,
+      hrrbi: scored.hrrbi,
+      actualH:   batter.h,
+      actualR:   batter.r,
+      actualRBI: batter.rbi,
+      actualSum: batter.actualSum,
+      hit,
+      pitcher: batter.pitcher,
+    });
+  });
+
+  if(!graded.length){
+    container.innerHTML = `<div class="sidebar-empty">No gradeable players found for ${yDateStr}<br><span style="font-size:9px;color:#5c6472;">Model only grades players in its database.</span></div>`;
+    return;
+  }
+
+  // Sort: hits first, then by predicted prob desc
+  graded.sort((a,b)=> (b.hit - a.hit) || (b.prob - a.prob));
+  gradesCache = { yDateStr, graded };
+  renderGrades(container, graded, yDateStr);
+}
+
+function renderGrades(container, graded, yDateStr){
+  const totalGraded = graded.length;
+  const totalHits   = graded.filter(g=>g.hit).length;
+  const hitRate     = totalGraded ? totalHits / totalGraded : 0;
+
+  // Brier score: mean((prob - outcome)^2) — lower is better (0 = perfect)
+  const brier = totalGraded
+    ? (graded.reduce((s,g)=>s+Math.pow(g.prob-(g.hit?1:0),2),0)/totalGraded).toFixed(3)
+    : '—';
+
+  // Mean predicted prob for comparison
+  const meanProb = totalGraded
+    ? (graded.reduce((s,g)=>s+g.prob,0)/totalGraded*100).toFixed(1)+'%'
+    : '—';
+
+  const cal = buildCalibration(graded);
+
+  // Calibration bar color
+  function calColor(bucket){
+    if(!bucket.n) return 'gc-dim';
+    const actual = bucket.hits/bucket.n;
+    const mid = (bucket.min + Math.min(bucket.max, 1)) / 2;
+    const diff = Math.abs(actual - mid);
+    if(diff <= 0.08) return 'gc-green';
+    if(diff <= 0.15) return 'gc-amber';
+    return 'gc-red';
+  }
+
+  const calHtml = cal.map(b=>{
+    if(!b.n) return `<div class="grades-cal-bucket">
+      <div class="grades-cal-range">${b.label}</div>
+      <div class="grades-cal-pct gc-dim">—</div>
+      <div class="grades-cal-n">0 picks</div>
+      <div class="grades-cal-bar"><div class="grades-cal-fill" style="width:0%;background:#3d4450;"></div></div>
+    </div>`;
+    const actual = b.hits/b.n;
+    const pctStr = (actual*100).toFixed(0)+'%';
+    const cls = calColor(b);
+    const barColor = cls==='gc-green'?'#34d399': cls==='gc-amber'?'#f5a524':'#ef4444';
+    const barW = Math.round(actual*100);
+    return `<div class="grades-cal-bucket">
+      <div class="grades-cal-range">${b.label}</div>
+      <div class="grades-cal-pct ${cls}">${pctStr}</div>
+      <div class="grades-cal-n">${b.hits}/${b.n}</div>
+      <div class="grades-cal-bar"><div class="grades-cal-fill" style="width:${barW}%;background:${barColor};"></div></div>
+    </div>`;
+  }).join('');
+
+  const hitRateCls  = hitRate>=0.55?'gc-green': hitRate>=0.42?'gc-amber':'gc-red';
+  const hitRateCol  = hitRate>=0.55?'#34d399': hitRate>=0.42?'#f5a524':'#ef4444';
+
+  const rowsHtml = graded.map(g=>{
+    const probCls = g.prob>=0.60?'gp-hot': g.prob>=0.42?'gp-warm':'gp-cool';
+    const icon    = g.hit ? '✅' : '❌';
+    const pitLast = (g.pitcher?.name||'').split(' ').pop() || '—';
+
+    // xH/xR/xRBI vs actual delta — show actual vs projected
+    const projSum = (g.hrrbi.xH||0) + (g.hrrbi.xR||0) + (g.hrrbi.xRBI||0);
+    const delta   = g.actualSum - parseFloat(projSum);
+    const deltaCls= delta>0.3?'gd-pos': delta<-0.3?'gd-neg':'gd-neu';
+    const deltaStr= (delta>=0?'+':'')+delta.toFixed(1);
+
+    const actualCls = g.hit ? 'ga-hit' : 'ga-miss';
+    const actualStr = `H:${g.actualH} R:${g.actualR} RBI:${g.actualRBI}`;
+
+    return `<div class="grade-row">
+      <div class="grade-icon">${icon}</div>
+      <div class="grade-info">
+        <div class="grade-name">${g.name}</div>
+        <div class="grade-sub">${g.team}${pitLast?' · vs '+pitLast:''}</div>
+        <div class="grade-actual">
+          <span class="${actualCls}">${actualStr} (${g.actualSum})</span>
+          <span style="color:#3d4450;margin:0 3px;">·</span>
+          <span style="color:#6b7380;font-size:9px;">xΣ ${parseFloat(projSum).toFixed(1)}</span>
+        </div>
+      </div>
+      <div class="grade-right">
+        <div class="grade-prob ${probCls}">${(g.prob*100).toFixed(0)}%</div>
+        <div class="grade-delta ${deltaCls}">${deltaStr}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="grades-header">
+      <span class="grades-header-lbl">⚖ Model Grades</span>
+      <span class="grades-date">${yDateStr}</span>
+    </div>
+    <div class="grades-summary">
+      <div class="grades-sum-stat">
+        <div class="grades-sum-val" style="color:${hitRateCol};">${(hitRate*100).toFixed(0)}%</div>
+        <div class="grades-sum-lbl">Hit Rate</div>
+      </div>
+      <div class="grades-sum-stat">
+        <div class="grades-sum-val" style="color:#9aa3b2;">${totalHits}/${totalGraded}</div>
+        <div class="grades-sum-lbl">H+R+RBI≥2</div>
+      </div>
+      <div class="grades-sum-stat">
+        <div class="grades-sum-val" style="color:#60a5fa;">${brier}</div>
+        <div class="grades-sum-lbl">Brier Score</div>
+      </div>
+      <div class="grades-sum-stat">
+        <div class="grades-sum-val" style="color:#6b7380;">${meanProb}</div>
+        <div class="grades-sum-lbl">Avg Pred</div>
+      </div>
+    </div>
+    <div class="grades-calibration">
+      <div class="grades-cal-title">Calibration by confidence bucket</div>
+      <div class="grades-cal-grid">${calHtml}</div>
+    </div>
+    ${rowsHtml}
+  `;
 }
 
 // ─────────────────────────────────────────────────────────────

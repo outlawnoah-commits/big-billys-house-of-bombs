@@ -874,8 +874,9 @@ body{
     <div id="simPanel" style="display:none;">
       <div class="sim-controls">
         <span class="sim-controls-lbl">TRIALS/MATCHUP</span>
-        <button class="sim-iter-btn active" id="simIter100" onclick="setSimIterations(100)">100x</button>
-        <button class="sim-iter-btn" id="simIter200" onclick="setSimIterations(200)">200x</button>
+        <button class="sim-iter-btn" id="simIter1000" onclick="setSimIterations(1000)">1,000x</button>
+        <button class="sim-iter-btn" id="simIter10000" onclick="setSimIterations(10000)">10,000x</button>
+        <button class="sim-iter-btn active" id="simIter100000" onclick="setSimIterations(100000)">100,000x</button>
       </div>
       <div id="simList"><div class="sidebar-empty">Fire to run simulation</div></div>
     </div>
@@ -3078,21 +3079,27 @@ function _mhrTags(ctx){
 // ─────────────────────────────────────────────────────────────
 // MONTE CARLO HOME RUN SIMULATION
 // ─────────────────────────────────────────────────────────────
-// Re-runs every batter-vs-pitcher matchup N times (100 or 200 trials).
-// Each trial jitters every stochastic factor in the model (weather,
-// platoon, form, pitcher quality/fatigue/arsenal, park, etc.) within a
-// realistic day-to-day uncertainty band, recomputes the full log-odds
+// Re-runs every batter-vs-pitcher matchup N times (1,000 / 10,000 / 100,000
+// trials). Each trial jitters every stochastic factor in the model (weather,
+// platoon, form, pitcher quality/fatigue/arsenal/bullpen, park, etc.) within
+// a realistic day-to-day uncertainty band, recomputes the full log-odds
 // HR model on the jittered inputs, then draws an actual outcome —
 // giving an empirical distribution (not just the single point estimate)
 // with a floor/ceiling band and multi-HR-game odds baked in.
+//
+// At the top tier (100,000 trials × every matchup on the slate) this is a
+// LOT of simulated games, so the run is chunked one matchup at a time across
+// deferred ticks (see buildSimPanel) rather than one giant synchronous loop —
+// keeps the tab responsive and shows live progress instead of freezing.
 
-let simIterations=100;
+let simIterations=100000;
 let simRunToken=0;
 
 function setSimIterations(n){
   simIterations=n;
-  document.getElementById('simIter100').className='sim-iter-btn'+(n===100?' active':'');
-  document.getElementById('simIter200').className='sim-iter-btn'+(n===200?' active':'');
+  document.getElementById('simIter1000').className='sim-iter-btn'+(n===1000?' active':'');
+  document.getElementById('simIter10000').className='sim-iter-btn'+(n===10000?' active':'');
+  document.getElementById('simIter100000').className='sim-iter-btn'+(n===100000?' active':'');
   buildSimPanel();
 }
 
@@ -3195,64 +3202,86 @@ function buildSimPanel(){
 
   const iterations=simIterations;
   const token=++simRunToken;
-  container.innerHTML=`<div class="sidebar-empty">Simulating ${gamePicksFlat.length} matchups × ${iterations} trials…</div>`;
+  const total=gamePicksFlat.length;
+  container.innerHTML=`<div class="sidebar-empty">Simulating ${total} matchups × ${iterations.toLocaleString()} trials each… <span id="simProgressPct">0%</span></div>`;
 
-  // Defer one tick so the loading state paints before the (synchronous
-  // but nontrivial) simulation loop runs.
-  setTimeout(()=>{
-    if(token!==simRunToken)return; // a newer run superseded this one
-    const results=gamePicksFlat.map(pick=>{
-      const sim=simulateMatchup(pick,iterations,dateStr);
-      return{
-        name:pick.player[0],team:pick.player[1],
-        pitLast:(pick.ctx?.pitName||'').split(' ').pop()||'',
-        modelProb:pick.trueProb,
-        sim,
-      };
+  const results=[];
+  let idx=0;
+
+  // One matchup's full trial count runs synchronously (fast even at 100k —
+  // it's simple arithmetic per trial), but we yield back to the browser
+  // between matchups so the tab keeps painting the progress readout and
+  // never looks frozen, even when the whole slate × 100,000 adds up to
+  // tens of millions of simulated plate appearances.
+  function processNext(){
+    if(token!==simRunToken)return; // a newer run (different trial count / re-fire) superseded this one
+    const pick=gamePicksFlat[idx];
+    const sim=simulateMatchup(pick,iterations,dateStr);
+    results.push({
+      name:pick.player[0],team:pick.player[1],
+      pitLast:(pick.ctx?.pitName||'').split(' ').pop()||'',
+      modelProb:pick.trueProb,
+      sim,
     });
-    results.sort((a,b)=>b.sim.simHRPct-a.sim.simHRPct||b.sim.avgHR-a.sim.avgHR);
-    const top=results.slice(0,30);
+    idx++;
+    if(idx<total){
+      const pctEl=document.getElementById('simProgressPct');
+      if(pctEl)pctEl.textContent=Math.round(idx/total*100)+'%';
+      setTimeout(processNext,0);
+    }else{
+      finalizeSimResults(results,iterations);
+    }
+  }
 
-    const rows=top.map((r,i)=>{
-      const pct=(r.sim.simHRPct*100).toFixed(1)+'%';
-      const pctCls=r.sim.simHRPct>=0.16?'hot':r.sim.simHRPct>=0.09?'warm':'cool';
-      const rkCls=i<3?'top':'';
-      const rkLbl=i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}`;
-      const subParts=[r.team];
-      if(r.pitLast)subParts.push('vs '+r.pitLast);
-      const barW=Math.min(100,Math.round(r.sim.simHRPct/0.30*100));
-      const delta=r.sim.simHRPct-r.modelProb;
-      const deltaCls=delta>0.005?'up':delta<-0.005?'down':'flat';
-      const deltaArrow=delta>0.005?'▲':delta<-0.005?'▼':'▬';
-      const deltaStr=`${deltaArrow} ${delta>=0?'+':''}${(delta*100).toFixed(1)}% vs model`;
-      return`<div class="sim-row">
-        <div class="sim-rank ${rkCls}">${rkLbl}</div>
-        <div class="sim-info">
-          <div class="sim-name">${r.name}</div>
-          <div class="sim-sub">${subParts.join(' · ')}</div>
-          <div class="sim-stats-row">
-            <span class="sim-stat">2+ HR <strong>${(r.sim.simMultiHRPct*100).toFixed(1)}%</strong></span>
-            <span class="sim-stat">xH <strong>${r.sim.avgXH.toFixed(2)}</strong></span>
-            <span class="sim-stat">xR <strong>${r.sim.avgXR.toFixed(2)}</strong></span>
-            <span class="sim-stat">xRBI <strong>${r.sim.avgXRBI.toFixed(2)}</strong></span>
-          </div>
-          <div class="sim-ci">${(r.sim.floorP*100).toFixed(1)}% – ${(r.sim.ceilP*100).toFixed(1)}% range (${iterations} trials)</div>
-          <div class="sim-bar-wrap"><div class="sim-bar" style="width:${barW}%"></div></div>
-        </div>
-        <div class="sim-right">
-          <div class="sim-pct ${pctCls}">${pct}</div>
-          <div class="sim-delta ${deltaCls}">${deltaStr}</div>
-        </div>
-      </div>`;
-    }).join('');
+  // Defer one tick so the loading state paints before the first matchup runs.
+  setTimeout(()=>{ if(token===simRunToken)processNext(); },20);
+}
 
-    container.innerHTML=`
-      <div class="sim-header">
-        <span class="sim-header-lbl">SIMULATED HR LEADERBOARD</span>
-        <span class="sim-header-count">${results.length} PLAYERS · ${iterations}x</span>
+function finalizeSimResults(results,iterations){
+  const container=document.getElementById('simList');
+  if(!container)return;
+  results.sort((a,b)=>b.sim.simHRPct-a.sim.simHRPct||b.sim.avgHR-a.sim.avgHR);
+  const top=results.slice(0,30);
+
+  const rows=top.map((r,i)=>{
+    const pct=(r.sim.simHRPct*100).toFixed(1)+'%';
+    const pctCls=r.sim.simHRPct>=0.16?'hot':r.sim.simHRPct>=0.09?'warm':'cool';
+    const rkCls=i<3?'top':'';
+    const rkLbl=i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}`;
+    const subParts=[r.team];
+    if(r.pitLast)subParts.push('vs '+r.pitLast);
+    const barW=Math.min(100,Math.round(r.sim.simHRPct/0.30*100));
+    const delta=r.sim.simHRPct-r.modelProb;
+    const deltaCls=delta>0.005?'up':delta<-0.005?'down':'flat';
+    const deltaArrow=delta>0.005?'▲':delta<-0.005?'▼':'▬';
+    const deltaStr=`${deltaArrow} ${delta>=0?'+':''}${(delta*100).toFixed(1)}% vs model`;
+    return`<div class="sim-row">
+      <div class="sim-rank ${rkCls}">${rkLbl}</div>
+      <div class="sim-info">
+        <div class="sim-name">${r.name}</div>
+        <div class="sim-sub">${subParts.join(' · ')}</div>
+        <div class="sim-stats-row">
+          <span class="sim-stat">2+ HR <strong>${(r.sim.simMultiHRPct*100).toFixed(1)}%</strong></span>
+          <span class="sim-stat">xH <strong>${r.sim.avgXH.toFixed(2)}</strong></span>
+          <span class="sim-stat">xR <strong>${r.sim.avgXR.toFixed(2)}</strong></span>
+          <span class="sim-stat">xRBI <strong>${r.sim.avgXRBI.toFixed(2)}</strong></span>
+        </div>
+        <div class="sim-ci">${(r.sim.floorP*100).toFixed(1)}% – ${(r.sim.ceilP*100).toFixed(1)}% range (${iterations.toLocaleString()} trials)</div>
+        <div class="sim-bar-wrap"><div class="sim-bar" style="width:${barW}%"></div></div>
       </div>
-      ${rows}`;
-  },20);
+      <div class="sim-right">
+        <div class="sim-pct ${pctCls}">${pct}</div>
+        <div class="sim-delta ${deltaCls}">${deltaStr}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML=`
+    <div class="sim-header">
+      <span class="sim-header-lbl">SIMULATED HR LEADERBOARD</span>
+      <span class="sim-header-count">${results.length} PLAYERS · ${iterations.toLocaleString()}x</span>
+    </div>
+    ${rows}`;
 }
 
 initDate();

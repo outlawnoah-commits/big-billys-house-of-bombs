@@ -781,6 +781,114 @@ body{
 .sim-delta.down{color:#ef4444;}
 .sim-delta.flat{color:#6b7380;}
 
+/* ── PINNED PERFORMANCE TAB ─────────────────────────── */
+.game-tabs-row{display:flex;align-items:stretch;}
+.game-tabs-row .game-tabs{flex:1;min-width:0;}
+.perf-tab{
+  flex-shrink:0;
+  background:transparent;border:none;
+  border-left:1px solid rgba(255,255,255,0.06);
+  color:#6b7380;
+  font-family:inherit;font-weight:600;
+  font-size:13px;
+  padding:14px 18px;cursor:pointer;
+  white-space:nowrap;min-height:52px;
+  border-bottom:2px solid transparent;
+  transition:color .15s, background .15s, border-color .15s;
+}
+.perf-tab:hover{color:#c4cbd7;background:rgba(255,255,255,0.02);}
+.perf-tab.active{
+  color:#f5f6f8;
+  border-bottom-color:#60a5fa;
+  background:linear-gradient(180deg, transparent, rgba(96,165,250,0.07));
+}
+
+/* ── PERFORMANCE REPORT VIEW ────────────────────────── */
+.perf-wrap{padding:22px 24px 60px;max-width:1000px;}
+.perf-header{
+  display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;
+  margin-bottom:22px;
+}
+.perf-title{
+  font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;
+  font-size:20px;color:#f5f6f8;letter-spacing:-0.01em;flex:1;min-width:220px;
+}
+.perf-title-sub{
+  font-size:11px;color:#6b7380;letter-spacing:0.1em;text-transform:uppercase;
+  font-weight:600;margin-top:4px;
+}
+.perf-check-btn{
+  background:linear-gradient(180deg,#7db8ff 0%,#60a5fa 100%);
+  border:1px solid rgba(255,255,255,0.12);border-radius:8px;
+  color:#071224;font-weight:700;font-size:13px;letter-spacing:0.06em;
+  text-transform:uppercase;padding:0 20px;min-height:42px;cursor:pointer;
+  box-shadow:0 1px 0 rgba(255,255,255,0.25) inset, 0 10px 24px -10px rgba(96,165,250,0.6);
+  transition:transform .12s ease, filter .12s ease;
+}
+.perf-check-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.perf-check-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.perf-empty{
+  padding:60px 20px;text-align:center;color:#5c6472;font-size:13px;
+  border:1px dashed rgba(255,255,255,0.1);border-radius:12px;
+}
+.perf-empty strong{color:#9aa3b2;}
+.perf-loading{padding:40px 20px;text-align:center;color:#9aa3b2;font-size:13px;}
+
+.perf-summary-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;margin-bottom:20px;
+}
+.perf-metric-card{
+  background:#10131a;border:1px solid rgba(255,255,255,0.06);border-radius:10px;
+  padding:14px 16px;
+}
+.perf-metric-val{
+  font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;
+  color:#f5a524;letter-spacing:-0.02em;
+}
+.perf-metric-val.cool{color:#60a5fa;}
+.perf-metric-val.ok{color:#34d399;}
+.perf-metric-val.hot{color:#ef4444;}
+.perf-metric-lbl{
+  font-size:10px;color:#6b7380;letter-spacing:0.1em;text-transform:uppercase;
+  font-weight:600;margin-top:4px;
+}
+.perf-metric-sub{font-size:10px;color:#5c6472;margin-top:2px;}
+
+.perf-highlights{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.perf-hl-card{
+  border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,0.06);
+  background:#10131a;
+}
+.perf-hl-card.win{border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.06);}
+.perf-hl-card.miss{border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.06);}
+.perf-hl-lbl{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#6b7380;}
+.perf-hl-name{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;font-size:15px;color:#f5f6f8;margin-top:4px;}
+.perf-hl-detail{font-size:11px;color:#9aa3b2;margin-top:2px;}
+
+.perf-table-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 4px;border-bottom:1px solid rgba(255,255,255,0.08);
+  margin-bottom:4px;
+}
+.perf-table-lbl{font-size:11px;font-weight:700;color:#9aa3b2;letter-spacing:0.06em;text-transform:uppercase;}
+.perf-table-count{font-size:11px;color:#6b7380;font-family:'JetBrains Mono',monospace;}
+
+.perf-row{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 4px;border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.perf-row-rank{width:22px;flex-shrink:0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c6472;}
+.perf-row-info{flex:1;min-width:0;}
+.perf-row-name{font-weight:700;font-size:13px;color:#f5f6f8;}
+.perf-row-sub{font-size:10px;color:#6b7380;margin-top:2px;}
+.perf-row-stats{display:flex;gap:14px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+.perf-stat{text-align:center;min-width:52px;}
+.perf-stat-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;}
+.perf-stat-val.hit{color:#34d399;}
+.perf-stat-val.miss{color:#ef4444;}
+.perf-stat-lbl{font-size:9px;color:#6b7380;letter-spacing:0.05em;text-transform:uppercase;margin-top:2px;}
+
 </style>
   <!-- ── App Icons / PWA ───────────────────────────────────── -->
   <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
@@ -841,8 +949,11 @@ body{
 
 <!-- ── GAME TABS ───────────────────────────────────────── -->
 <div class="game-tabs-outer">
-  <div class="game-tabs" id="gameTabs">
-    <div class="no-tabs-msg">ENTER DATE AND FIRE TO LOAD GAMES</div>
+  <div class="game-tabs-row">
+    <div class="game-tabs" id="gameTabs">
+      <div class="no-tabs-msg">ENTER DATE AND FIRE TO LOAD GAMES</div>
+    </div>
+    <button class="perf-tab" id="perfTabBtn" onclick="showPerformanceView()">📊 PERFORMANCE</button>
   </div>
 </div>
 
@@ -2658,6 +2769,8 @@ let cachedArsenalData={};
 let cachedExtraData={};
 function switchGame(idx){
   activeGameIdx=idx;
+  const perfBtn=document.getElementById('perfTabBtn');
+  if(perfBtn)perfBtn.classList.remove('active');
   renderGameTabs(allGames,idx);
   document.getElementById('gameContent').innerHTML=buildGameView(idx,cachedArsenalData);
 
@@ -2917,8 +3030,13 @@ async function runModel(){
     gamePicksMap[idx]=computeGamePicks(game,dateStr,extraData);
   });
 
+  // ── Save a snapshot of today's picks so the Performance tab can grade them later ──
+  savePicksSnapshot(dateStr);
+
   // ── Render ──
   activeGameIdx=0;
+  const perfBtn=document.getElementById('perfTabBtn');
+  if(perfBtn)perfBtn.classList.remove('active');
   renderGameTabs(games,0);
   document.getElementById('gameContent').innerHTML=buildGameView(0,arsenalData);
 
@@ -3282,6 +3400,276 @@ function finalizeSimResults(results,iterations){
       <span class="sim-header-count">${results.length} PLAYERS · ${iterations.toLocaleString()}x</span>
     </div>
     ${rows}`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// PERFORMANCE CHECKER
+// Saves a snapshot of every fired slate's predictions to localStorage,
+// then — on demand — pulls real box scores from the MLB Stats API for
+// that date and grades the model against what actually happened.
+// ─────────────────────────────────────────────────────────────
+const PERF_KEY_PREFIX='bbhob_picks_';
+const PERF_INDEX_KEY='bbhob_picks_index';
+
+function getYesterday(){
+  const d=new Date();
+  d.setDate(d.getDate()-1);
+  return d.toISOString().slice(0,10);
+}
+
+// Persist the picks for `dateStr` right after Fire finishes computing them.
+function savePicksSnapshot(dateStr){
+  try{
+    const flat=Object.values(gamePicksMap||{}).flat();
+    if(!flat.length)return;
+    const picks=flat.map(p=>{
+      const hrrProb=computeHRRProb(p.player,dateStr,p.ctx).prob;
+      return{
+        name:p.player[0],
+        team:p.player[1],
+        hrProb:p.trueProb,
+        hrrProb,
+        xH:p.hrrbi.xH,xR:p.hrrbi.xR,xRBI:p.hrrbi.xRBI,
+        pit:(p.ctx?.pitName||'').split(' ').pop()||'',
+      };
+    });
+    localStorage.setItem(PERF_KEY_PREFIX+dateStr,JSON.stringify({savedAt:Date.now(),picks}));
+    const idxRaw=localStorage.getItem(PERF_INDEX_KEY);
+    const idx=idxRaw?JSON.parse(idxRaw):[];
+    if(!idx.includes(dateStr)){idx.push(dateStr);localStorage.setItem(PERF_INDEX_KEY,JSON.stringify(idx));}
+  }catch(e){console.warn('Could not save picks snapshot',e);}
+}
+
+function loadPicksSnapshot(dateStr){
+  try{
+    const raw=localStorage.getItem(PERF_KEY_PREFIX+dateStr);
+    return raw?JSON.parse(raw):null;
+  }catch(e){return null;}
+}
+
+// Pull real final box scores for `dateStr` from the MLB Stats API and
+// aggregate every batter's H/R/RBI/HR into a name-keyed map (summed
+// across games, in case of a doubleheader).
+async function fetchActualResults(dateStr){
+  const url=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=${dateStr}`;
+  const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
+  if(!r.ok)throw new Error(`Schedule API ${r.status}`);
+  const data=await r.json();
+  const games=[];
+  (data.dates||[]).forEach(d=>(d.games||[]).forEach(g=>games.push(g)));
+  const gamesTotal=games.length;
+  const finalGames=games.filter(g=>g.status?.abstractGameState==='Final');
+
+  const boxscores=await Promise.all(finalGames.map(async g=>{
+    try{
+      const br=await fetch(`https://statsapi.mlb.com/api/v1/game/${g.gamePk}/boxscore`,{signal:AbortSignal.timeout(10000)});
+      if(!br.ok)return null;
+      return await br.json();
+    }catch(e){return null;}
+  }));
+
+  const map={};
+  boxscores.filter(Boolean).forEach(box=>{
+    ['home','away'].forEach(side=>{
+      const players=box.teams?.[side]?.players||{};
+      Object.values(players).forEach(pl=>{
+        const name=pl.person?.fullName;
+        const bat=pl.stats?.batting;
+        if(!name||!bat)return;
+        const key=name.trim().toLowerCase();
+        const cur=map[key]||{name,ab:0,h:0,hr:0,r:0,rbi:0};
+        cur.ab+=bat.atBats||0;
+        cur.h+=bat.hits||0;
+        cur.hr+=bat.homeRuns||0;
+        cur.r+=bat.runs||0;
+        cur.rbi+=bat.rbi||0;
+        map[key]=cur;
+      });
+    });
+  });
+  return{map,gamesTotal,gamesFinal:finalGames.length};
+}
+
+function showPerformanceView(){
+  document.querySelectorAll('.gtab').forEach(b=>b.classList.remove('active'));
+  const perfBtn=document.getElementById('perfTabBtn');
+  if(perfBtn)perfBtn.classList.add('active');
+  renderPerformanceView();
+}
+
+function renderPerformanceView(){
+  const dateStr=getYesterday();
+  document.getElementById('gameContent').innerHTML=`
+    <div class="perf-wrap">
+      <div class="perf-header">
+        <div>
+          <div class="perf-title">📊 Model Performance Check</div>
+          <div class="perf-title-sub">Grades saved predictions against real MLB box scores</div>
+        </div>
+        <div class="date-grp">
+          <label>Slate Date</label>
+          <input type="text" id="perfDateInput" placeholder="YYYY-MM-DD" value="${dateStr}" />
+        </div>
+        <button class="perf-check-btn" id="perfCheckBtn" onclick="runPerformanceCheck()">🔍 CHECK RESULTS</button>
+      </div>
+      <div id="perfResults">
+        <div class="perf-empty">Pick a date you fired the model on, then hit <strong>Check Results</strong>.<br>Predictions are auto-saved every time you Fire — only dates you've already run can be graded.</div>
+      </div>
+    </div>`;
+}
+
+async function runPerformanceCheck(){
+  const dateStr=document.getElementById('perfDateInput').value.trim();
+  const btn=document.getElementById('perfCheckBtn');
+  const out=document.getElementById('perfResults');
+  if(!dateStr){out.innerHTML='<div class="perf-empty">Enter a date first.</div>';return;}
+
+  const snap=loadPicksSnapshot(dateStr);
+  if(!snap||!snap.picks?.length){
+    out.innerHTML=`<div class="perf-empty">No saved predictions for <strong>${dateStr}</strong>.<br>Fire the model on that date first — from then on it'll be gradable here.</div>`;
+    return;
+  }
+
+  btn.disabled=true;btn.textContent='⏳ GRADING...';
+  out.innerHTML='<div class="perf-loading">Pulling real box scores from the MLB Stats API…</div>';
+
+  try{
+    const{map,gamesTotal,gamesFinal}=await fetchActualResults(dateStr);
+    if(!gamesTotal){
+      out.innerHTML=`<div class="perf-empty">MLB has no games on record for <strong>${dateStr}</strong>.</div>`;
+      return;
+    }
+    if(!gamesFinal){
+      out.innerHTML=`<div class="perf-empty">Games for <strong>${dateStr}</strong> aren't final yet — check back once they've wrapped.</div>`;
+      return;
+    }
+
+    const graded=[];
+    let unmatched=0;
+    snap.picks.forEach(p=>{
+      const actual=map[p.name.trim().toLowerCase()];
+      if(!actual){unmatched++;return;}
+      graded.push({
+        ...p,
+        actualH:actual.h,actualR:actual.r,actualRBI:actual.rbi,actualHR:actual.hr,
+        actualCombo:actual.h+actual.r+actual.rbi,
+        hrHit:actual.hr>=1,
+        comboHit:(actual.h+actual.r+actual.rbi)>=2,
+      });
+    });
+
+    if(!graded.length){
+      out.innerHTML=`<div class="perf-empty">None of the ${snap.picks.length} saved picks matched a batter in ${dateStr}'s box scores (postponed slate or lineup swaps).</div>`;
+      return;
+    }
+
+    renderPerformanceReport(graded,unmatched,dateStr,gamesFinal);
+  }catch(e){
+    console.error('Performance check error',e);
+    out.innerHTML='<div class="perf-empty">Error pulling box scores — check console and try again.</div>';
+  }finally{
+    btn.disabled=false;btn.textContent='🔍 CHECK RESULTS';
+  }
+}
+
+function renderPerformanceReport(graded,unmatched,dateStr,gamesFinal){
+  const out=document.getElementById('perfResults');
+  const byHR=[...graded].sort((a,b)=>b.hrProb-a.hrProb);
+
+  const hitRateAt=n=>{
+    const slice=byHR.slice(0,n);
+    if(!slice.length)return null;
+    return slice.filter(p=>p.hrHit).length/slice.length;
+  };
+  const top10=hitRateAt(10), top20=hitRateAt(20), allRate=graded.filter(p=>p.hrHit).length/graded.length;
+
+  // Brier score + skill score (vs. "always predict the field's actual HR rate" baseline)
+  const brier=arr=>arr.reduce((s,p)=>s+Math.pow(p.hrProb-(p.hrHit?1:0),2),0)/arr.length;
+  const modelBrier=brier(graded);
+  const fieldRate=graded.filter(p=>p.hrHit).length/graded.length;
+  const baseBrier=graded.reduce((s,p)=>s+Math.pow(fieldRate-(p.hrHit?1:0),2),0)/graded.length;
+  const skillScore=baseBrier>0?(1-modelBrier/baseBrier):0;
+
+  // H+R+RBI Over 1.5 grading
+  const comboHitRate=graded.filter(p=>p.comboHit).length/graded.length;
+
+  // MAE for point projections
+  const mae=(key,actKey)=>graded.reduce((s,p)=>s+Math.abs(p[key]-p[actKey]),0)/graded.length;
+  const maeH=mae('xH','actualH'), maeR=mae('xR','actualR'), maeRBI=mae('xRBI','actualRBI');
+
+  const bestHit=byHR.find(p=>p.hrHit);
+  const biggestMiss=byHR.find(p=>!p.hrHit);
+
+  const skillCls=skillScore>0.05?'ok':skillScore>-0.05?'':'hot';
+  const top10Cls=top10!==null?(top10>=0.15?'ok':top10>=0.08?'':'hot'):'';
+
+  const rows=byHR.slice(0,30).map((p,i)=>{
+    const hrCls=p.hrHit?'hit':'miss';
+    const comboCls=p.comboHit?'hit':'miss';
+    return`<div class="perf-row">
+      <div class="perf-row-rank">${i+1}</div>
+      <div class="perf-row-info">
+        <div class="perf-row-name">${p.name}</div>
+        <div class="perf-row-sub">${p.team}${p.pit?' · vs '+p.pit:''} · predicted ${(p.hrProb*100).toFixed(1)}% HR</div>
+      </div>
+      <div class="perf-row-stats">
+        <div class="perf-stat"><div class="perf-stat-val ${hrCls}">${p.actualHR>0?p.actualHR+' HR':'—'}</div><div class="perf-stat-lbl">HR pick</div></div>
+        <div class="perf-stat"><div class="perf-stat-val ${comboCls}">${p.actualCombo}</div><div class="perf-stat-lbl">H+R+RBI</div></div>
+        <div class="perf-stat"><div class="perf-stat-val">${p.actualH}<span style="color:#6b7380;font-size:10px;"> / ${p.xH}</span></div><div class="perf-stat-lbl">H act/xH</div></div>
+        <div class="perf-stat"><div class="perf-stat-val">${p.actualR}<span style="color:#6b7380;font-size:10px;"> / ${p.xR}</span></div><div class="perf-stat-lbl">R act/xR</div></div>
+        <div class="perf-stat"><div class="perf-stat-val">${p.actualRBI}<span style="color:#6b7380;font-size:10px;"> / ${p.xRBI}</span></div><div class="perf-stat-lbl">RBI act/xRBI</div></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  out.innerHTML=`
+    <div class="perf-summary-grid">
+      <div class="perf-metric-card">
+        <div class="perf-metric-val ${top10Cls}">${top10!==null?(top10*100).toFixed(1)+'%':'—'}</div>
+        <div class="perf-metric-lbl">Top 10 HR Hit Rate</div>
+      </div>
+      <div class="perf-metric-card">
+        <div class="perf-metric-val">${top20!==null?(top20*100).toFixed(1)+'%':'—'}</div>
+        <div class="perf-metric-lbl">Top 20 HR Hit Rate</div>
+      </div>
+      <div class="perf-metric-card">
+        <div class="perf-metric-val">${(allRate*100).toFixed(1)}%</div>
+        <div class="perf-metric-lbl">All Graded HR Rate</div>
+        <div class="perf-metric-sub">${graded.filter(p=>p.hrHit).length} of ${graded.length} homered</div>
+      </div>
+      <div class="perf-metric-card">
+        <div class="perf-metric-val ${skillCls}">${skillScore>=0?'+':''}${(skillScore*100).toFixed(1)}%</div>
+        <div class="perf-metric-lbl">Brier Skill Score</div>
+        <div class="perf-metric-sub">vs. field-average baseline</div>
+      </div>
+      <div class="perf-metric-card">
+        <div class="perf-metric-val cool">${(comboHitRate*100).toFixed(1)}%</div>
+        <div class="perf-metric-lbl">H+R+RBI O1.5 Hit Rate</div>
+      </div>
+      <div class="perf-metric-card">
+        <div class="perf-metric-val cool">${maeH.toFixed(2)} / ${maeR.toFixed(2)} / ${maeRBI.toFixed(2)}</div>
+        <div class="perf-metric-lbl">MAE xH / xR / xRBI</div>
+      </div>
+    </div>
+
+    <div class="perf-highlights">
+      <div class="perf-hl-card win">
+        <div class="perf-hl-lbl">✅ Best Call</div>
+        ${bestHit?`<div class="perf-hl-name">${bestHit.name}</div><div class="perf-hl-detail">${bestHit.team} · predicted ${(bestHit.hrProb*100).toFixed(1)}% · hit ${bestHit.actualHR} HR</div>`:'<div class="perf-hl-detail">No graded pick homered.</div>'}
+      </div>
+      <div class="perf-hl-card miss">
+        <div class="perf-hl-lbl">❌ Biggest Miss</div>
+        ${biggestMiss?`<div class="perf-hl-name">${biggestMiss.name}</div><div class="perf-hl-detail">${biggestMiss.team} · predicted ${(biggestMiss.hrProb*100).toFixed(1)}% · went 0-for-HR</div>`:'<div class="perf-hl-detail">Every graded pick homered.</div>'}
+      </div>
+    </div>
+
+    <div class="perf-table-header">
+      <span class="perf-table-lbl">Graded Picks · Ranked by Predicted HR%</span>
+      <span class="perf-table-count">${graded.length} matched${unmatched?` · ${unmatched} unmatched/DNP`:''} · ${gamesFinal} games final</span>
+    </div>
+    ${rows}
+    ${graded.length>30?`<div class="perf-table-count" style="padding:10px 4px;">showing top 30 of ${graded.length} graded picks</div>`:''}
+  `;
 }
 
 initDate();
